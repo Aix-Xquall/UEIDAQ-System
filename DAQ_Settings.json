@@ -1,0 +1,171 @@
+{
+    "system_name": "UEIPAC_MPC8347_System",
+    "udp_target_ip": "192.168.100.10",
+    "udp_target_port": 5005,
+    "tasks": [
+        {
+            "task_name": "Task_Slot0_AI217",
+            "active": true,
+            "sample_rate": 10.0,
+            "channels": [
+                {
+                    "device_name": "Dev_AI217",
+                    "channel_range": "ai0:7",
+                    "model_info": "DNA-AI-217 (Slot 0) - 10Hz",
+                    "active": true,
+                    "moving_avg": {
+                        "active": false,
+                        "window_size": 1
+                    },
+                    "fft": {
+                        "active": false,
+                        "window_type": "Hann",
+                        "points": 4096,
+                        "overlap_percent": 25.0
+                    },
+                    "hardware_config": {
+                        "ai217_gain": 1
+                    }
+                }
+            ]
+        },
+        {
+            "task_name": "Task_Slot1_AI208",
+            "active": true,
+            "sample_rate": 200.0,
+            "channels": [
+                {
+                    "device_name": "Dev_AI208",
+                    "channel_range": "ai0:7",
+                    "model_info": "DNA-AI-208 (Slot 1) - 200Hz",
+                    "active": true,
+                    "moving_avg": {
+                        "active": false,
+                        "window_size": 1
+                    },
+                    "fft": {
+                        "active": false,
+                        "window_type": "Hann",
+                        "points": 4096,
+                        "overlap_percent": 25.0
+                    },
+                    "hardware_config": {
+                        "ai208_excitation_a": 10.0,
+                        "ai208_excitation_b": 0.0,
+                        "ai208_gain": 1
+                    }
+                }
+            ]
+        },
+        {
+            "task_name": "Task_Slot2_AI211_Low",
+            "active": false,
+            "sample_rate": 400.0,
+            "channels": [
+                {
+                    "device_name": "Dev_AI211_A",
+                    "channel_range": "ai0:3",
+                    "model_info": "DNA-AI-211 (Slot 2) - 400Hz",
+                    "active": true,
+                    "moving_avg": {
+                        "active": false,
+                        "window_size": 1
+                    },
+                    "fft": {
+                        "active": true,
+                        "window_type": "Hann",
+                        "points": 4096,
+                        "overlap_percent": 25.0
+                    },
+                    "hardware_config": {
+                        "ai211_coupling": "DC",
+                        "ai211_iepe_current": 0.0,
+                        "ai211_gain": 1
+                    }
+                }
+            ]
+        },
+        {
+            "task_name": "Task_Slot3_AI211_Mid",
+            "active": false,
+            "sample_rate": 5000.0,
+            "channels": [
+                {
+                    "device_name": "Dev_AI211_B",
+                    "channel_range": "ai0:3",
+                    "model_info": "DNA-AI-211 (Slot 3) - 5kHz",
+                    "active": true,
+                    "moving_avg": {
+                        "active": false,
+                        "window_size": 1
+                    },
+                    "fft": {
+                        "active": true,
+                        "window_type": "Hann",
+                        "points": 4096,
+                        "overlap_percent": 25.0
+                    },
+                    "hardware_config": {
+                        "ai211_coupling": "AC",
+                        "ai211_iepe_current": 0.004,
+                        "ai211_gain": 1
+                    }
+                }
+            ]
+        },
+        {
+            "task_name": "Task_Slot4_AI211_High",
+            "active": false,
+            "sample_rate": 50000.0,
+            "channels": [
+                {
+                    "device_name": "Dev_AI211_C",
+                    "channel_range": "ai0:3",
+                    "model_info": "DNA-AI-211 (Slot 4) - 50kHz",
+                    "active": true,
+                    "moving_avg": {
+                        "active": false,
+                        "window_size": 1
+                    },
+                    "fft": {
+                        "active": true,
+                        "window_type": "Hann",
+                        "points": 4096,
+                        "overlap_percent": 25.0
+                    },
+                    "hardware_config": {
+                        "ai211_coupling": "AC",
+                        "ai211_iepe_current": 0.004,
+                        "ai211_gain": 1
+                    }
+                }
+            ]
+        },
+        {
+            "task_name": "Task_Slot5_AI225",
+            "active": false,
+            "sample_rate": 1.0,
+            "channels": [
+                {
+                    "device_name": "Dev_AI225",
+                    "channel_range": "ai0:24",
+                    "model_info": "DNA-AI-225 (Slot 5) - 1Hz",
+                    "active": true,
+                    "moving_avg": {
+                        "active": false,
+                        "window_size": 1
+                    },
+                    "fft": {
+                        "active": true,
+                        "window_type": "Hann",
+                        "points": 4096,
+                        "overlap_percent": 25.0
+                    },
+                    "hardware_config": {
+                        "ai225_gain": 1
+                    }
+                }
+            ]
+        }
+    ]
+}

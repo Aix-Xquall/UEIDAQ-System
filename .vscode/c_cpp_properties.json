@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "UEIPAC PowerPC (WSL)",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/opt/uei/ueipac-4.0.2/sdk/DAQLib",
+                "/opt/uei/ueipac-4.0.2/sdk/UeiPalLib",
+                "/opt/uei/ueipac-4.0.2/sdk/examples",
+                "/opt/uei/ueipac-4.0.2/include"
+            ],
+            "defines": [],
+            "compilerPath": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++",
+            "cStandard": "c11",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-gcc-x86",
+            "configurationProvider": "ms-vscode.cmake-tools"
+        }
+    ],
+    "version": 4
+}

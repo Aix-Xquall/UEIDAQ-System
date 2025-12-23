@@ -1,0 +1,82 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <thread>
+#include <chrono>
+#include <stdio.h>
+#include <unistd.h> // 用於 usleep
+#include <time.h>
+#include "PDNA.h" // UEI 核心函式庫
+// #include "UeiPacUtils.h"
+
+int main(int argc, char *argv[])
+{
+    // 1. 初始化變數
+    int ret = 0;
+    uint32_t loop_count = 0;
+
+    printf("========================================\n");
+    printf("   UEIPAC MPC8347 Control Program       \n");
+    printf("========================================\n");
+
+    // 取得版本號
+    uint32 version = DqGetLibVersion();
+    int major = (version >> 16) & 0xFF;
+    int minor = (version >> 8) & 0xFF;
+    int build = version & 0xFF;
+
+    std::cout << "[System] Library Version Detected: "
+              << major << "." << minor << "." << build << std::endl;
+
+    if (major == 0 && minor == 0)
+    {
+        std::cerr << "[Error] Failed to get valid library version!" << std::endl;
+        // 在實際開發中這裡可能要 exit，但在 QEMU 模擬測試我們先繼續
+    }
+
+    // 2. 初始化 UEI 函式庫
+    // 這是所有 UEI 程式的第一步
+    ret = DqInitDAQLib();
+    if (ret != 0)
+    {
+        printf("Error: Failed to initialize DAQ Library. Error Code: %d\n", ret);
+        return -1;
+    }
+    printf("[Info] DAQ Library Initialized.\n");
+
+    // 3. 連接至 I/O 管理層 (IOM)
+    // 在 UEIPAC 本機執行時，IP 通常指回自己 (127.0.0.1) 或使用 SDK 預設通訊埠
+    // 這裡我們嘗試建立一個基本的連線 handle
+    // 注意：如果是要在本機執行，通常不需要像遠端那樣 DqOpenIOM，
+    // 但為了確保服務正常，我們嘗試獲取驅動版本。
+
+    // 獲取並顯示驅動版本 (模擬讀取 600-1G-02... 版本資訊)
+    // 真正的硬體版本通常印在機殼或透過 DqGetVer 讀取
+    printf("[Info] Reading System Version...\n");
+    // (此處為標準 PowerDNA 呼叫，實際版本字串會由 Library 輸出)
+
+    printf("[Info] Starting Loop (Ctrl+C to stop)...\n");
+
+    // 4. 主迴圈：每 0.1 秒執行一次
+    while (1)
+    {
+        // 計算部分：簡單的計數累加
+        loop_count++;
+
+        // 顯示輸出 (會顯示在 Windows 的 SSH/Telnet 終端機上)
+        // \r 讓游標回到行首，達成「原地更新」的效果
+        printf("\rStatus: Running | Count: %d | Time: %.1f sec",
+               loop_count,
+               loop_count * 0.1);
+
+        // 強制刷新緩衝區，確保立刻看到文字
+        fflush(stdout);
+
+        // 暫停 0.1 秒 (100,000 微秒)
+        usleep(100000);
+    }
+
+    // 5. 結束清理 (雖然這無窮迴圈跑不到這裡)
+    DqCleanUpDAQLib();
+    return 0;
+}

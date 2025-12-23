@@ -1,0 +1,110 @@
+{
+	"kind" : "toolchains",
+	"toolchains" : 
+	[
+		{
+			"compiler" : 
+			{
+				"id" : "GNU",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/lib/gcc/powerpc-604-linux-gnu/6.3.0/include",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/lib/gcc/powerpc-604-linux-gnu/6.3.0/include-fixed",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/powerpc-604-linux-gnu/include",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot/usr/include"
+					],
+					"linkDirectories" : 
+					[
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/lib/gcc/powerpc-604-linux-gnu/6.3.0",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/lib/gcc",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/powerpc-604-linux-gnu/lib",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot/lib",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot/usr/lib"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"gcc",
+						"gcc_s",
+						"c",
+						"gcc",
+						"gcc_s"
+					]
+				},
+				"path" : "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc",
+				"version" : "6.3.0"
+			},
+			"language" : "C",
+			"sourceFileExtensions" : 
+			[
+				"c",
+				"m"
+			]
+		},
+		{
+			"compiler" : 
+			{
+				"id" : "GNU",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/powerpc-604-linux-gnu/include/c++/6.3.0",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/powerpc-604-linux-gnu/include/c++/6.3.0/powerpc-604-linux-gnu",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/powerpc-604-linux-gnu/include/c++/6.3.0/backward",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/lib/gcc/powerpc-604-linux-gnu/6.3.0/include",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/lib/gcc/powerpc-604-linux-gnu/6.3.0/include-fixed",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/powerpc-604-linux-gnu/include",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot/usr/include"
+					],
+					"linkDirectories" : 
+					[
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/lib/gcc/powerpc-604-linux-gnu/6.3.0",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/lib/gcc",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/powerpc-604-linux-gnu/lib",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot/lib",
+						"/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot/usr/lib"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"stdc++",
+						"m",
+						"gcc_s",
+						"gcc",
+						"c",
+						"gcc_s",
+						"gcc"
+					]
+				},
+				"path" : "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++",
+				"version" : "6.3.0"
+			},
+			"language" : "CXX",
+			"sourceFileExtensions" : 
+			[
+				"C",
+				"M",
+				"c++",
+				"cc",
+				"cpp",
+				"cxx",
+				"mm",
+				"mpp",
+				"CPP",
+				"ixx",
+				"cppm",
+				"ccm",
+				"cxxm",
+				"c++m"
+			]
+		}
+	],
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}
