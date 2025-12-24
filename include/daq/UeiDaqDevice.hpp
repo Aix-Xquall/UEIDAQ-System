@@ -1,6 +1,6 @@
 //=============================================================================
 // NAME:    include/daq/UeiDaqDevice.hpp
-// DESC:    所有 DAQ 板卡的父類別 (Abstract Base Class)
+// DESC:    所有 DAQ 板卡的父類別 (已修正支援 Raw Data Batch)
 //=============================================================================
 #pragma once
 
@@ -11,17 +11,18 @@
 #include <atomic>
 #include <queue>
 #include <mutex>
-#include <condition_variable>
-#include <sys/time.h> // for gettimeofday
+#include <cstdint> // for uint32_t
+#include <sys/time.h>
 
 namespace Daq
 {
 
-    // 定義內部傳遞的資料封包 (Raw Data Packet)
+    // [修正] 定義內部傳遞的資料封包 (支援 Raw Batch)
     struct RawDataPacket
     {
-        double timestamp;         // 資料時間戳記
-        std::vector<double> data; // 各通道電壓值 (Scaled Data)
+        double timestamp;              // 第一筆資料的時間戳記
+        std::vector<uint32_t> rawData; // [變更] 原始 ADC Code (uint32)
+        int numSamples;                // [新增] 這個 Batch 包含多少個取樣點
     };
 
     class UeiDaqDevice
@@ -34,10 +35,8 @@ namespace Daq
 
         // --- 公用介面 ---
 
-        // 1. 初始化與硬體設定 (純虛擬函式，由子類別實作)
         virtual bool Configure() = 0;
 
-        // 2. 啟動擷取 (建立執行緒)
         virtual void Start()
         {
             if (m_running)
@@ -46,7 +45,6 @@ namespace Daq
             m_workerThread = std::thread(&UeiDaqDevice::DaqLoop, this);
         }
 
-        // 3. 停止擷取
         virtual void Stop()
         {
             m_running = false;
@@ -56,7 +54,6 @@ namespace Daq
             }
         }
 
-        // 4. 取得資料 (Thread-safe Pop)
         bool PopData(RawDataPacket &packet)
         {
             std::unique_lock<std::mutex> lock(m_queueMutex);
@@ -67,40 +64,31 @@ namespace Daq
             return true;
         }
 
-        // 取得設定檔
         const Utils::TaskConfig &GetConfig() const { return m_config; }
 
     protected:
         // --- 內部使用 ---
 
-        // 推送資料到佇列
-        void PushData(const std::vector<double> &channelData)
+        // [修正] 這裡改為直接接受完整的 RawDataPacket
+        void PushData(const RawDataPacket &packet)
         {
             std::lock_guard<std::mutex> lock(m_queueMutex);
-            // 簡單的時間戳記 (系統時間)
-            struct timeval tv;
-            gettimeofday(&tv, NULL);
-            double ts = tv.tv_sec + tv.tv_usec / 1000000.0;
+            m_dataQueue.push(packet);
 
-            m_dataQueue.push({ts, channelData});
-
-            // 避免佇列無限膨脹 (例如保留最新 1000 筆)
-            if (m_dataQueue.size() > 1000)
+            // 避免佇列無限膨脹 (例如保留最新 100 筆 Batch)
+            if (m_dataQueue.size() > 100)
             {
                 m_dataQueue.pop();
             }
         }
 
-        // 實際的擷取迴圈 (由子類別實作細節)
         virtual void DaqLoop() = 0;
 
-        // 成員變數
         Utils::TaskConfig m_config;
         std::atomic<bool> m_running;
-        int m_handle; // PowerDNA Handle (hd0)
+        int m_handle;
         std::thread m_workerThread;
 
-        // 資料佇列
         std::queue<RawDataPacket> m_dataQueue;
         std::mutex m_queueMutex;
     };

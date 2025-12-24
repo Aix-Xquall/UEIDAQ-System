@@ -6,7 +6,7 @@
         {
             "task_name": "Task_Slot0_AI217",
             "active": true,
-            "sample_rate": 10.0,
+            "sample_rate": 1000.0,
             "channels": [
                 {
                     "device_name": "Dev_AI217",
@@ -31,7 +31,7 @@
         },
         {
             "task_name": "Task_Slot1_AI208",
-            "active": true,
+            "active": false,
             "sample_rate": 200.0,
             "channels": [
                 {

@@ -62,8 +62,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-VISn6r"
-      binary: "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-VISn6r"
+      source: "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-5NsL0k"
+      binary: "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-5NsL0k"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -72,21 +72,21 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-VISn6r'
+        Change Dir: '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-5NsL0k'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f8665/fast
-        /usr/bin/gmake  -f CMakeFiles/cmTC_f8665.dir/build.make CMakeFiles/cmTC_f8665.dir/build
-        gmake[1]: Entering directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-VISn6r'
-        Building C object CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o
-        /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc   -v -o CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_cffb4/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_cffb4.dir/build.make CMakeFiles/cmTC_cffb4.dir/build
+        gmake[1]: Entering directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-5NsL0k'
+        Building C object CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o
+        /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc   -v -o CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c
         Using built-in specs.
         COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc
         Target: powerpc-604-linux-gnu
         Configured with: /home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/src/gcc-6.3.0/configure --build=i686-build_pc-linux-gnu --host=i686-build_pc-linux-gnu --target=powerpc-604-linux-gnu --prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu --with-sysroot=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-languages=c,c++ --with-cpu=604 --with-float=hard --with-pkgversion='crosstool-NG crosstool-ng-1.23.0' --enable-__cxa_atexit --disable-libmudflap --disable-libgomp --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libsanitizer --disable-libmpx --with-gmp=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpfr=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpc=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-isl=no --with-cloog=no --enable-lto --with-host-libstdcxx='-static-libgcc -Wl,-Bstatic,-lstdc++,-Bdynamic -lm' --enable-threads=posix --disable-plugin --disable-nls --disable-multilib --with-local-prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-long-long
         Thread model: posix
         gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) 
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float'
-         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1 -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccUg0gW6.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float'
+         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1 -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccKIVwUm.s
         GNU C11 (crosstool-NG crosstool-ng-1.23.0) version 6.3.0 (powerpc-604-linux-gnu)
         	compiled by GNU C version 4.6.3, GMP version 6.1.2, MPFR version 3.1.5, MPC version 1.0.3, isl version none
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
@@ -107,15 +107,15 @@ events:
         	compiled by GNU C version 4.6.3, GMP version 6.1.2, MPFR version 3.1.5, MPC version 1.0.3, isl version none
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: 2d4a366c2d7b7d73e4604b2a4b11caee
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float'
-         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o /tmp/ccUg0gW6.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float'
+         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o /tmp/ccKIVwUm.s
         GNU assembler version 2.28 (powerpc-604-linux-gnu) using BFD version (crosstool-NG crosstool-ng-1.23.0) 2.28
         COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/
         LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float'
-        Linking C executable cmTC_f8665
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f8665.dir/link.txt --verbose=1
-        /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc  -v CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o -o cmTC_f8665 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float'
+        Linking C executable cmTC_cffb4
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cffb4.dir/link.txt --verbose=1
+        /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc  -v CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o -o cmTC_cffb4 
         Using built-in specs.
         COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc
         COLLECT_LTO_WRAPPER=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper
@@ -125,8 +125,8 @@ events:
         gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) 
         COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/
         LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_f8665' '-mcpu=604' '-mhard-float'
-         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccDnhlFE.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_f8665 /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_cffb4' '-mcpu=604' '-mhard-float'
+         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccoBtcR6.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_cffb4 /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o
         GNU ld (crosstool-NG crosstool-ng-1.23.0) 2.28
           Supported emulations:
            elf32ppclinux
@@ -135,8 +135,8 @@ events:
            elf32lppclinux
            elf32lppc
            elf32lppcsim
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_f8665' '-mcpu=604' '-mhard-float'
-        gmake[1]: Leaving directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-VISn6r'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_cffb4' '-mcpu=604' '-mhard-float'
+        gmake[1]: Leaving directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-5NsL0k'
         
       exitCode: 0
   -
@@ -170,21 +170,21 @@ events:
     message: |
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(powerpc-604-linux-gnu-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-VISn6r']
+        ignore line: [Change Dir: '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-5NsL0k']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f8665/fast]
-        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_f8665.dir/build.make CMakeFiles/cmTC_f8665.dir/build]
-        ignore line: [gmake[1]: Entering directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-VISn6r']
-        ignore line: [Building C object CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o]
-        ignore line: [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc   -v -o CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_cffb4/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_cffb4.dir/build.make CMakeFiles/cmTC_cffb4.dir/build]
+        ignore line: [gmake[1]: Entering directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-5NsL0k']
+        ignore line: [Building C object CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc   -v -o CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc]
         ignore line: [Target: powerpc-604-linux-gnu]
         ignore line: [Configured with: /home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/src/gcc-6.3.0/configure --build=i686-build_pc-linux-gnu --host=i686-build_pc-linux-gnu --target=powerpc-604-linux-gnu --prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu --with-sysroot=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-languages=c c++ --with-cpu=604 --with-float=hard --with-pkgversion='crosstool-NG crosstool-ng-1.23.0' --enable-__cxa_atexit --disable-libmudflap --disable-libgomp --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libsanitizer --disable-libmpx --with-gmp=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpfr=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpc=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-isl=no --with-cloog=no --enable-lto --with-host-libstdcxx='-static-libgcc -Wl -Bstatic -lstdc++ -Bdynamic -lm' --enable-threads=posix --disable-plugin --disable-nls --disable-multilib --with-local-prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-long-long]
         ignore line: [Thread model: posix]
         ignore line: [gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float']
-        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1 -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccUg0gW6.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float']
+        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1 -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccKIVwUm.s]
         ignore line: [GNU C11 (crosstool-NG crosstool-ng-1.23.0) version 6.3.0 (powerpc-604-linux-gnu)]
         ignore line: [	compiled by GNU C version 4.6.3  GMP version 6.1.2  MPFR version 3.1.5  MPC version 1.0.3  isl version none]
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
@@ -205,15 +205,15 @@ events:
         ignore line: [	compiled by GNU C version 4.6.3  GMP version 6.1.2  MPFR version 3.1.5  MPC version 1.0.3  isl version none]
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
         ignore line: [Compiler executable checksum: 2d4a366c2d7b7d73e4604b2a4b11caee]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float']
-        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o /tmp/ccUg0gW6.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float']
+        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o /tmp/ccKIVwUm.s]
         ignore line: [GNU assembler version 2.28 (powerpc-604-linux-gnu) using BFD version (crosstool-NG crosstool-ng-1.23.0) 2.28]
         ignore line: [COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/]
         ignore line: [LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float']
-        ignore line: [Linking C executable cmTC_f8665]
-        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f8665.dir/link.txt --verbose=1]
-        ignore line: [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc  -v CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o -o cmTC_f8665 ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float']
+        ignore line: [Linking C executable cmTC_cffb4]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cffb4.dir/link.txt --verbose=1]
+        ignore line: [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc  -v CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o -o cmTC_cffb4 ]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc]
         ignore line: [COLLECT_LTO_WRAPPER=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper]
@@ -223,13 +223,13 @@ events:
         ignore line: [gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) ]
         ignore line: [COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/]
         ignore line: [LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_f8665' '-mcpu=604' '-mhard-float']
-        link line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccDnhlFE.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_f8665 /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_cffb4' '-mcpu=604' '-mhard-float']
+        link line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccoBtcR6.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_cffb4 /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o]
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/ccDnhlFE.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccoBtcR6.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -243,7 +243,7 @@ events:
           arg [-dynamic-linker] ==> ignore
           arg [/lib/ld.so.1] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_f8665] ==> ignore
+          arg [cmTC_cffb4] ==> ignore
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o] ==> obj [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o]
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o] ==> obj [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o]
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o] ==> obj [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o]
@@ -252,7 +252,7 @@ events:
           arg [-L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib] ==> dir [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib]
           arg [-L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib] ==> dir [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib]
           arg [-L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib] ==> dir [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib]
-          arg [CMakeFiles/cmTC_f8665.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [CMakeFiles/cmTC_cffb4.dir/CMakeCCompilerABI.c.o] ==> ignore
           arg [-lgcc] ==> lib [gcc]
           arg [--as-needed] ==> ignore
           arg [-lgcc_s] ==> lib [gcc_s]
@@ -289,8 +289,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-tpaSWh"
-      binary: "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-tpaSWh"
+      source: "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-lnIw4n"
+      binary: "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-lnIw4n"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -299,21 +299,21 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-tpaSWh'
+        Change Dir: '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-lnIw4n'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_a3b70/fast
-        /usr/bin/gmake  -f CMakeFiles/cmTC_a3b70.dir/build.make CMakeFiles/cmTC_a3b70.dir/build
-        gmake[1]: Entering directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-tpaSWh'
-        Building CXX object CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o
-        /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++   -v -o CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_113c4/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_113c4.dir/build.make CMakeFiles/cmTC_113c4.dir/build
+        gmake[1]: Entering directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-lnIw4n'
+        Building CXX object CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o
+        /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++   -v -o CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp
         Using built-in specs.
         COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++
         Target: powerpc-604-linux-gnu
         Configured with: /home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/src/gcc-6.3.0/configure --build=i686-build_pc-linux-gnu --host=i686-build_pc-linux-gnu --target=powerpc-604-linux-gnu --prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu --with-sysroot=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-languages=c,c++ --with-cpu=604 --with-float=hard --with-pkgversion='crosstool-NG crosstool-ng-1.23.0' --enable-__cxa_atexit --disable-libmudflap --disable-libgomp --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libsanitizer --disable-libmpx --with-gmp=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpfr=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpc=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-isl=no --with-cloog=no --enable-lto --with-host-libstdcxx='-static-libgcc -Wl,-Bstatic,-lstdc++,-Bdynamic -lm' --enable-threads=posix --disable-plugin --disable-nls --disable-multilib --with-local-prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-long-long
         Thread model: posix
         gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) 
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float'
-         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1plus -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D_GNU_SOURCE -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/cc94jN3o.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float'
+         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1plus -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D_GNU_SOURCE -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccZhoeOz.s
         GNU C++14 (crosstool-NG crosstool-ng-1.23.0) version 6.3.0 (powerpc-604-linux-gnu)
         	compiled by GNU C version 4.6.3, GMP version 6.1.2, MPFR version 3.1.5, MPC version 1.0.3, isl version none
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
@@ -340,15 +340,15 @@ events:
         	compiled by GNU C version 4.6.3, GMP version 6.1.2, MPFR version 3.1.5, MPC version 1.0.3, isl version none
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: 23aa5178963ac206586cecf454e5857b
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float'
-         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o /tmp/cc94jN3o.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float'
+         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccZhoeOz.s
         GNU assembler version 2.28 (powerpc-604-linux-gnu) using BFD version (crosstool-NG crosstool-ng-1.23.0) 2.28
         COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/
         LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float'
-        Linking CXX executable cmTC_a3b70
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a3b70.dir/link.txt --verbose=1
-        /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++  -v CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_a3b70 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float'
+        Linking CXX executable cmTC_113c4
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_113c4.dir/link.txt --verbose=1
+        /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++  -v CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_113c4 
         Using built-in specs.
         COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++
         COLLECT_LTO_WRAPPER=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper
@@ -358,8 +358,8 @@ events:
         gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) 
         COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/
         LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_a3b70' '-shared-libgcc' '-mcpu=604' '-mhard-float'
-         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/cc6hji8Q.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_a3b70 /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_113c4' '-shared-libgcc' '-mcpu=604' '-mhard-float'
+         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccXcouPI.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_113c4 /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o
         GNU ld (crosstool-NG crosstool-ng-1.23.0) 2.28
           Supported emulations:
            elf32ppclinux
@@ -368,8 +368,8 @@ events:
            elf32lppclinux
            elf32lppc
            elf32lppcsim
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_a3b70' '-shared-libgcc' '-mcpu=604' '-mhard-float'
-        gmake[1]: Leaving directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-tpaSWh'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_113c4' '-shared-libgcc' '-mcpu=604' '-mhard-float'
+        gmake[1]: Leaving directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-lnIw4n'
         
       exitCode: 0
   -
@@ -409,21 +409,21 @@ events:
     message: |
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(powerpc-604-linux-gnu-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-tpaSWh']
+        ignore line: [Change Dir: '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-lnIw4n']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_a3b70/fast]
-        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_a3b70.dir/build.make CMakeFiles/cmTC_a3b70.dir/build]
-        ignore line: [gmake[1]: Entering directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-tpaSWh']
-        ignore line: [Building CXX object CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o]
-        ignore line: [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++   -v -o CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_113c4/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_113c4.dir/build.make CMakeFiles/cmTC_113c4.dir/build]
+        ignore line: [gmake[1]: Entering directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-lnIw4n']
+        ignore line: [Building CXX object CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++   -v -o CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++]
         ignore line: [Target: powerpc-604-linux-gnu]
         ignore line: [Configured with: /home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/src/gcc-6.3.0/configure --build=i686-build_pc-linux-gnu --host=i686-build_pc-linux-gnu --target=powerpc-604-linux-gnu --prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu --with-sysroot=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-languages=c c++ --with-cpu=604 --with-float=hard --with-pkgversion='crosstool-NG crosstool-ng-1.23.0' --enable-__cxa_atexit --disable-libmudflap --disable-libgomp --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libsanitizer --disable-libmpx --with-gmp=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpfr=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpc=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-isl=no --with-cloog=no --enable-lto --with-host-libstdcxx='-static-libgcc -Wl -Bstatic -lstdc++ -Bdynamic -lm' --enable-threads=posix --disable-plugin --disable-nls --disable-multilib --with-local-prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-long-long]
         ignore line: [Thread model: posix]
         ignore line: [gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float']
-        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1plus -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D_GNU_SOURCE -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/cc94jN3o.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float']
+        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1plus -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D_GNU_SOURCE -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccZhoeOz.s]
         ignore line: [GNU C++14 (crosstool-NG crosstool-ng-1.23.0) version 6.3.0 (powerpc-604-linux-gnu)]
         ignore line: [	compiled by GNU C version 4.6.3  GMP version 6.1.2  MPFR version 3.1.5  MPC version 1.0.3  isl version none]
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
@@ -450,15 +450,15 @@ events:
         ignore line: [	compiled by GNU C version 4.6.3  GMP version 6.1.2  MPFR version 3.1.5  MPC version 1.0.3  isl version none]
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
         ignore line: [Compiler executable checksum: 23aa5178963ac206586cecf454e5857b]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float']
-        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o /tmp/cc94jN3o.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float']
+        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccZhoeOz.s]
         ignore line: [GNU assembler version 2.28 (powerpc-604-linux-gnu) using BFD version (crosstool-NG crosstool-ng-1.23.0) 2.28]
         ignore line: [COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/]
         ignore line: [LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float']
-        ignore line: [Linking CXX executable cmTC_a3b70]
-        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a3b70.dir/link.txt --verbose=1]
-        ignore line: [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++  -v CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_a3b70 ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float']
+        ignore line: [Linking CXX executable cmTC_113c4]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_113c4.dir/link.txt --verbose=1]
+        ignore line: [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++  -v CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_113c4 ]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++]
         ignore line: [COLLECT_LTO_WRAPPER=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper]
@@ -468,13 +468,13 @@ events:
         ignore line: [gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) ]
         ignore line: [COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/]
         ignore line: [LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_a3b70' '-shared-libgcc' '-mcpu=604' '-mhard-float']
-        link line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/cc6hji8Q.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_a3b70 /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_113c4' '-shared-libgcc' '-mcpu=604' '-mhard-float']
+        link line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccXcouPI.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_113c4 /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o]
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/cc6hji8Q.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccXcouPI.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -488,7 +488,7 @@ events:
           arg [-dynamic-linker] ==> ignore
           arg [/lib/ld.so.1] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_a3b70] ==> ignore
+          arg [cmTC_113c4] ==> ignore
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o] ==> obj [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o]
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o] ==> obj [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o]
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o] ==> obj [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o]
@@ -497,7 +497,7 @@ events:
           arg [-L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib] ==> dir [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib]
           arg [-L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib] ==> dir [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib]
           arg [-L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib] ==> dir [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib]
-          arg [CMakeFiles/cmTC_a3b70.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_113c4.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lstdc++] ==> lib [stdc++]
           arg [-lm] ==> lib [m]
           arg [-lgcc_s] ==> lib [gcc_s]
@@ -555,7 +555,7 @@ events:
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
       
       The C compiler identification is GNU, found in:
-        /mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/3.28.3/CompilerIdC/a.out
+        /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/3.28.3/CompilerIdC/a.out
       
   -
     kind: "message-v1"
@@ -577,7 +577,7 @@ events:
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
       
       The CXX compiler identification is GNU, found in:
-        /mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/3.28.3/CompilerIdCXX/a.out
+        /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/3.28.3/CompilerIdCXX/a.out
       
   -
     kind: "try_compile-v1"
@@ -588,8 +588,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-IViwRs"
-      binary: "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-IViwRs"
+      source: "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-tEMpvv"
+      binary: "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-tEMpvv"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -598,18 +598,21 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-IViwRs'
+        Change Dir: '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-tEMpvv'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_a2d3d
-        [1/2] /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc   -v -o CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f97c5/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_f97c5.dir/build.make CMakeFiles/cmTC_f97c5.dir/build
+        gmake[1]: Entering directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-tEMpvv'
+        Building C object CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o
+        /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc   -v -o CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c
         Using built-in specs.
         COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc
         Target: powerpc-604-linux-gnu
         Configured with: /home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/src/gcc-6.3.0/configure --build=i686-build_pc-linux-gnu --host=i686-build_pc-linux-gnu --target=powerpc-604-linux-gnu --prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu --with-sysroot=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-languages=c,c++ --with-cpu=604 --with-float=hard --with-pkgversion='crosstool-NG crosstool-ng-1.23.0' --enable-__cxa_atexit --disable-libmudflap --disable-libgomp --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libsanitizer --disable-libmpx --with-gmp=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpfr=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpc=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-isl=no --with-cloog=no --enable-lto --with-host-libstdcxx='-static-libgcc -Wl,-Bstatic,-lstdc++,-Bdynamic -lm' --enable-threads=posix --disable-plugin --disable-nls --disable-multilib --with-local-prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-long-long
         Thread model: posix
         gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) 
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float'
-         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1 -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccEsMvf3.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float'
+         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1 -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccqbaawO.s
         GNU C11 (crosstool-NG crosstool-ng-1.23.0) version 6.3.0 (powerpc-604-linux-gnu)
         	compiled by GNU C version 4.6.3, GMP version 6.1.2, MPFR version 3.1.5, MPC version 1.0.3, isl version none
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
@@ -630,13 +633,15 @@ events:
         	compiled by GNU C version 4.6.3, GMP version 6.1.2, MPFR version 3.1.5, MPC version 1.0.3, isl version none
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: 2d4a366c2d7b7d73e4604b2a4b11caee
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float'
-         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o /tmp/ccEsMvf3.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float'
+         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o /tmp/ccqbaawO.s
         GNU assembler version 2.28 (powerpc-604-linux-gnu) using BFD version (crosstool-NG crosstool-ng-1.23.0) 2.28
         COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/
         LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float'
-        [2/2] : && /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc  -v CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o -o cmTC_a2d3d   && :
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float'
+        Linking C executable cmTC_f97c5
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f97c5.dir/link.txt --verbose=1
+        /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc  -v CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o -o cmTC_f97c5 
         Using built-in specs.
         COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc
         COLLECT_LTO_WRAPPER=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper
@@ -646,8 +651,8 @@ events:
         gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) 
         COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/
         LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_a2d3d' '-mcpu=604' '-mhard-float'
-         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/cckF6RZZ.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_a2d3d /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_f97c5' '-mcpu=604' '-mhard-float'
+         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccuQJeJs.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_f97c5 /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o
         GNU ld (crosstool-NG crosstool-ng-1.23.0) 2.28
           Supported emulations:
            elf32ppclinux
@@ -656,7 +661,8 @@ events:
            elf32lppclinux
            elf32lppc
            elf32lppcsim
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_a2d3d' '-mcpu=604' '-mhard-float'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_f97c5' '-mcpu=604' '-mhard-float'
+        gmake[1]: Leaving directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-tEMpvv'
         
       exitCode: 0
   -
@@ -690,18 +696,21 @@ events:
     message: |
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(powerpc-604-linux-gnu-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-IViwRs']
+        ignore line: [Change Dir: '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-tEMpvv']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/ninja -v cmTC_a2d3d]
-        ignore line: [[1/2] /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc   -v -o CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f97c5/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_f97c5.dir/build.make CMakeFiles/cmTC_f97c5.dir/build]
+        ignore line: [gmake[1]: Entering directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-tEMpvv']
+        ignore line: [Building C object CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc   -v -o CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc]
         ignore line: [Target: powerpc-604-linux-gnu]
         ignore line: [Configured with: /home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/src/gcc-6.3.0/configure --build=i686-build_pc-linux-gnu --host=i686-build_pc-linux-gnu --target=powerpc-604-linux-gnu --prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu --with-sysroot=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-languages=c c++ --with-cpu=604 --with-float=hard --with-pkgversion='crosstool-NG crosstool-ng-1.23.0' --enable-__cxa_atexit --disable-libmudflap --disable-libgomp --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libsanitizer --disable-libmpx --with-gmp=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpfr=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpc=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-isl=no --with-cloog=no --enable-lto --with-host-libstdcxx='-static-libgcc -Wl -Bstatic -lstdc++ -Bdynamic -lm' --enable-threads=posix --disable-plugin --disable-nls --disable-multilib --with-local-prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-long-long]
         ignore line: [Thread model: posix]
         ignore line: [gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float']
-        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1 -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccEsMvf3.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float']
+        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1 -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccqbaawO.s]
         ignore line: [GNU C11 (crosstool-NG crosstool-ng-1.23.0) version 6.3.0 (powerpc-604-linux-gnu)]
         ignore line: [	compiled by GNU C version 4.6.3  GMP version 6.1.2  MPFR version 3.1.5  MPC version 1.0.3  isl version none]
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
@@ -722,13 +731,15 @@ events:
         ignore line: [	compiled by GNU C version 4.6.3  GMP version 6.1.2  MPFR version 3.1.5  MPC version 1.0.3  isl version none]
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
         ignore line: [Compiler executable checksum: 2d4a366c2d7b7d73e4604b2a4b11caee]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float']
-        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o /tmp/ccEsMvf3.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float']
+        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o /tmp/ccqbaawO.s]
         ignore line: [GNU assembler version 2.28 (powerpc-604-linux-gnu) using BFD version (crosstool-NG crosstool-ng-1.23.0) 2.28]
         ignore line: [COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/]
         ignore line: [LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float']
-        ignore line: [[2/2] : && /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc  -v CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o -o cmTC_a2d3d   && :]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=604' '-mhard-float']
+        ignore line: [Linking C executable cmTC_f97c5]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f97c5.dir/link.txt --verbose=1]
+        ignore line: [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc  -v CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o -o cmTC_f97c5 ]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc]
         ignore line: [COLLECT_LTO_WRAPPER=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper]
@@ -738,13 +749,13 @@ events:
         ignore line: [gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) ]
         ignore line: [COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/]
         ignore line: [LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_a2d3d' '-mcpu=604' '-mhard-float']
-        link line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/cckF6RZZ.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_a2d3d /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_f97c5' '-mcpu=604' '-mhard-float']
+        link line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccuQJeJs.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_f97c5 /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o]
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/cckF6RZZ.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccuQJeJs.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -758,7 +769,7 @@ events:
           arg [-dynamic-linker] ==> ignore
           arg [/lib/ld.so.1] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_a2d3d] ==> ignore
+          arg [cmTC_f97c5] ==> ignore
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o] ==> obj [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o]
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o] ==> obj [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o]
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o] ==> obj [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o]
@@ -767,7 +778,7 @@ events:
           arg [-L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib] ==> dir [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib]
           arg [-L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib] ==> dir [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib]
           arg [-L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib] ==> dir [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib]
-          arg [CMakeFiles/cmTC_a2d3d.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [CMakeFiles/cmTC_f97c5.dir/CMakeCCompilerABI.c.o] ==> ignore
           arg [-lgcc] ==> lib [gcc]
           arg [--as-needed] ==> ignore
           arg [-lgcc_s] ==> lib [gcc_s]
@@ -804,8 +815,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-ZTdubY"
-      binary: "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-ZTdubY"
+      source: "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-jXRBYz"
+      binary: "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-jXRBYz"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -814,18 +825,21 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-ZTdubY'
+        Change Dir: '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-jXRBYz'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_46d2a
-        [1/2] /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++   -v -o CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_26f4b/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_26f4b.dir/build.make CMakeFiles/cmTC_26f4b.dir/build
+        gmake[1]: Entering directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-jXRBYz'
+        Building CXX object CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o
+        /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++   -v -o CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp
         Using built-in specs.
         COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++
         Target: powerpc-604-linux-gnu
         Configured with: /home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/src/gcc-6.3.0/configure --build=i686-build_pc-linux-gnu --host=i686-build_pc-linux-gnu --target=powerpc-604-linux-gnu --prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu --with-sysroot=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-languages=c,c++ --with-cpu=604 --with-float=hard --with-pkgversion='crosstool-NG crosstool-ng-1.23.0' --enable-__cxa_atexit --disable-libmudflap --disable-libgomp --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libsanitizer --disable-libmpx --with-gmp=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpfr=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpc=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-isl=no --with-cloog=no --enable-lto --with-host-libstdcxx='-static-libgcc -Wl,-Bstatic,-lstdc++,-Bdynamic -lm' --enable-threads=posix --disable-plugin --disable-nls --disable-multilib --with-local-prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-long-long
         Thread model: posix
         gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) 
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float'
-         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1plus -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D_GNU_SOURCE -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccY9XhYn.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float'
+         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1plus -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D_GNU_SOURCE -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccPMIPK2.s
         GNU C++14 (crosstool-NG crosstool-ng-1.23.0) version 6.3.0 (powerpc-604-linux-gnu)
         	compiled by GNU C version 4.6.3, GMP version 6.1.2, MPFR version 3.1.5, MPC version 1.0.3, isl version none
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
@@ -852,13 +866,15 @@ events:
         	compiled by GNU C version 4.6.3, GMP version 6.1.2, MPFR version 3.1.5, MPC version 1.0.3, isl version none
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: 23aa5178963ac206586cecf454e5857b
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float'
-         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccY9XhYn.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float'
+         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccPMIPK2.s
         GNU assembler version 2.28 (powerpc-604-linux-gnu) using BFD version (crosstool-NG crosstool-ng-1.23.0) 2.28
         COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/
         LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float'
-        [2/2] : && /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++  -v CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_46d2a   && :
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float'
+        Linking CXX executable cmTC_26f4b
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_26f4b.dir/link.txt --verbose=1
+        /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++  -v CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_26f4b 
         Using built-in specs.
         COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++
         COLLECT_LTO_WRAPPER=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper
@@ -868,8 +884,8 @@ events:
         gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) 
         COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/
         LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_46d2a' '-shared-libgcc' '-mcpu=604' '-mhard-float'
-         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccdXBnQi.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_46d2a /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_26f4b' '-shared-libgcc' '-mcpu=604' '-mhard-float'
+         /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccXwmHbz.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_26f4b /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o
         GNU ld (crosstool-NG crosstool-ng-1.23.0) 2.28
           Supported emulations:
            elf32ppclinux
@@ -878,7 +894,8 @@ events:
            elf32lppclinux
            elf32lppc
            elf32lppcsim
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_46d2a' '-shared-libgcc' '-mcpu=604' '-mhard-float'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_26f4b' '-shared-libgcc' '-mcpu=604' '-mhard-float'
+        gmake[1]: Leaving directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-jXRBYz'
         
       exitCode: 0
   -
@@ -918,18 +935,21 @@ events:
     message: |
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(powerpc-604-linux-gnu-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-ZTdubY']
+        ignore line: [Change Dir: '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-jXRBYz']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/ninja -v cmTC_46d2a]
-        ignore line: [[1/2] /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++   -v -o CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_26f4b/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_26f4b.dir/build.make CMakeFiles/cmTC_26f4b.dir/build]
+        ignore line: [gmake[1]: Entering directory '/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles/CMakeScratch/TryCompile-jXRBYz']
+        ignore line: [Building CXX object CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++   -v -o CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++]
         ignore line: [Target: powerpc-604-linux-gnu]
         ignore line: [Configured with: /home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/src/gcc-6.3.0/configure --build=i686-build_pc-linux-gnu --host=i686-build_pc-linux-gnu --target=powerpc-604-linux-gnu --prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu --with-sysroot=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-languages=c c++ --with-cpu=604 --with-float=hard --with-pkgversion='crosstool-NG crosstool-ng-1.23.0' --enable-__cxa_atexit --disable-libmudflap --disable-libgomp --disable-libssp --disable-libquadmath --disable-libquadmath-support --disable-libsanitizer --disable-libmpx --with-gmp=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpfr=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-mpc=/home/aservadio/SVN_TMP/UEIPAC/cross-compiler/ueipac-gcc/targets/powerpc-604-linux-gnu/buildtools --with-isl=no --with-cloog=no --enable-lto --with-host-libstdcxx='-static-libgcc -Wl -Bstatic -lstdc++ -Bdynamic -lm' --enable-threads=posix --disable-plugin --disable-nls --disable-multilib --with-local-prefix=/home/aservadio/x-tools/powerpc-604-linux-gnu/powerpc-604-linux-gnu/sysroot --enable-long-long]
         ignore line: [Thread model: posix]
         ignore line: [gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float']
-        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1plus -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D_GNU_SOURCE -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccY9XhYn.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float']
+        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/cc1plus -quiet -v -imultilib . -imultiarch powerpc-linux-gnu -iprefix /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/ -isysroot /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot -D_GNU_SOURCE -D__unix__ -D__gnu_linux__ -D__linux__ -Dunix -D__unix -Dlinux -D__linux -Asystem=linux -Asystem=unix -Asystem=posix /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mcpu=604 -mhard-float -auxbase-strip CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccPMIPK2.s]
         ignore line: [GNU C++14 (crosstool-NG crosstool-ng-1.23.0) version 6.3.0 (powerpc-604-linux-gnu)]
         ignore line: [	compiled by GNU C version 4.6.3  GMP version 6.1.2  MPFR version 3.1.5  MPC version 1.0.3  isl version none]
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
@@ -956,13 +976,15 @@ events:
         ignore line: [	compiled by GNU C version 4.6.3  GMP version 6.1.2  MPFR version 3.1.5  MPC version 1.0.3  isl version none]
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
         ignore line: [Compiler executable checksum: 23aa5178963ac206586cecf454e5857b]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float']
-        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccY9XhYn.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float']
+        ignore line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/as -v -mppc -many -mbig -o CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccPMIPK2.s]
         ignore line: [GNU assembler version 2.28 (powerpc-604-linux-gnu) using BFD version (crosstool-NG crosstool-ng-1.23.0) 2.28]
         ignore line: [COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/]
         ignore line: [LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float']
-        ignore line: [[2/2] : && /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++  -v CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_46d2a   && :]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=604' '-mhard-float']
+        ignore line: [Linking CXX executable cmTC_26f4b]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_26f4b.dir/link.txt --verbose=1]
+        ignore line: [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++  -v CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_26f4b ]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++]
         ignore line: [COLLECT_LTO_WRAPPER=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper]
@@ -972,13 +994,13 @@ events:
         ignore line: [gcc version 6.3.0 (crosstool-NG crosstool-ng-1.23.0) ]
         ignore line: [COMPILER_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/bin/]
         ignore line: [LIBRARY_PATH=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib/:/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_46d2a' '-shared-libgcc' '-mcpu=604' '-mhard-float']
-        link line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccdXBnQi.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_46d2a /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_26f4b' '-shared-libgcc' '-mcpu=604' '-mhard-float']
+        link line: [ /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2 -plugin /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so -plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccXwmHbz.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot --eh-frame-hdr -V -m elf32ppclinux -dynamic-linker /lib/ld.so.1 -o cmTC_26f4b /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0 -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib -L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtend.o /opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crtn.o]
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../libexec/gcc/powerpc-604-linux-gnu/6.3.0/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/ccdXBnQi.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccXwmHbz.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -992,7 +1014,7 @@ events:
           arg [-dynamic-linker] ==> ignore
           arg [/lib/ld.so.1] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_46d2a] ==> ignore
+          arg [cmTC_26f4b] ==> ignore
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o] ==> obj [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crt1.o]
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o] ==> obj [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib/crti.o]
           arg [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o] ==> obj [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/crtbegin.o]
@@ -1001,7 +1023,7 @@ events:
           arg [-L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib] ==> dir [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../lib/gcc/powerpc-604-linux-gnu/6.3.0/../../../../powerpc-604-linux-gnu/lib]
           arg [-L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib] ==> dir [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/lib]
           arg [-L/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib] ==> dir [/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/../powerpc-604-linux-gnu/sysroot/usr/lib]
-          arg [CMakeFiles/cmTC_46d2a.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_26f4b.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lstdc++] ==> lib [stdc++]
           arg [-lm] ==> lib [m]
           arg [-lgcc_s] ==> lib [gcc_s]

@@ -86,19 +86,19 @@
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include"
+					"path" : "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils"
+					"path" : "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net"
+					"path" : "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src"
+					"path" : "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src"
 				}
 			],
 			"language" : "CXX",
@@ -145,19 +145,19 @@
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include"
+					"path" : "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils"
+					"path" : "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net"
+					"path" : "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src"
+					"path" : "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src"
 				}
 			],
 			"language" : "C",

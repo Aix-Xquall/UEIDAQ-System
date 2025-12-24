@@ -1,97 +1,56 @@
-//=============================================================================
-// NAME:    main.cpp (Step 5: UDP Integration)
-//=============================================================================
+/**
+ * @file main.cpp
+ * @brief 主程式：接收 Batch Data 並透過 Binary UDP 發送
+ */
 #include <iostream>
 #include <unistd.h>
 #include <signal.h>
 #include "utils/ConfigLoader.hpp"
 #include "daq/DaqAI217.hpp"
-#include "net/UdpSender.hpp" // [新增]
+#include "net/UdpSender.hpp"
 
 volatile sig_atomic_t g_stop = 0;
-
-void signal_handler(int)
-{
-    g_stop = 1;
-}
+void signal_handler(int) { g_stop = 1; }
 
 int main()
 {
     signal(SIGINT, signal_handler);
-    std::cout << "=== UEIPAC System Step 5 (UDP Live) ===" << std::endl;
 
-    try
+    // ... Config Loading 代碼省略 ...
+    auto sysConfig = Utils::ConfigLoader::load("DAQ_Settings.json");
+    Net::UdpSender udpSender;
+    udpSender.Init(sysConfig.udpIp, sysConfig.udpPort);
+
+    // ... Daq 初始化代碼省略 ...
+    Utils::TaskConfig *ai217Config = &sysConfig.taskConfigs[0]; // 簡化範例
+    Daq::DaqAI217 ai217Device(*ai217Config);
+    ai217Device.Configure();
+    ai217Device.Start();
+
+    Daq::RawDataPacket packet;
+    long seqId = 0;
+    int numCh = 8; // 假設 8 通道
+
+    while (!g_stop)
     {
-        auto sysConfig = Utils::ConfigLoader::load("DAQ_Settings.json");
-
-        // 1. 初始化 UDP Sender
-        Net::UdpSender udpSender;
-        if (!udpSender.Init(sysConfig.udpIp, sysConfig.udpPort))
+        // 從 Queue 取出一個 Batch (包含 10 個 Samples)
+        if (ai217Device.PopData(packet))
         {
-            std::cerr << "UDP Init Failed!" << std::endl;
-            return -1;
+            seqId++;
+            // 發送二進位封包
+            udpSender.SendRawBatch(seqId,
+                                   packet.timestamp,
+                                   packet.rawData,
+                                   packet.numSamples,
+                                   numCh);
         }
-
-        // 2. 設定 AI-217
-        Utils::TaskConfig *ai217Config = nullptr;
-        for (auto &task : sysConfig.taskConfigs)
+        else
         {
-            if (task.taskName == "Task_Slot0_AI217")
-            {
-                ai217Config = &task;
-                break;
-            }
+            usleep(1000); // 稍微休息，釋放 CPU
         }
-
-        if (!ai217Config)
-        {
-            std::cerr << "Config not found!" << std::endl;
-            return -1;
-        }
-
-        Daq::DaqAI217 ai217Device(*ai217Config);
-        if (!ai217Device.Configure())
-            return -1;
-
-        ai217Device.Start();
-
-        // 3. 主迴圈：接收資料 -> UDP 轉發
-        std::cout << "[Main] Sending data to " << sysConfig.udpIp << ":" << sysConfig.udpPort << std::endl;
-
-        Daq::RawDataPacket packet;
-        long packetCount = 0;
-
-        // 取得 Device Name 用於封包 Header (從第一通道設定取)
-        std::string devName = ai217Config->channels[0].deviceName;
-
-        while (!g_stop)
-        {
-            if (ai217Device.PopData(packet))
-            {
-                packetCount++;
-
-                // [關鍵] 透過 UDP 發送
-                udpSender.SendPacket(devName, packetCount, packet.timestamp, packet.data);
-
-                // Console 僅顯示狀態 (每 100 筆)
-                if (packetCount % 100 == 0)
-                {
-                    std::cout << "\r[UDP] Sent: " << packetCount << " pkts" << std::flush;
-                }
-            }
-            else
-            {
-                usleep(100); // UDP 模式下可以縮短休眠以提高反應
-            }
-        }
-
-        ai217Device.Stop();
-        udpSender.Close();
     }
-    catch (const std::exception &e)
-    {
-        std::cerr << "Exception: " << e.what() << std::endl;
-        return -1;
-    }
+
+    ai217Device.Stop();
+    udpSender.Close();
     return 0;
 }

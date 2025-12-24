@@ -1,31 +1,31 @@
 [
 {
-  "directory": "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
-  "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++ -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -g -std=gnu++11 -Wall -g -o CMakeFiles/ueipac_app.dir/main.cpp.o -c /mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/main.cpp",
-  "file": "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/main.cpp",
+  "directory": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
+  "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++  -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -g -std=gnu++11 -Wall -g -o CMakeFiles/ueipac_app.dir/main.cpp.o -c /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/main.cpp",
+  "file": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/main.cpp",
   "output": "CMakeFiles/ueipac_app.dir/main.cpp.o"
 },
 {
-  "directory": "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
-  "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++ -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -g -std=gnu++11 -Wall -g -o CMakeFiles/ueipac_app.dir/src/utils/ConfigLoader.cpp.o -c /mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/utils/ConfigLoader.cpp",
-  "file": "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/utils/ConfigLoader.cpp",
+  "directory": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
+  "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++  -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -g -std=gnu++11 -Wall -g -o CMakeFiles/ueipac_app.dir/src/utils/ConfigLoader.cpp.o -c /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/utils/ConfigLoader.cpp",
+  "file": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/utils/ConfigLoader.cpp",
   "output": "CMakeFiles/ueipac_app.dir/src/utils/ConfigLoader.cpp.o"
 },
 {
-  "directory": "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
-  "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++ -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -g -std=gnu++11 -Wall -g -o CMakeFiles/ueipac_app.dir/src/daq/DaqAI217.cpp.o -c /mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/daq/DaqAI217.cpp",
-  "file": "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/daq/DaqAI217.cpp",
+  "directory": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
+  "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++  -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -g -std=gnu++11 -Wall -g -o CMakeFiles/ueipac_app.dir/src/daq/DaqAI217.cpp.o -c /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/daq/DaqAI217.cpp",
+  "file": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/daq/DaqAI217.cpp",
   "output": "CMakeFiles/ueipac_app.dir/src/daq/DaqAI217.cpp.o"
 },
 {
-  "directory": "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
-  "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++ -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -g -std=gnu++11 -Wall -g -o CMakeFiles/ueipac_app.dir/src/net/UdpSender.cpp.o -c /mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/net/UdpSender.cpp",
-  "file": "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/net/UdpSender.cpp",
+  "directory": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
+  "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++  -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -g -std=gnu++11 -Wall -g -o CMakeFiles/ueipac_app.dir/src/net/UdpSender.cpp.o -c /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/net/UdpSender.cpp",
+  "file": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/net/UdpSender.cpp",
   "output": "CMakeFiles/ueipac_app.dir/src/net/UdpSender.cpp.o"
 },
 {
-  "directory": "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
-  "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -g -Wall -g -o CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o -c /opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c",
+  "directory": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
+  "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc  -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -g -Wall -g -o CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o -c /opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c",
   "file": "/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c",
   "output": "CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o"
 }

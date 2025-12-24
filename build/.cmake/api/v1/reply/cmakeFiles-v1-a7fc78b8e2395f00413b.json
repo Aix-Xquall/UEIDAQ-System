@@ -21,7 +21,7 @@
 		{
 			"isCMake" : true,
 			"isExternal" : true,
-			"path" : "/usr/share/cmake-3.28/Modules/CMakeNinjaFindMake.cmake"
+			"path" : "/usr/share/cmake-3.28/Modules/CMakeUnixFindMake.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -768,8 +768,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
-		"source" : "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System"
+		"build" : "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
+		"source" : "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System"
 	},
 	"version" : 
 	{

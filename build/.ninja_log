@@ -1,7 +1,0 @@
-# ninja log v5
-35	222	1766500114522086500	CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o	fa84e7398f0a8f3c
-33	622	1766500114923459700	CMakeFiles/ueipac_app.dir/src/net/UdpSender.cpp.o	7e2b838d7fe452ae
-27	150433	1766500115153192100	CMakeFiles/ueipac_app.dir/main.cpp.o	415955a0aac6755a
-30	1016	1766500115323715900	CMakeFiles/ueipac_app.dir/src/daq/DaqAI217.cpp.o	eb204b5824d4852b
-28	2023	1766500116325965800	CMakeFiles/ueipac_app.dir/src/utils/ConfigLoader.cpp.o	6435af55b3be9493
-2032	2501	1766500116808792200	ueipac_app	52349e1e02e85415
