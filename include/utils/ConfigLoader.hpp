@@ -1,24 +1,31 @@
-//=============================================================================
-// NAME:    src/utils/ConfigLoader.hpp
-//=============================================================================
 #pragma once
 
-#include "utils/UeiStructs.h"
 #include <string>
+#include "utils/UeiStructs.hpp"
 
-namespace Utils
+namespace uei
 {
 
-    class ConfigLoader
-    {
-    public:
-        /**
-         * @brief 載入並解析 JSON 設定檔
-         * * @param filePath JSON 檔案路徑 (e.g., "config/DAQ_Settings.json")
-         * @return SystemConfig 解析後的系統設定結構
-         * @throws std::runtime_error 若檔案不存在或格式錯誤
-         */
-        static SystemConfig load(const std::string &filePath);
-    };
+  /**
+   * @brief JSON settings loader for UEI_DAQ_Settings.json (config_version=2).
+   */
+  class ConfigLoader
+  {
+  public:
+    /**
+     * @brief Load and validate settings from JSON file.
+     * @param path Path to UEI_DAQ_Settings.json
+     * @return Parsed Settings
+     * @throws std::runtime_error on parse/validation errors
+     */
+    static Settings LoadFromFile(const std::string &path);
 
-} // namespace Utils
+    /**
+     * @brief Load settings from default path "./UEI_DAQ_Settings.json".
+     * @return Parsed Settings
+     * @throws std::runtime_error on errors
+     */
+    static Settings LoadDefault();
+  };
+
+} // namespace uei

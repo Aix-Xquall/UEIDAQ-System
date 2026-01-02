@@ -1,56 +1,54 @@
-/**
- * @file main.cpp
- * @brief 主程式：接收 Batch Data 並透過 Binary UDP 發送
- */
 #include <iostream>
-#include <unistd.h>
-#include <signal.h>
-#include "utils/ConfigLoader.hpp"
-#include "daq/DaqAI217.hpp"
-#include "net/UdpSender.hpp"
+#include <stdexcept>
+#include <string>
+#include <vector>
 
-volatile sig_atomic_t g_stop = 0;
-void signal_handler(int) { g_stop = 1; }
+#include "utils/ConfigLoader.hpp"
+#include "utils/CsvPacketizer.hpp"
+#include "net/UdpSender.hpp"
+#include "daq/DAQFactory.hpp"
 
 int main()
 {
-    signal(SIGINT, signal_handler);
+  try
+  {
+    // 1) Load default config (same directory)
+    const uei::Settings settings = uei::ConfigLoader::LoadDefault();
 
-    // ... Config Loading 代碼省略 ...
-    auto sysConfig = Utils::ConfigLoader::load("DAQ_Settings.json");
-    Net::UdpSender udpSender;
-    udpSender.Init(sysConfig.udpIp, sysConfig.udpPort);
-
-    // ... Daq 初始化代碼省略 ...
-    Utils::TaskConfig *ai217Config = &sysConfig.taskConfigs[0]; // 簡化範例
-    Daq::DaqAI217 ai217Device(*ai217Config);
-    ai217Device.Configure();
-    ai217Device.Start();
-
-    Daq::RawDataPacket packet;
-    long seqId = 0;
-    int numCh = 8; // 假設 8 通道
-
-    while (!g_stop)
+    // 2) Create DAQ devices from JSON (MVP: AI-217 only)
+    std::vector<std::unique_ptr<uei::DAQDevice>> devices = uei::DAQFactory::CreateDevices(settings);
+    if (devices.empty())
     {
-        // 從 Queue 取出一個 Batch (包含 10 個 Samples)
-        if (ai217Device.PopData(packet))
-        {
-            seqId++;
-            // 發送二進位封包
-            udpSender.SendRawBatch(seqId,
-                                   packet.timestamp,
-                                   packet.rawData,
-                                   packet.numSamples,
-                                   numCh);
-        }
-        else
-        {
-            usleep(1000); // 稍微休息，釋放 CPU
-        }
+      throw std::runtime_error("No streaming devices created. Check slots[].active and channel_groups[].stream_active.");
     }
 
-    ai217Device.Stop();
-    udpSender.Close();
+    // 3) Open UDP
+    uei::UdpSender udp;
+    udp.Open(settings.udp_target_ip, settings.udp_target_port);
+
+    // MVP: run first device only (AI-217 one stream group)
+    uei::DAQDevice &dev = *devices.front();
+    dev.Open();
+    dev.Start();
+
+    while (true)
+    {
+      uei::RawFrame frame;
+      if (!dev.ReadFrame(frame))
+        break;
+
+      const std::string payload = uei::CsvPacketizer::Encode(frame);
+      udp.Send(payload.data(), payload.size());
+    }
+
+    dev.Stop();
+    dev.Close();
+    udp.Close();
     return 0;
+  }
+  catch (const std::exception &e)
+  {
+    std::cerr << "[FATAL] " << e.what() << "\n";
+    return 1;
+  }
 }

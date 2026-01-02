@@ -1,125 +1,145 @@
-//=============================================================================
-// NAME:    src/utils/ConfigLoader.cpp
-//=============================================================================
 #include "utils/ConfigLoader.hpp"
-#include "nlohmann/json.hpp" // 請確保此檔案已存在
+
 #include <fstream>
 #include <stdexcept>
-#include <iostream>
 
-// 為了方便使用 JSON 物件
-using json = nlohmann::json;
+#include "nlohmann/json.hpp"
 
-namespace Utils
+namespace uei
 {
 
-    SystemConfig ConfigLoader::load(const std::string &filePath)
+  static void Require(bool cond, const std::string &msg)
+  {
+    if (!cond)
+      throw std::runtime_error("Config error: " + msg);
+  }
+
+  /** @brief sample_rate supports: number OR {active,hz} (backward compatible). */
+  static double ParseSampleRateHz(const nlohmann::json &js_slot)
+  {
+    if (!js_slot.contains("sample_rate"))
+      return 0.0;
+    const auto &sr = js_slot["sample_rate"];
+
+    if (sr.is_number())
     {
-        std::ifstream file(filePath);
-        if (!file.is_open())
-        {
-            // 嘗試從上層目錄尋找 (相容 build 資料夾執行情況)
-            file.open("../" + filePath);
-            if (!file.is_open())
-            {
-                throw std::runtime_error("[Config] Cannot open config file: " + filePath);
-            }
-        }
+      return sr.get<double>();
+    }
+    if (sr.is_object())
+    {
+      const bool active = sr.value("active", false);
+      const double hz = sr.value("hz", 0.0);
+      return active ? hz : 0.0;
+    }
+    return 0.0;
+  }
 
-        try
-        {
-            json j;
-            file >> j;
+  Settings ConfigLoader::LoadFromFile(const std::string &path)
+  {
+    std::ifstream ifs(path);
+    if (!ifs)
+      throw std::runtime_error("Failed to open config file: " + path);
 
-            SystemConfig sysConfig;
-            sysConfig.systemName = j.value("system_name", "DefaultSystem");
-            sysConfig.udpIp = j.value("udp_target_ip", "127.0.0.1");
-            sysConfig.udpPort = j.value("udp_target_port", 5005);
+    nlohmann::json j;
+    ifs >> j;
 
-            // 解析 Tasks
-            if (j.contains("tasks"))
-            {
-                for (const auto &taskJson : j["tasks"])
-                {
-                    TaskConfig task;
-                    task.taskName = taskJson.value("task_name", "UnnamedTask");
-                    task.active = taskJson.value("active", false);
-                    task.sampleRate = taskJson.value("sample_rate", 1000.0);
+    Settings s;
+    s.system_name = j.value("system_name", "");
+    s.udp_target_ip = j.value("udp_target_ip", "");
+    s.udp_target_port = static_cast<uint16_t>(j.value("udp_target_port", 0));
+    s.config_version = j.value("config_version", 2);
+    s.packet_interval_ms = j.value("packet_interval_ms", 1000);
 
-                    if (!task.active)
-                        continue; // 跳過未啟用任務
+    Require(!s.system_name.empty(), "system_name is required");
+    Require(!s.udp_target_ip.empty(), "udp_target_ip is required");
+    Require(s.udp_target_port != 0, "udp_target_port must be > 0");
+    Require(s.packet_interval_ms > 0, "packet_interval_ms must be > 0");
 
-                    // 解析 Channels
-                    if (taskJson.contains("channels"))
-                    {
-                        for (const auto &chJson : taskJson["channels"])
-                        {
-                            ChannelConfig ch;
-                            ch.deviceName = chJson.value("device_name", "UnknownDev");
-                            ch.channelRange = chJson.value("channel_range", "ai0");
-                            ch.modelInfo = chJson.value("model_info", "");
-                            ch.active = chJson.value("active", true);
-
-                            if (!ch.active)
-                                continue; // 跳過未啟用通道
-
-                            // 1. Moving Average Config
-                            if (chJson.contains("moving_avg"))
-                            {
-                                ch.avgConfig.active = chJson["moving_avg"].value("active", false);
-                                ch.avgConfig.windowSize = chJson["moving_avg"].value("window_size", 1);
-                            }
-
-                            // 2. FFT Config
-                            if (chJson.contains("fft"))
-                            {
-                                ch.fftConfig.active = chJson["fft"].value("active", false);
-                                ch.fftConfig.windowType = chJson["fft"].value("window_type", "Hann");
-                                ch.fftConfig.points = chJson["fft"].value("points", 1024);
-                                ch.fftConfig.overlapPercent = chJson["fft"].value("overlap_percent", 0.0);
-                            }
-
-                            // 3. Hardware Config (關鍵新增部分)
-                            if (chJson.contains("hardware_config"))
-                            {
-                                auto hw = chJson["hardware_config"];
-                                // AI-208
-                                ch.hwConfig.excitationA = hw.value("ai208_excitation_a", 0.0);
-                                ch.hwConfig.excitationB = hw.value("ai208_excitation_b", 0.0);
-                                // AI-211
-                                ch.hwConfig.coupling = hw.value("ai211_coupling", "DC");
-                                ch.hwConfig.iepeCurrent = hw.value("ai211_iepe_current", 0.0);
-                                // General
-                                ch.hwConfig.gain = hw.value("gain", 1);
-                                if (hw.contains("ai217_gain"))
-                                    ch.hwConfig.gain = hw["ai217_gain"];
-                                if (hw.contains("ai208_gain"))
-                                    ch.hwConfig.gain = hw["ai208_gain"];
-                                if (hw.contains("ai211_gain"))
-                                    ch.hwConfig.gain = hw["ai211_gain"];
-                            }
-
-                            task.channels.push_back(ch);
-                        }
-                    }
-
-                    // 只有當 Task 內有有效 Channel 時才加入
-                    if (!task.channels.empty())
-                    {
-                        sysConfig.taskConfigs.push_back(task);
-                    }
-                }
-            }
-
-            std::cout << "[Config] Successfully loaded: " << sysConfig.systemName
-                      << " (" << sysConfig.taskConfigs.size() << " active tasks)" << std::endl;
-
-            return sysConfig;
-        }
-        catch (const json::exception &e)
-        {
-            throw std::runtime_error("[Config] JSON Parse Error: " + std::string(e.what()));
-        }
+    // UEI block (optional)
+    if (j.contains("uei") && j["uei"].is_object())
+    {
+      const auto &ju = j["uei"];
+      s.uei.iom_ip = ju.value("iom_ip", "127.0.0.1");
+      s.uei.open_timeout_ms = ju.value("open_timeout_ms", 500);
+      s.uei.enable_rt = ju.value("enable_rt", true);
+      s.uei.rt_priority = ju.value("rt_priority", 80);
     }
 
-} // namespace Utils
+    Require(j.contains("slots") && j["slots"].is_array(), "slots[] is required");
+
+    for (const auto &js : j["slots"])
+    {
+      SlotConfig slot;
+      slot.slot_index = js.value("slot_index", 0);
+      slot.board_name = js.value("board_name", "");
+      slot.active = js.value("active", false);
+
+      slot.device_id = js.value("device_id", 0);
+      slot.subsystem = js.value("subsystem", "DQ_SS0IN");
+      slot.sample_rate_hz = ParseSampleRateHz(js);
+
+      // ai_config (optional; defaults gain=1, input_mode="diff")
+      if (js.contains("ai_config") && js["ai_config"].is_object())
+      {
+        const auto &ja = js["ai_config"];
+        slot.ai_config.gain = ja.value("gain", 1);
+        slot.ai_config.input_mode = ja.value("input_mode", "diff");
+      }
+
+      // channel_groups
+      if (js.contains("channel_groups") && js["channel_groups"].is_array())
+      {
+        for (const auto &jg : js["channel_groups"])
+        {
+          ChannelGroupConfig g;
+          g.group_name = jg.value("group_name", "");
+          g.active = jg.value("active", false);
+          g.target_hz = jg.value("target_hz", 0.0);
+
+          if (jg.contains("channels") && jg["channels"].is_array())
+          {
+            for (const auto &ch : jg["channels"])
+              g.channels.push_back(ch.get<int>());
+          }
+
+          if (jg.contains("moving_average") && jg["moving_average"].is_object())
+          {
+            g.moving_average.active = jg["moving_average"].value("active", false);
+            g.moving_average.decimation = jg["moving_average"].value("decimation", 1);
+          }
+
+          if (jg.contains("fft") && jg["fft"].is_object())
+          {
+            g.fft.active = jg["fft"].value("active", false);
+            g.fft.size = jg["fft"].value("size", 1024);
+            g.fft.window_type = jg["fft"].value("window_type", "hann");
+            g.fft.overlap = jg["fft"].value("overlap", 0.5);
+          }
+
+          if (!g.group_name.empty())
+            slot.channel_groups.push_back(g);
+        }
+      }
+
+      // Validation for active slots (generic)
+      if (slot.active)
+      {
+        Require(slot.slot_index > 0, "active slot: slot_index must be > 0");
+        Require(!slot.board_name.empty(), "active slot: board_name is required");
+        Require(slot.sample_rate_hz > 0.0, "active slot: sample_rate must be > 0");
+        Require(!slot.ai_config.input_mode.empty(), "active slot: ai_config.input_mode is required");
+        Require(!slot.channel_groups.empty(), "active slot: channel_groups[] is required");
+      }
+
+      s.slots.push_back(slot);
+    }
+
+    return s;
+  }
+
+  Settings ConfigLoader::LoadDefault()
+  {
+    return LoadFromFile("UEI_DAQ_Settings.json");
+  }
+
+} // namespace uei

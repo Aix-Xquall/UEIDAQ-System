@@ -1,3 +1,4 @@
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 cmake_minimum_required(VERSION 3.10)
 
 # =========================================================
@@ -25,6 +26,8 @@ include_directories(
     ${PROJECT_ROOT}/include        # 讓 #include "daq/DaqAI217.hpp" 能找到檔案
     ${PROJECT_ROOT}/include/utils  # 選擇性加入
     ${PROJECT_ROOT}/include/net
+    ${PROJECT_ROOT}/include/nlohmann
+    ${PROJECT_ROOT}/include/daq
     ${PROJECT_ROOT}/src            # 為了相容 ConfigLoader.cpp 
 )
 
@@ -44,8 +47,10 @@ add_compile_options(-Wall -g) # 只保留通用選項
 set(SOURCE_FILES
     main.cpp    
     src/utils/ConfigLoader.cpp
-    src/daq/DaqAI217.cpp
+    src/daq/DAQ_VMAP_AI217.cpp
+    src/daq/DAQFactory.cpp
     src/net/UdpSender.cpp
+    src/utils/CsvPacketizer.cpp    
     "${UEI_UTILS_DIR}/UeiPacUtils.c"
 )
 

@@ -1,0 +1,71 @@
+{
+  "system_name": "UEIPAC_MPC8347_System",
+  "udp_target_ip": "192.168.100.10",
+  "udp_target_port": 5005,
+  "config_version": 2,
+  "uei": {
+    "iom_ip": "127.0.0.1",
+    "open_timeout_ms": 500,
+    "enable_rt": true,
+    "rt_priority": 80
+  },
+  "packet_interval_ms": 1000,
+  "slots": [
+    {
+      "slot_index": 1,
+      "board_name": "DNA-AI-217",
+      "active": true,
+      "device_id": 0,
+      "subsystem": "DQ_SS0IN",
+      "sample_rate": 10,
+      "ai_config": {
+        "gain": 1,
+        "input_mode": "diff"
+      },
+      "channel_groups": [
+        {
+          "group_name": "ai217_10hz",
+          "active": true,
+          "target_hz": 10,
+          "channels": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "moving_average": {
+            "active": false,
+            "decimation": 1
+          },
+          "fft": {
+            "active": false,
+            "size": 1024,
+            "window_type": "hann",
+            "overlap": 0.5
+          }
+        },
+        {
+          "group_name": "ai217_1hz",
+          "active": false,
+          "target_hz": 1,
+          "channels": [
+            6,
+            7
+          ],
+          "moving_average": {
+            "active": true,
+            "decimation": 10
+          },
+          "fft": {
+            "active": false,
+            "size": 1024,
+            "window_type": "hann",
+            "overlap": 0.5
+          }
+        }
+      ]
+    }
+  ]
+}
