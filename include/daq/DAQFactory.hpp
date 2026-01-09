@@ -14,8 +14,7 @@ namespace uei
      *
      * MVP behavior:
      * - Only supports DNA-AI-217.
-     * - Creates devices for groups where stream_active=true.
-     * - DSP (MA/FFT) is not executed in MVP; streaming is raw.
+     * - Rule A: stream groups where slot.active && group.active.
      */
     class DAQFactory
     {
@@ -23,8 +22,7 @@ namespace uei
         /**
          * @brief Create devices based on settings.
          * @param settings Parsed settings.
-         * @return Vector of devices (may be empty if no stream_active groups).
-         * @throws std::runtime_error on unsupported config.
+         * @return Vector of devices.
          */
         static std::vector<std::unique_ptr<DAQDevice>> CreateDevices(const Settings &settings);
     };

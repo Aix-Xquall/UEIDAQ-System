@@ -1,6 +1,5 @@
 #include "daq/DAQFactory.hpp"
 
-#include <cmath>
 #include <stdexcept>
 
 #include "daq/DAQ_VMAP_AI217.hpp"
@@ -14,18 +13,11 @@ namespace uei
             throw std::runtime_error("DAQFactory error: " + msg);
     }
 
-    static int DeriveSamplesPerChannel(double sample_rate_hz, int packet_interval_ms)
-    {
-        const double s = sample_rate_hz * (static_cast<double>(packet_interval_ms) / 1000.0);
-        int v = static_cast<int>(std::lround(s));
-        if (v < 1)
-            v = 1;
-        return v;
-    }
-
     std::vector<std::unique_ptr<DAQDevice>> DAQFactory::CreateDevices(const Settings &settings)
     {
         std::vector<std::unique_ptr<DAQDevice>> devices;
+
+        Require(settings.numSamplesPerChannel > 0, "numSamplesPerChannel must be > 0");
 
         for (std::vector<SlotConfig>::const_iterator it = settings.slots.begin();
              it != settings.slots.end(); ++it)
@@ -46,36 +38,38 @@ namespace uei
             {
                 const ChannelGroupConfig &g = *ig;
 
-                // Rule A: group.active=true means stream it
+                // Rule A
                 if (!g.active)
                     continue;
 
                 Require(!g.group_name.empty(), "AI-217: group_name must not be empty");
                 Require(!g.channels.empty(), "AI-217: group channels must not be empty");
 
-                const int samples_per_channel = DeriveSamplesPerChannel(slot.sample_rate_hz, settings.packet_interval_ms);
+                DAQ_VMAP_AI217::PDNA_PARAMS params;
 
-                DAQ_VMAP_AI217::Params p;
-                p.iom_ip = settings.uei.iom_ip;
-                p.open_timeout_ms = settings.uei.open_timeout_ms;
-                p.enable_rt = settings.uei.enable_rt;
-                p.rt_priority = settings.uei.rt_priority;
+                // Align to Sample naming
+                params.device = slot.device_id;
+                params.numChannels = static_cast<int>(g.channels.size());
+                params.channels = g.channels;
 
-                p.device_id = slot.device_id;
-                p.slot_index = slot.slot_index;
-                p.group_name = g.group_name;
+                params.frequency = slot.sample_rate_hz;
+                params.numSamplesPerChannel = settings.numSamplesPerChannel;
 
-                p.subsystem = slot.subsystem;
-                p.scan_rate_hz = slot.sample_rate_hz;
-                p.samples_per_channel = samples_per_channel;
-                p.channels = g.channels;
+                // Metadata
+                params.slot_index = slot.slot_index;
+                params.group_name = g.group_name;
 
-                p.gain = slot.ai_config.gain;
-                p.input_mode = slot.ai_config.input_mode;
+                // UEI settings
+                params.iom_ip = settings.uei.iom_ip;
+                params.open_timeout_ms = settings.uei.open_timeout_ms;
+                params.enable_rt = settings.uei.enable_rt;
+                params.rt_priority = settings.uei.rt_priority;
 
-                p.packet_interval_ms = settings.packet_interval_ms;
+                // AI config
+                params.gain = slot.ai_config.gain;
+                params.input_mode = slot.ai_config.input_mode;
 
-                devices.push_back(std::unique_ptr<DAQDevice>(new DAQ_VMAP_AI217(p)));
+                devices.push_back(std::unique_ptr<DAQDevice>(new DAQ_VMAP_AI217(params)));
             }
         }
 

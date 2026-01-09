@@ -14,7 +14,7 @@ namespace uei
       throw std::runtime_error("Config error: " + msg);
   }
 
-  /** @brief sample_rate supports: number OR {active,hz} (backward compatible). */
+  /** @brief sample_rate supports number OR {active,hz} (backward compatible). */
   static double ParseSampleRateHz(const nlohmann::json &js_slot)
   {
     if (!js_slot.contains("sample_rate"))
@@ -22,15 +22,15 @@ namespace uei
     const auto &sr = js_slot["sample_rate"];
 
     if (sr.is_number())
-    {
       return sr.get<double>();
-    }
+
     if (sr.is_object())
     {
       const bool active = sr.value("active", false);
       const double hz = sr.value("hz", 0.0);
       return active ? hz : 0.0;
     }
+
     return 0.0;
   }
 
@@ -48,12 +48,14 @@ namespace uei
     s.udp_target_ip = j.value("udp_target_ip", "");
     s.udp_target_port = static_cast<uint16_t>(j.value("udp_target_port", 0));
     s.config_version = j.value("config_version", 2);
-    s.packet_interval_ms = j.value("packet_interval_ms", 1000);
+
+    // Root global (aligned to Sample PDNA_PARAMS::numSamplesPerChannel)
+    s.numSamplesPerChannel = j.value("numSamplesPerChannel", 0);
 
     Require(!s.system_name.empty(), "system_name is required");
     Require(!s.udp_target_ip.empty(), "udp_target_ip is required");
     Require(s.udp_target_port != 0, "udp_target_port must be > 0");
-    Require(s.packet_interval_ms > 0, "packet_interval_ms must be > 0");
+    Require(s.numSamplesPerChannel > 0, "numSamplesPerChannel must be > 0");
 
     // UEI block (optional)
     if (j.contains("uei") && j["uei"].is_object())
@@ -78,7 +80,7 @@ namespace uei
       slot.subsystem = js.value("subsystem", "DQ_SS0IN");
       slot.sample_rate_hz = ParseSampleRateHz(js);
 
-      // ai_config (optional; defaults gain=1, input_mode="diff")
+      // ai_config
       if (js.contains("ai_config") && js["ai_config"].is_object())
       {
         const auto &ja = js["ai_config"];
@@ -112,7 +114,7 @@ namespace uei
           {
             g.fft.active = jg["fft"].value("active", false);
             g.fft.size = jg["fft"].value("size", 1024);
-            g.fft.window_type = jg["fft"].value("window_type", "hann");
+            g.fft.window_type = g.fft.window_type = jg["fft"].value("window_type", "hann");
             g.fft.overlap = jg["fft"].value("overlap", 0.5);
           }
 
@@ -121,7 +123,7 @@ namespace uei
         }
       }
 
-      // Validation for active slots (generic)
+      // Validation for active slots
       if (slot.active)
       {
         Require(slot.slot_index > 0, "active slot: slot_index must be > 0");

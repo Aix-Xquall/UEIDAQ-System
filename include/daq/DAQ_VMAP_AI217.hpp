@@ -5,10 +5,12 @@
 #include <string>
 #include <vector>
 
+#include <time.h>
+
 #include "daq/DAQDevice.hpp"
 #include "utils/UeiStructs.hpp"
 
-// UEI SDK headers (C API)
+// UEI headers
 extern "C"
 {
 #include "PDNA.h"
@@ -19,68 +21,77 @@ namespace uei
 {
 
   /**
-   * @brief AI-217 VMAP acquisition device (MVP: raw int32 + UDP).
+   * @brief AI-217 VMAP acquisition device (behavior aligned with SampleVMap217.c).
    */
   class DAQ_VMAP_AI217 final : public DAQDevice
   {
   public:
-    struct Params
+    /**
+     * @brief PDNA_PARAMS-like runtime parameters (names aligned to SampleVMap217.c).
+     */
+    struct PDNA_PARAMS
     {
-      // UEI connection
+      int device{0};
+      int numChannels{0};
+      std::vector<int> channels;
+
+      double frequency{0.0};       ///< sample scan rate (Hz) - aligned name with Sample
+      int numSamplesPerChannel{0}; ///< aligned name with Sample
+
+      // Project metadata
+      int slot_index{0};
+      std::string group_name;
+
+      // UEI open/RT config
       std::string iom_ip{"127.0.0.1"};
       int open_timeout_ms{500};
-
-      // RT scheduling
       bool enable_rt{true};
       int rt_priority{80};
 
-      // Device identifiers
-      int device_id{0};
-      int slot_index{1};
-      std::string group_name;
-
-      // Acquisition
-      std::string subsystem{"DQ_SS0IN"}; ///< MVP supports DQ_SS0IN only
-      double scan_rate_hz{10.0};
-      int samples_per_channel{10};
-      std::vector<int> channels;
-
-      // Analog input config (generic semantic values)
-      int gain{1};            ///< MVP supports 1 only
-      std::string input_mode; ///< MVP supports "diff" only
-
-      // Packet pacing
-      int packet_interval_ms{1000}; ///< desired pacing interval (ms)
+      // AI config
+      int gain{1};
+      std::string input_mode{"diff"}; // "diff" only in MVP
     };
 
-    explicit DAQ_VMAP_AI217(const Params &p);
+    explicit DAQ_VMAP_AI217(const PDNA_PARAMS &params);
 
     void Open() override;
     void Start() override;
     void Stop() override;
     void Close() override;
+
+    /**
+     * @brief Read one frame of raw interleaved samples.
+     * @param out Output raw frame (scan-major interleaved).
+     * @return true to continue running; false to stop acquisition.
+     */
     bool ReadFrame(RawFrame &out) override;
 
   private:
-    static void InstallSigIntHandler();
     static void SigIntHandler(int);
+    static void InstallSigIntHandler();
 
-    static void TimespecAddNs(struct timespec *t, uint64_t ns);
+    static void TimespecAddNs(struct timespec *t, long long ns);
 
-    Params p_;
+    PDNA_PARAMS params;
+
+    // UEI handles (names chosen to resemble Sample)
+    int hd{0};
+    int vmapid{0};
+    DQRDCFG *rd_cfg{nullptr};
+
+    // VMAP flags
+    int vmap_flag{0};
+
+    // pacing vars (names aligned to Sample)
+    long long periodns{0};
+    struct timespec next{};
+
+    // raw buffer (bdata in Sample)
+    std::vector<uint32_t> bdata_storage;
+
     std::atomic<bool> stop_{false};
-
-    int hd_{0};
-    int vmapid_{0};
-    DQRDCFG *rd_cfg_{nullptr};
-
-    int vmap_flag_{0};
-
-    std::vector<uint32> bdata_; // UEI raw buffer (uint32 words)
     uint32_t seq_{0};
-
-    struct timespec next_{};
-    uint64_t period_ns_{0};
   };
 
 } // namespace uei

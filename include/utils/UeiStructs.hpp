@@ -7,14 +7,14 @@
 namespace uei
 {
 
-  /** @brief Moving average config (reserved; MVP not enabled). */
+  /** @brief Moving average config (reserved). */
   struct MovingAverageConfig
   {
     bool active{false};
     int decimation{1};
   };
 
-  /** @brief FFT config (reserved; MVP not enabled). */
+  /** @brief FFT config (reserved). */
   struct FftConfig
   {
     bool active{false};
@@ -35,11 +35,11 @@ namespace uei
     FftConfig fft;
   };
 
-  /** @brief Analog input config in generic semantic values (board-specific mapping in driver). */
+  /** @brief Analog input config (semantic values; board driver maps to UEI macros). */
   struct AiConfig
   {
-    int gain{1};            ///< generic gain multiplier (MVP supports 1 only for AI-217)
-    std::string input_mode; ///< "diff" (MVP supports "diff" only)
+    int gain{1};                    ///< MVP: AI-217 supports 1
+    std::string input_mode{"diff"}; ///< MVP: "diff"
   };
 
   /** @brief Per-slot configuration. */
@@ -49,21 +49,21 @@ namespace uei
     std::string board_name;
     bool active{false};
 
-    int device_id{0}; ///< UEI device id (required for MVP)
+    int device_id{0};
     std::string subsystem{"DQ_SS0IN"};
 
-    double sample_rate_hz{0.0}; ///< base scan rate
-    AiConfig ai_config;
+    /** @brief Sample scan rate in Hz. In AI-217 driver, this maps to Sample's "frequency". */
+    double sample_rate_hz{0.0};
 
+    AiConfig ai_config;
     std::vector<ChannelGroupConfig> channel_groups;
   };
 
-  /** @brief UEI library/RT settings. */
+  /** @brief UEI open/RT settings. */
   struct UeiConfig
   {
     std::string iom_ip{"127.0.0.1"};
     int open_timeout_ms{500};
-
     bool enable_rt{true};
     int rt_priority{80};
   };
@@ -76,11 +76,13 @@ namespace uei
     uint16_t udp_target_port{0};
 
     int config_version{2};
-
     UeiConfig uei;
 
-    /** @brief Desired UDP packet interval in milliseconds (used to derive samples_per_channel). */
-    int packet_interval_ms{1000};
+    /**
+     * @brief Number of scans per channel requested per ReadFrame.
+     * Aligned to SampleVMap217.c PDNA_PARAMS::numSamplesPerChannel.
+     */
+    int numSamplesPerChannel{0};
 
     std::vector<SlotConfig> slots;
   };

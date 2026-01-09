@@ -9,7 +9,7 @@
     "enable_rt": true,
     "rt_priority": 80
   },
-  "packet_interval_ms": 1000,
+  "numSamplesPerChannel": 1000,
   "slots": [
     {
       "slot_index": 1,
@@ -17,46 +17,29 @@
       "active": true,
       "device_id": 0,
       "subsystem": "DQ_SS0IN",
-      "sample_rate": 10,
+      "sample_rate": 1000,
       "ai_config": {
         "gain": 1,
         "input_mode": "diff"
       },
       "channel_groups": [
         {
-          "group_name": "ai217_10hz",
+          "group_name": "ai217_1000hz",
           "active": true,
-          "target_hz": 10,
+          "target_hz": 100,
           "channels": [
             0,
             1,
             2,
             3,
             4,
-            5
-          ],
-          "moving_average": {
-            "active": false,
-            "decimation": 1
-          },
-          "fft": {
-            "active": false,
-            "size": 1024,
-            "window_type": "hann",
-            "overlap": 0.5
-          }
-        },
-        {
-          "group_name": "ai217_1hz",
-          "active": false,
-          "target_hz": 1,
-          "channels": [
+            5,
             6,
             7
           ],
           "moving_average": {
-            "active": true,
-            "decimation": 10
+            "active": false,
+            "decimation": 1
           },
           "fft": {
             "active": false,
