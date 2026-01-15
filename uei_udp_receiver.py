@@ -1,3 +1,21 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+uei_udp_receiver.py
+
+Realtime UDP receiver + plotter for UEI CSV-like packets.
+
+This version is tolerant to small schema differences on the wire:
+  Format A (older):
+    D,1,<seq>,<slot_index>,<group_name>,<samples_per_channel>,<raw...>
+
+  Format B (current project: includes board_name):
+    D,1,<seq>,<slot_index>,<board_name>,<group_name>,<samples_per_channel>,<raw...>
+
+Raw layout:
+  scan-major interleaved (same as C++): [s0ch0,s0ch1,..., s1ch0,s1ch1,...]
+"""
+
 import socket
 import json
 import threading
@@ -7,16 +25,16 @@ import sys
 import argparse
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 from matplotlib.widgets import Button
 from collections import deque
 
-# ================= 可調參數 =================
+# ================= Tunables =================
 BUFFER_SIZE = 65536
 MAX_FPS = 30
+SNAPSHOT_MAX_FPS = 15
 PLOT_DISPLAY_LIMIT = 20000
 MAX_BUFFER_SEC = 20.0
-
-# UI bottom status line preview length (avoid huge redraw cost)
 LAST_PACKET_PREVIEW_CHARS = 240
 # ===========================================
 
@@ -27,7 +45,7 @@ def safe_print(msg: str):
 
 class SystemMapper:
     """
-    Load UEI_DAQ_Settings.json (your schema) and build stream mapping.
+    Load UEI_DAQ_Settings.json and build stream mapping.
 
     Stream key = (slot_index, group_name)
 
@@ -37,14 +55,16 @@ class SystemMapper:
 
     MVP host constraint:
       - skip any group where moving_average.active==true or fft.active==true
-        (because UEIPAC side is not doing DSP yet; we only plot raw streams)
     """
     def __init__(self, config_path: str):
         self.config_path = config_path
         self.system_name = "UEI_SYSTEM"
         self.udp_target_ip = ""
         self.udp_target_port = 5005
-        self.packet_interval_ms = 1000
+
+        # New name (preferred): matches PDNA_PARAMS.numSamplesPerChannel intent.
+        # Backward compatible with old "packet_interval_ms".
+        self.numSamplesPerChannel = 1000
 
         self.streams = []
         self.stream_index = {}
@@ -71,7 +91,12 @@ class SystemMapper:
             self.system_name = cfg.get("system_name", self.system_name)
             self.udp_target_ip = cfg.get("udp_target_ip", "")
             self.udp_target_port = int(cfg.get("udp_target_port", self.udp_target_port))
-            self.packet_interval_ms = int(cfg.get("packet_interval_ms", 1000))
+
+            # Prefer new name, fallback to old
+            if "numSamplesPerChannel" in cfg:
+                self.numSamplesPerChannel = int(cfg.get("numSamplesPerChannel", self.numSamplesPerChannel))
+            else:
+                self.numSamplesPerChannel = int(cfg.get("packet_interval_ms", self.numSamplesPerChannel))
 
             streams = []
             for slot in cfg.get("slots", []) or []:
@@ -86,11 +111,9 @@ class SystemMapper:
                     continue
 
                 for g in slot.get("channel_groups", []) or []:
-                    # Rule A: group.active means "will stream"
                     if not g.get("active", False):
                         continue
 
-                    # MVP host: skip any group with MA/FFT enabled
                     ma = g.get("moving_average", {}) or {}
                     fft = g.get("fft", {}) or {}
                     if bool(ma.get("active", False)) or bool(fft.get("active", False)):
@@ -119,7 +142,7 @@ class SystemMapper:
 
             safe_print(f"[System] Loaded Config: {self.system_name}")
             safe_print(f"[System] UDP target (from config): {self.udp_target_ip}:{self.udp_target_port}")
-            safe_print(f"[System] packet_interval_ms: {self.packet_interval_ms}")
+            safe_print(f"[System] numSamplesPerChannel: {self.numSamplesPerChannel}")
             safe_print(f"[System] Expect streams (Rule A, MA/FFT off): {len(self.streams)}")
             for s in self.streams:
                 safe_print(f"  - {s['title']} ch={s['channels']}")
@@ -131,7 +154,7 @@ class SystemMapper:
             safe_print(f"[System] Config load failed: {e}")
             self.system_name = "UEI_SYSTEM(MOCK)"
             self.udp_target_port = 5005
-            self.packet_interval_ms = 1000
+            self.numSamplesPerChannel = 1000
             self.streams = [{
                 "slot_index": 1,
                 "board_name": "DNA-AI-217",
@@ -147,11 +170,8 @@ def convert_ai217_raw_to_volt(raw_u32: np.ndarray) -> np.ndarray:
     """
     Convert AI-217 24-bit offset-binary code (in low 24 bits) to voltage.
 
-    NOTE: This is an assumption mapping. If your board range differs, disable with --no-volts.
-      0x000000 -> -10V
-      0x800000 -> 0V
-      0xFFFFFF -> +10V
-      V = ((Code - 0x800000) / 0x800000) * 10.0
+    This mapping depends on the configured range on the hardware.
+    If unsure, run with --no-volts.
     """
     codes = (raw_u32 & 0x00FFFFFF).astype(np.float64)
     return ((codes - 8388608.0) / 8388608.0) * 10.0
@@ -166,17 +186,15 @@ class RealTimePlotter:
 
         self.running = True
         self.packet_queue = queue.Queue()
+        self.buffer_lock = threading.Lock()
 
-        # --- Latest UDP raw packet preview (no parsing) ---
         self._last_packet_lock = threading.Lock()
         self._last_packet_text = "Last UDP: (none)"
         self._last_packet_dirty = True
-        # -------------------------------------------------
 
-        # UI time window
-        self.time_window = 5.0  # default show 5s for 10Hz looks nicer
+        self.time_window = 5.0
+        self._last_snapshot_time = 0.0
 
-        # buffers per stream: list[dict[ch_id] = deque]
         self.buffers = []
         self.maxlens = []
         self.lines = []
@@ -192,6 +210,8 @@ class RealTimePlotter:
 
         self.udp_thread = threading.Thread(target=self.udp_worker, daemon=True)
         self.udp_thread.start()
+        self.proc_thread = threading.Thread(target=self.process_worker, daemon=True)
+        self.proc_thread.start()
 
     def init_plot(self):
         plt.ion()
@@ -206,7 +226,6 @@ class RealTimePlotter:
         except Exception:
             pass
 
-        # Leave more bottom space: buttons + last-packet status line
         plt.subplots_adjust(bottom=0.22, hspace=0.5)
 
         for i, ax in enumerate(self.axes):
@@ -214,7 +233,6 @@ class RealTimePlotter:
             ax.grid(True, which="both", linestyle="--", linewidth=0.5)
             ax.set_xlim(-self.time_window, 0)
 
-        # UI buttons
         labels = ["100ms", "500ms", "1S", "5S", "10S", "20S"]
         self.btns = []
         start_x = 0.12
@@ -228,8 +246,6 @@ class RealTimePlotter:
                 btn.color = "orange"
                 ax_btn.set_facecolor("orange")
 
-        # --- Bottom status text (latest UDP packet raw preview) ---
-        # Use figure-level text so it spans across all subplots
         self.last_packet_artist = self.fig.text(
             0.01, 0.02,
             "Last UDP: (none)",
@@ -238,10 +254,10 @@ class RealTimePlotter:
             family="monospace",
             color="black"
         )
-        # ----------------------------------------------------------
+        self.fig.canvas.mpl_connect("close_event", self._on_close)
 
     def make_callback(self, label, btn):
-        return lambda event: self.change_window(label, btn)
+        return lambda _event: self.change_window(label, btn)
 
     def change_window(self, label, clicked_btn):
         val = 1.0
@@ -260,7 +276,6 @@ class RealTimePlotter:
             ax.set_xlim(-self.time_window, 0)
 
     def _set_last_packet_preview(self, raw_bytes: bytes):
-        """Store latest UDP packet preview string (no parsing)."""
         try:
             preview = raw_bytes.decode("utf-8", errors="ignore").replace("\r", "").replace("\n", "")
         except Exception:
@@ -270,10 +285,10 @@ class RealTimePlotter:
             preview = preview[:LAST_PACKET_PREVIEW_CHARS] + " ..."
 
         ts = time.strftime("%H:%M:%S")
-        text = f"Last UDP [{ts}] ({len(raw_bytes)} bytes): {preview}"
+       # text = f"Last UDP [{ts}] ({len(raw_bytes)} bytes): {preview}"
 
         with self._last_packet_lock:
-            self._last_packet_text = text
+        #    self._last_packet_text = text
             self._last_packet_dirty = True
 
     def udp_worker(self):
@@ -284,38 +299,95 @@ class RealTimePlotter:
         while self.running:
             try:
                 data, _addr = sock.recvfrom(BUFFER_SIZE)
-                # update latest-packet preview (no parsing)
                 self._set_last_packet_preview(data)
-                # keep original pipeline
                 self.packet_queue.put(data)
             except Exception:
                 break
 
         sock.close()
 
+    def process_worker(self):
+        while self.running:
+            try:
+                data = self.packet_queue.get(timeout=0.2)
+            except queue.Empty:
+                continue
+
+            self.process_packet(data)
+            cnt = 0
+            while not self.packet_queue.empty() and cnt < 100:
+                self.process_packet(self.packet_queue.get())
+                cnt += 1
+
+    def _decode_packet_fields(self, parts):
+        """
+        Return a dict with keys:
+          seq, slot_index, board_name(optional), group_name, samples_per_channel, raw_list
+        Supports:
+          A: D,1,seq,slot,group,samples,raw...
+          B: D,1,seq,slot,board,group,samples,raw...
+        """
+        if len(parts) < 7:
+            return None
+        if parts[0] != "D" or parts[1] != "1":
+            return None
+
+        seq = int(parts[2])
+        slot_index = int(parts[3])
+
+        # Heuristic: try A first
+        group_a = parts[4]
+        try:
+            spc_a = int(parts[5])
+            key_a = (slot_index, group_a)
+            if key_a in self.mapper.stream_index:
+                return {
+                    "seq": seq,
+                    "slot_index": slot_index,
+                    "board_name": None,
+                    "group_name": group_a,
+                    "samples_per_channel": spc_a,
+                    "raw_list": parts[6:]
+                }
+        except Exception:
+            pass
+
+        # Try B
+        if len(parts) < 8:
+            return None
+        board_b = parts[4]
+        group_b = parts[5]
+        spc_b = int(parts[6])
+        key_b = (slot_index, group_b)
+        if key_b not in self.mapper.stream_index:
+            return None
+
+        return {
+            "seq": seq,
+            "slot_index": slot_index,
+            "board_name": board_b,
+            "group_name": group_b,
+            "samples_per_channel": spc_b,
+            "raw_list": parts[7:]
+        }
+
     def process_packet(self, raw_bytes: bytes):
-        """
-        Payload format (Scheme A):
-          D,1,<seq>,<slot_index>,<group_name>,<samples_per_channel>,<raw...>
-        raw layout: scan-major interleaved
-        """
         try:
             line = raw_bytes.decode("utf-8", errors="ignore").strip()
             if not line:
                 return
 
             parts = line.split(",")
-            if len(parts) < 7:
-                return
-            if parts[0] != "D" or parts[1] != "1":
+            pkt = self._decode_packet_fields(parts)
+            if pkt is None:
                 return
 
-            slot_index = int(parts[3])
-            group_name = parts[4]
-            samples_per_channel = int(parts[5])
+            slot_index = pkt["slot_index"]
+            group_name = pkt["group_name"]
+            samples_per_channel = pkt["samples_per_channel"]
+            raw_list = pkt["raw_list"]
 
-            key = (slot_index, group_name)
-            stream_idx = self.mapper.stream_index.get(key, None)
+            stream_idx = self.mapper.stream_index.get((slot_index, group_name), None)
             if stream_idx is None:
                 return
 
@@ -325,9 +397,11 @@ class RealTimePlotter:
             if num_ch <= 0 or samples_per_channel <= 0:
                 return
 
-            raw_list = parts[6:]
             expected = num_ch * samples_per_channel
             if len(raw_list) != expected:
+                # Soft warning only (keeps UI alive)
+                safe_print(f"[Warn] Size mismatch: got {len(raw_list)} ints, expected {expected} "
+                           f"(slot={slot_index} group={group_name} spc={samples_per_channel} ch={num_ch})")
                 return
 
             raw_i32 = np.fromiter((int(x) for x in raw_list), dtype=np.int32, count=expected)
@@ -339,90 +413,101 @@ class RealTimePlotter:
             else:
                 y_mat = raw_mat.astype(np.float64)
 
-            maxlen = self.maxlens[stream_idx]
-            for j in range(num_ch):
-                ch_id = ch_list[j]
-                if ch_id not in self.buffers[stream_idx]:
-                    self.buffers[stream_idx][ch_id] = deque(maxlen=maxlen)
-                self.buffers[stream_idx][ch_id].extend(y_mat[:, j].tolist())
+            with self.buffer_lock:
+                maxlen = self.maxlens[stream_idx]
+                for j in range(num_ch):
+                    ch_id = ch_list[j]
+                    if ch_id not in self.buffers[stream_idx]:
+                        self.buffers[stream_idx][ch_id] = deque(maxlen=maxlen)
+                    self.buffers[stream_idx][ch_id].extend(y_mat[:, j].tolist())
 
         except Exception as e:
             safe_print(f"[ParseError] {e}")
 
     def _update_last_packet_ui(self):
-        """Update bottom status text if new packet arrived."""
         with self._last_packet_lock:
             if not self._last_packet_dirty:
                 return
             text = self._last_packet_text
             self._last_packet_dirty = False
-
         self.last_packet_artist.set_text(text)
 
-    def update_plot(self):
+    def _update_once(self, _frame=None):
         if len(self.mapper.streams) == 0:
             safe_print("[FATAL] No streams to plot. Fix JSON active flags / MA/FFT settings.")
-            return
+            return []
 
-        while self.running:
-            t_start = time.time()
-            cnt = 0
+        if not self.running:
+            return []
 
-            while not self.packet_queue.empty() and cnt < 200:
-                self.process_packet(self.packet_queue.get())
-                cnt += 1
+        now = time.time()
+        min_interval = 1.0 / max(1, SNAPSHOT_MAX_FPS)
+        if now - self._last_snapshot_time < min_interval:
+            self._update_last_packet_ui()
+            return []
+        self._last_snapshot_time = now
 
-            for stream_idx, ax in enumerate(self.axes):
-                stream = self.mapper.streams[stream_idx]
-                rate = float(stream["rate_hz"]) if stream["rate_hz"] > 0 else 10.0
-                points_needed = max(2, int(rate * self.time_window))
+        for stream_idx, ax in enumerate(self.axes):
+            stream = self.mapper.streams[stream_idx]
+            rate = float(stream["rate_hz"]) if stream["rate_hz"] > 0 else 10.0
+            points_needed = max(2, int(rate * self.time_window))
 
+            with self.buffer_lock:
                 slot_data = self.buffers[stream_idx]
                 if not slot_data:
                     continue
+                slot_snapshot = {ch_id: list(dq) for ch_id, dq in slot_data.items()}
 
-                has_update = False
-                for ch_id, dq in slot_data.items():
-                    if len(dq) < 2:
-                        continue
-                    has_update = True
+            has_update = False
+            for ch_id, full_data in slot_snapshot.items():
+                if len(full_data) < 2:
+                    continue
+                has_update = True
 
-                    full_data = list(dq)
-                    display_data = full_data[-points_needed:] if len(full_data) > points_needed else full_data
+                display_data = full_data[-points_needed:] if len(full_data) > points_needed else full_data
 
-                    if len(display_data) > PLOT_DISPLAY_LIMIT:
-                        step = max(1, len(display_data) // PLOT_DISPLAY_LIMIT)
-                        display_data = display_data[::step]
+                if len(display_data) > PLOT_DISPLAY_LIMIT:
+                    step = max(1, len(display_data) // PLOT_DISPLAY_LIMIT)
+                    display_data = display_data[::step]
 
-                    count = len(display_data)
-                    real_duration = min(len(full_data), points_needed) / rate
-                    x_data = np.linspace(-real_duration, 0, count)
+                count = len(display_data)
+                real_duration = min(len(full_data), points_needed) / rate
+                x_data = np.linspace(-real_duration, 0, count)
 
-                    if ch_id not in self.lines[stream_idx]:
-                        line_obj, = ax.plot([], [], label=f"Ch{ch_id}", lw=1)
-                        self.lines[stream_idx][ch_id] = line_obj
-                        ax.legend(loc="upper left", fontsize=8)
+                if ch_id not in self.lines[stream_idx]:
+                    line_obj, = ax.plot([], [], label=f"Ch{ch_id}", lw=1)
+                    self.lines[stream_idx][ch_id] = line_obj
+                    ax.legend(loc="upper left", fontsize=8)
 
-                    self.lines[stream_idx][ch_id].set_data(x_data, display_data)
+                self.lines[stream_idx][ch_id].set_data(x_data, display_data)
 
-                    if ch_id == stream["channels"][0]:
-                        y_min, y_max = float(min(display_data)), float(max(display_data))
-                        margin = (y_max - y_min) * 0.1 if y_max != y_min else 1.0
-                        ax.set_ylim(y_min - margin, y_max + margin)
+                if ch_id == stream["channels"][0]:
+                    y_min, y_max = float(min(display_data)), float(max(display_data))
+                    margin = (y_max - y_min) * 0.1 if y_max != y_min else 1.0
+                    ax.set_ylim(y_min - margin, y_max + margin)
 
-                if has_update:
-                    ax.set_xlim(-self.time_window, 0)
-                    ax.grid(True, which="both", linestyle="--", linewidth=0.5)
+            if has_update:
+                ax.set_xlim(-self.time_window, 0)
+                ax.grid(True, which="both", linestyle="--", linewidth=0.5)
 
-            # Update last packet UI line (even if no plots updated)
-            self._update_last_packet_ui()
+        self._update_last_packet_ui()
+        return []
 
-            plt.pause(0.001)
+    def start_animation(self):
+        interval_ms = max(1, int(1000 / MAX_FPS))
+        self.anim = FuncAnimation(
+            self.fig,
+            self._update_once,
+            interval=interval_ms,
+            blit=False,
+            cache_frame_data=False
+        )
+        plt.show(block=True)
+        while self.running and plt.fignum_exists(self.fig.number):
+            plt.pause(0.1)
 
-            elapsed = time.time() - t_start
-            wait = (1.0 / MAX_FPS) - elapsed
-            if wait > 0:
-                time.sleep(wait)
+    def _on_close(self, _event):
+        self.running = False
 
     def close(self):
         self.running = False
@@ -447,7 +532,7 @@ def main():
     )
 
     try:
-        plotter.update_plot()
+        plotter.start_animation()
     except KeyboardInterrupt:
         plotter.close()
 

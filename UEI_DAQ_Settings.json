@@ -9,7 +9,7 @@
     "enable_rt": true,
     "rt_priority": 80
   },
-  "numSamplesPerChannel": 1000,
+  "numSamplesPerChannel": 1024,
   "slots": [
     {
       "slot_index": 1,
@@ -17,7 +17,7 @@
       "active": true,
       "device_id": 0,
       "subsystem": "DQ_SS0IN",
-      "sample_rate": 1000,
+      "sample_rate": 100000,
       "ai_config": {
         "gain": 1,
         "input_mode": "diff"
@@ -26,7 +26,7 @@
         {
           "group_name": "ai217_1000hz",
           "active": true,
-          "target_hz": 100,
+          "target_hz": 1000,
           "channels": [
             0,
             1,

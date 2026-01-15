@@ -144,12 +144,17 @@ namespace uei
     bdata_storage.resize(static_cast<size_t>(params.numChannels * params.numSamplesPerChannel));
 
     // ---- pacing: SAME formula as Sample ----
-    // vmapRefreshRate = (frequency * numChannels) / 1024; periodns = floor(1e9 / vmapRefreshRate);
+#if 0
     double vmapRefreshRate = (params.frequency * params.numChannels) / 128; // 1000 * 8 /1024 = 7.8125 ms
     if (vmapRefreshRate <= 0.0)
       vmapRefreshRate = 1.0;
-    periodns = static_cast<long long>(std::floor(1000000000.0 / vmapRefreshRate)); // 1000000000 / 7.8125 ms = 128.000 ms
-
+    periodns = static_cast<long long>(std::floor(1000000000.0 / vmapRefreshRate)); // 1000000000us / 7.8125 ms = 128 ms
+#else
+    double vmapRefreshRate = 128 * (1 / (params.frequency));
+    if (vmapRefreshRate > 1.0)
+      vmapRefreshRate = 1.0;
+    periodns = static_cast<long long>(std::floor(1000000000 * vmapRefreshRate)); // 1000,000,000 us *0.016 s = 16,000,000
+#endif
     clock_gettime(CLOCK_MONOTONIC, &next);
 
     LogInfo("AI217 Open OK: device=" + std::to_string(params.device) +
@@ -210,7 +215,6 @@ namespace uei
     uint32 *bdata = bdata_storage.data();
 
     int ret = 0;
-    bool have_frame = false;
 
     // ---- Rq -> Refresh -> Get (same order as Sample) ----
     ret = DqRtVmapRqInputDataSz(hd, vmapid, 0, req_bytes, &act_size, NULL);
@@ -258,7 +262,6 @@ namespace uei
           const uint32 host_u32 = ntohl(bdata[static_cast<size_t>(i)]);
           out.raw[static_cast<size_t>(i)] = static_cast<int32_t>(host_u32);
         }
-        have_frame = true;
       }
     }
 
