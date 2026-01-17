@@ -50,7 +50,8 @@ set(SOURCE_FILES
     src/daq/DAQ_VMAP_AI217.cpp
     src/daq/DAQFactory.cpp
     src/net/UdpSender.cpp
-    src/utils/CsvPacketizer.cpp    
+    src/utils/CsvPacketizer.cpp
+    src/dsp/Moving_Average.cpp
     "${UEI_UTILS_DIR}/UeiPacUtils.c"
 )
 

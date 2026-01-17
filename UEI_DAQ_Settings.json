@@ -2,6 +2,13 @@
   "system_name": "UEIPAC_MPC8347_System",
   "udp_target_ip": "192.168.100.10",
   "udp_target_port": 5005,
+  "daq_simulation_settings": {
+  "active": false,
+  "base_frequency": 100.0,
+  "frequency_step_percent": 20.0,
+  "amplitude": 1.0,
+  "noise_percent": 5.0  
+},
   "config_version": 2,
   "uei": {
     "iom_ip": "127.0.0.1",
@@ -9,7 +16,7 @@
     "enable_rt": true,
     "rt_priority": 80
   },
-  "numSamplesPerChannel": 1024,
+  "numSamplesPerChannel": 1000,
   "slots": [
     {
       "slot_index": 1,
@@ -17,14 +24,14 @@
       "active": true,
       "device_id": 0,
       "subsystem": "DQ_SS0IN",
-      "sample_rate": 100000,
+      "sample_rate": 1000,
       "ai_config": {
         "gain": 1,
         "input_mode": "diff"
       },
       "channel_groups": [
         {
-          "group_name": "ai217_1000hz",
+          "group_name": "AI-217_temp",
           "active": true,
           "target_hz": 1000,
           "channels": [
@@ -33,13 +40,30 @@
             2,
             3,
             4,
-            5,
-            6,
-            7
+            5
           ],
           "moving_average": {
             "active": false,
             "decimation": 1
+          },
+          "fft": {
+            "active": false,
+            "size": 1024,
+            "window_type": "hann",
+            "overlap": 0.5
+          }
+        },
+        {
+          "group_name": "AI-217_voltage",
+          "active": true,
+          "target_hz": 50,
+          "channels": [
+            6,
+            7
+          ],
+          "moving_average": {
+            "active": true,
+            "decimation": 20
           },
           "fft": {
             "active": false,

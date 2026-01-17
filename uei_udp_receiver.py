@@ -5,12 +5,8 @@ uei_udp_receiver.py
 
 Realtime UDP receiver + plotter for UEI CSV-like packets.
 
-This version is tolerant to small schema differences on the wire:
-  Format A (older):
-    D,1,<seq>,<slot_index>,<group_name>,<samples_per_channel>,<raw...>
-
-  Format B (current project: includes board_name):
-    D,1,<seq>,<slot_index>,<board_name>,<group_name>,<samples_per_channel>,<raw...>
+Format A:
+  D,1,<seq>,<slot_index>,<group_name>,<samples_per_channel>,<raw...>
 
 Raw layout:
   scan-major interleaved (same as C++): [s0ch0,s0ch1,..., s1ch0,s1ch1,...]
@@ -53,8 +49,8 @@ class SystemMapper:
       - slot.active == true => slot enabled
       - channel_groups[].active == true => group enabled (expected to be streamed)
 
-    MVP host constraint:
-      - skip any group where moving_average.active==true or fft.active==true
+    Note:
+      - Receiver plots whatever the sender transmits; MA/FFT flags do not filter streams here.
     """
     def __init__(self, config_path: str):
         self.config_path = config_path
@@ -114,20 +110,29 @@ class SystemMapper:
                     if not g.get("active", False):
                         continue
 
-                    ma = g.get("moving_average", {}) or {}
-                    fft = g.get("fft", {}) or {}
-                    if bool(ma.get("active", False)) or bool(fft.get("active", False)):
-                        continue
-
                     group_name = g.get("group_name", "")
                     channels = g.get("channels", []) or []
                     if not group_name or not channels:
                         continue
+                    fft = g.get("fft", {}) or {}
+                    if bool(fft.get("active", False)):
+                        safe_print(f"[Warn] FFT active for group '{group_name}'; receiver plots time-domain samples only.")
 
                     target_hz = float(g.get("target_hz", 0.0))
-                    rate_hz = target_hz if target_hz > 0.0 else sr_hz
+                    base_rate_hz = sr_hz if sr_hz > 0.0 else target_hz
+                    ma = g.get("moving_average", {}) or {}
+                    ma_active = bool(ma.get("active", False))
+                    ma_decim = int(ma.get("decimation", 1)) if ma_active else 1
+                    if ma_decim < 1:
+                        ma_decim = 1
 
-                    title = f"Slot {slot_index}: {board_name} / {group_name} ({rate_hz:g} Hz)"
+                    output_rate_hz = base_rate_hz / ma_decim
+                    rate_hz = base_rate_hz
+                    ma_suffix = f", MAx{ma_decim}" if ma_active and ma_decim > 1 else ""
+                    out_suffix = f", out={output_rate_hz:g} Hz" if ma_active and ma_decim > 1 else ""
+                    target_suffix = f", target={target_hz:g} Hz" if target_hz > 0.0 else ""
+
+                    title = f"Slot {slot_index}: {board_name} / {group_name} ({rate_hz:g} Hz{ma_suffix}{out_suffix}{target_suffix})"
                     streams.append({
                         "slot_index": slot_index,
                         "board_name": board_name,
@@ -143,12 +148,12 @@ class SystemMapper:
             safe_print(f"[System] Loaded Config: {self.system_name}")
             safe_print(f"[System] UDP target (from config): {self.udp_target_ip}:{self.udp_target_port}")
             safe_print(f"[System] numSamplesPerChannel: {self.numSamplesPerChannel}")
-            safe_print(f"[System] Expect streams (Rule A, MA/FFT off): {len(self.streams)}")
+            safe_print(f"[System] Expect streams (Rule A): {len(self.streams)}")
             for s in self.streams:
                 safe_print(f"  - {s['title']} ch={s['channels']}")
 
             if len(self.streams) == 0:
-                safe_print("[Warn] No eligible streams found. Check slot/group active flags and MA/FFT settings.")
+                safe_print("[Warn] No eligible streams found. Check slot/group active flags.")
 
         except Exception as e:
             safe_print(f"[System] Config load failed: {e}")
@@ -198,6 +203,12 @@ class RealTimePlotter:
         self.buffers = []
         self.maxlens = []
         self.lines = []
+        self.slot_groups = {}
+        self.slot_figs = {}
+        self.slot_axes = {}
+        self.slot_buttons = {}
+        self.slot_last_packet_artist = {}
+        self.stream_axis = {}
 
         for s in self.mapper.streams:
             rate = float(s["rate_hz"]) if s["rate_hz"] > 0 else 10.0
@@ -205,6 +216,9 @@ class RealTimePlotter:
             self.maxlens.append(maxlen)
             self.buffers.append({})
             self.lines.append({})
+
+        for i, s in enumerate(self.mapper.streams):
+            self.slot_groups.setdefault(s["slot_index"], []).append(i)
 
         self.init_plot()
 
@@ -215,51 +229,57 @@ class RealTimePlotter:
 
     def init_plot(self):
         plt.ion()
-        n = len(self.mapper.streams)
-        self.fig, self.axes = plt.subplots(n, 1, figsize=(12, 3.5 * max(1, n)), sharex=False)
-        if n == 1:
-            self.axes = [self.axes]
-        self.axes = np.array(self.axes).flatten()
-
-        try:
-            self.fig.canvas.manager.set_window_title(f"{self.mapper.system_name} (UEI CSV-like UDP)")
-        except Exception:
-            pass
-
-        plt.subplots_adjust(bottom=0.22, hspace=0.5)
-
-        for i, ax in enumerate(self.axes):
-            ax.set_title(self.mapper.streams[i]["title"])
-            ax.grid(True, which="both", linestyle="--", linewidth=0.5)
-            ax.set_xlim(-self.time_window, 0)
-
         labels = ["100ms", "500ms", "1S", "5S", "10S", "20S"]
-        self.btns = []
-        start_x = 0.12
-        for i, label in enumerate(labels):
-            ax_btn = plt.axes([start_x + i * 0.13, 0.08, 0.12, 0.05])
-            btn = Button(ax_btn, label, color="0.9", hovercolor="0.8")
-            btn.on_clicked(self.make_callback(label, btn))
-            self.btns.append(btn)
 
-            if label == "5S":
-                btn.color = "orange"
-                ax_btn.set_facecolor("orange")
+        for slot_index, stream_idxs in self.slot_groups.items():
+            n = len(stream_idxs)
+            fig, axes = plt.subplots(n, 1, figsize=(12, 3.5 * max(1, n)), sharex=False)
+            if n == 1:
+                axes = [axes]
+            axes = np.array(axes).flatten()
 
-        self.last_packet_artist = self.fig.text(
-            0.01, 0.02,
-            "Last UDP: (none)",
-            ha="left", va="bottom",
-            fontsize=9,
-            family="monospace",
-            color="black"
-        )
-        self.fig.canvas.mpl_connect("close_event", self._on_close)
+            try:
+                fig.canvas.manager.set_window_title(f"{self.mapper.system_name} (Slot {slot_index})")
+            except Exception:
+                pass
 
-    def make_callback(self, label, btn):
-        return lambda _event: self.change_window(label, btn)
+            fig.subplots_adjust(bottom=0.22, hspace=0.5)
 
-    def change_window(self, label, clicked_btn):
+            for i, stream_idx in enumerate(stream_idxs):
+                ax = axes[i]
+                ax.set_title(self.mapper.streams[stream_idx]["title"])
+                ax.grid(True, which="both", linestyle="--", linewidth=0.5)
+                ax.set_xlim(-self.time_window, 0)
+                self.stream_axis[stream_idx] = ax
+
+            btns = []
+            start_x = 0.12
+            for i, label in enumerate(labels):
+                ax_btn = fig.add_axes([start_x + i * 0.13, 0.08, 0.12, 0.05])
+                btn = Button(ax_btn, label, color="0.9", hovercolor="0.8")
+                btn.on_clicked(self.make_callback(label))
+                btns.append(btn)
+            self.slot_buttons[slot_index] = btns
+
+            self.slot_last_packet_artist[slot_index] = fig.text(
+                0.01, 0.02,
+                "Last UDP: (none)",
+                ha="left", va="bottom",
+                fontsize=9,
+                family="monospace",
+                color="black"
+            )
+            fig.canvas.mpl_connect("close_event", self._on_close)
+
+            self.slot_figs[slot_index] = fig
+            self.slot_axes[slot_index] = axes
+
+        self._sync_buttons("5S")
+
+    def make_callback(self, label):
+        return lambda _event: self.change_window(label)
+
+    def change_window(self, label):
         val = 1.0
         if "ms" in label:
             val = float(label.replace("ms", "")) / 1000.0
@@ -267,13 +287,19 @@ class RealTimePlotter:
             val = float(label.replace("S", ""))
         self.time_window = val
 
-        for b in self.btns:
-            c = "orange" if b == clicked_btn else "0.9"
-            b.color = c
-            b.ax.set_facecolor(c)
+        for axes in self.slot_axes.values():
+            for ax in axes:
+                ax.set_xlim(-self.time_window, 0)
 
-        for ax in self.axes:
-            ax.set_xlim(-self.time_window, 0)
+        self._sync_buttons(label)
+
+    def _sync_buttons(self, active_label):
+        for btns in self.slot_buttons.values():
+            for b in btns:
+                label = b.label.get_text()
+                c = "orange" if label == active_label else "0.9"
+                b.color = c
+                b.ax.set_facecolor(c)
 
     def _set_last_packet_preview(self, raw_bytes: bytes):
         try:
@@ -322,10 +348,9 @@ class RealTimePlotter:
     def _decode_packet_fields(self, parts):
         """
         Return a dict with keys:
-          seq, slot_index, board_name(optional), group_name, samples_per_channel, raw_list
+          seq, slot_index, group_name, samples_per_channel, raw_list
         Supports:
           A: D,1,seq,slot,group,samples,raw...
-          B: D,1,seq,slot,board,group,samples,raw...
         """
         if len(parts) < 7:
             return None
@@ -335,7 +360,6 @@ class RealTimePlotter:
         seq = int(parts[2])
         slot_index = int(parts[3])
 
-        # Heuristic: try A first
         group_a = parts[4]
         try:
             spc_a = int(parts[5])
@@ -344,32 +368,13 @@ class RealTimePlotter:
                 return {
                     "seq": seq,
                     "slot_index": slot_index,
-                    "board_name": None,
                     "group_name": group_a,
                     "samples_per_channel": spc_a,
                     "raw_list": parts[6:]
                 }
         except Exception:
             pass
-
-        # Try B
-        if len(parts) < 8:
-            return None
-        board_b = parts[4]
-        group_b = parts[5]
-        spc_b = int(parts[6])
-        key_b = (slot_index, group_b)
-        if key_b not in self.mapper.stream_index:
-            return None
-
-        return {
-            "seq": seq,
-            "slot_index": slot_index,
-            "board_name": board_b,
-            "group_name": group_b,
-            "samples_per_channel": spc_b,
-            "raw_list": parts[7:]
-        }
+        return None
 
     def process_packet(self, raw_bytes: bytes):
         try:
@@ -430,7 +435,8 @@ class RealTimePlotter:
                 return
             text = self._last_packet_text
             self._last_packet_dirty = False
-        self.last_packet_artist.set_text(text)
+        for artist in self.slot_last_packet_artist.values():
+            artist.set_text(text)
 
     def _update_once(self, _frame=None):
         if len(self.mapper.streams) == 0:
@@ -447,8 +453,10 @@ class RealTimePlotter:
             return []
         self._last_snapshot_time = now
 
-        for stream_idx, ax in enumerate(self.axes):
-            stream = self.mapper.streams[stream_idx]
+        for stream_idx, stream in enumerate(self.mapper.streams):
+            ax = self.stream_axis.get(stream_idx)
+            if ax is None:
+                continue
             rate = float(stream["rate_hz"]) if stream["rate_hz"] > 0 else 10.0
             points_needed = max(2, int(rate * self.time_window))
 
@@ -459,6 +467,8 @@ class RealTimePlotter:
                 slot_snapshot = {ch_id: list(dq) for ch_id, dq in slot_data.items()}
 
             has_update = False
+            y_min = None
+            y_max = None
             for ch_id, full_data in slot_snapshot.items():
                 if len(full_data) < 2:
                     continue
@@ -481,12 +491,15 @@ class RealTimePlotter:
 
                 self.lines[stream_idx][ch_id].set_data(x_data, display_data)
 
-                if ch_id == stream["channels"][0]:
-                    y_min, y_max = float(min(display_data)), float(max(display_data))
-                    margin = (y_max - y_min) * 0.1 if y_max != y_min else 1.0
-                    ax.set_ylim(y_min - margin, y_max + margin)
+                dmin = float(min(display_data))
+                dmax = float(max(display_data))
+                y_min = dmin if y_min is None else min(y_min, dmin)
+                y_max = dmax if y_max is None else max(y_max, dmax)
 
             if has_update:
+                if y_min is not None and y_max is not None:
+                    margin = (y_max - y_min) * 0.1 if y_max != y_min else 1.0
+                    ax.set_ylim(y_min - margin, y_max + margin)
                 ax.set_xlim(-self.time_window, 0)
                 ax.grid(True, which="both", linestyle="--", linewidth=0.5)
 
@@ -495,15 +508,17 @@ class RealTimePlotter:
 
     def start_animation(self):
         interval_ms = max(1, int(1000 / MAX_FPS))
-        self.anim = FuncAnimation(
-            self.fig,
-            self._update_once,
-            interval=interval_ms,
-            blit=False,
-            cache_frame_data=False
-        )
+        self.anims = []
+        for fig in self.slot_figs.values():
+            self.anims.append(FuncAnimation(
+                fig,
+                self._update_once,
+                interval=interval_ms,
+                blit=False,
+                cache_frame_data=False
+            ))
         plt.show(block=True)
-        while self.running and plt.fignum_exists(self.fig.number):
+        while self.running and any(plt.fignum_exists(fig.number) for fig in self.slot_figs.values()):
             plt.pause(0.1)
 
     def _on_close(self, _event):

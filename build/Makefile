@@ -225,6 +225,30 @@ src/daq/DAQ_VMAP_AI217.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ueipac_app.dir/build.make CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.s
 .PHONY : src/daq/DAQ_VMAP_AI217.cpp.s
 
+src/dsp/Moving_Average.o: src/dsp/Moving_Average.cpp.o
+.PHONY : src/dsp/Moving_Average.o
+
+# target to build an object file
+src/dsp/Moving_Average.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ueipac_app.dir/build.make CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o
+.PHONY : src/dsp/Moving_Average.cpp.o
+
+src/dsp/Moving_Average.i: src/dsp/Moving_Average.cpp.i
+.PHONY : src/dsp/Moving_Average.i
+
+# target to preprocess a source file
+src/dsp/Moving_Average.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ueipac_app.dir/build.make CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.i
+.PHONY : src/dsp/Moving_Average.cpp.i
+
+src/dsp/Moving_Average.s: src/dsp/Moving_Average.cpp.s
+.PHONY : src/dsp/Moving_Average.s
+
+# target to generate assembly for a file
+src/dsp/Moving_Average.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ueipac_app.dir/build.make CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.s
+.PHONY : src/dsp/Moving_Average.cpp.s
+
 src/net/UdpSender.o: src/net/UdpSender.cpp.o
 .PHONY : src/net/UdpSender.o
 
@@ -318,6 +342,9 @@ help:
 	@echo "... src/daq/DAQ_VMAP_AI217.o"
 	@echo "... src/daq/DAQ_VMAP_AI217.i"
 	@echo "... src/daq/DAQ_VMAP_AI217.s"
+	@echo "... src/dsp/Moving_Average.o"
+	@echo "... src/dsp/Moving_Average.i"
+	@echo "... src/dsp/Moving_Average.s"
 	@echo "... src/net/UdpSender.o"
 	@echo "... src/net/UdpSender.i"
 	@echo "... src/net/UdpSender.s"

@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/main.cpp" "CMakeFiles/ueipac_app.dir/main.cpp.o" "gcc" "CMakeFiles/ueipac_app.dir/main.cpp.o.d"
   "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/daq/DAQFactory.cpp" "CMakeFiles/ueipac_app.dir/src/daq/DAQFactory.cpp.o" "gcc" "CMakeFiles/ueipac_app.dir/src/daq/DAQFactory.cpp.o.d"
   "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/daq/DAQ_VMAP_AI217.cpp" "CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.o" "gcc" "CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.o.d"
+  "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/dsp/Moving_Average.cpp" "CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o" "gcc" "CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o.d"
   "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/net/UdpSender.cpp" "CMakeFiles/ueipac_app.dir/src/net/UdpSender.cpp.o" "gcc" "CMakeFiles/ueipac_app.dir/src/net/UdpSender.cpp.o.d"
   "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/utils/ConfigLoader.cpp" "CMakeFiles/ueipac_app.dir/src/utils/ConfigLoader.cpp.o" "gcc" "CMakeFiles/ueipac_app.dir/src/utils/ConfigLoader.cpp.o.d"
   "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/utils/CsvPacketizer.cpp" "CMakeFiles/ueipac_app.dir/src/utils/CsvPacketizer.cpp.o" "gcc" "CMakeFiles/ueipac_app.dir/src/utils/CsvPacketizer.cpp.o.d"

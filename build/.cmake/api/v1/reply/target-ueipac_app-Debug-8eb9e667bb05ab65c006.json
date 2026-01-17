@@ -28,7 +28,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 57,
+				"line" : 58,
 				"parent" : 0
 			},
 			{
@@ -40,7 +40,7 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 60,
+				"line" : 61,
 				"parent" : 0
 			},
 			{
@@ -125,7 +125,8 @@
 				2,
 				3,
 				4,
-				5
+				5,
+				6
 			]
 		},
 		{
@@ -181,7 +182,7 @@
 			"language" : "C",
 			"sourceIndexes" : 
 			[
-				6
+				7
 			]
 		}
 	],
@@ -244,7 +245,8 @@
 				3,
 				4,
 				5,
-				6
+				6,
+				7
 			]
 		}
 	],
@@ -284,6 +286,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/utils/CsvPacketizer.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/dsp/Moving_Average.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

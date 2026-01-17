@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/ueipac_app.dir/src/daq/DAQFactory.cpp.o.d"
   "CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.o"
   "CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.o.d"
+  "CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o"
+  "CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o.d"
   "CMakeFiles/ueipac_app.dir/src/net/UdpSender.cpp.o"
   "CMakeFiles/ueipac_app.dir/src/net/UdpSender.cpp.o.d"
   "CMakeFiles/ueipac_app.dir/src/utils/ConfigLoader.cpp.o"

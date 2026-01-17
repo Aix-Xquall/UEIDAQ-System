@@ -91,6 +91,13 @@ build CMakeFiles/ueipac_app.dir/src/utils/CsvPacketizer.cpp.o: CXX_COMPILER__uei
   OBJECT_DIR = CMakeFiles/ueipac_app.dir
   OBJECT_FILE_DIR = CMakeFiles/ueipac_app.dir/src/utils
 
+build CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o: CXX_COMPILER__ueipac_app_unscanned_Debug /mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/dsp/Moving_Average.cpp || cmake_object_order_depends_target_ueipac_app
+  DEP_FILE = CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o.d
+  FLAGS = -g -std=gnu++11 -Wall -g
+  INCLUDES = -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/nlohmann -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/daq -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src
+  OBJECT_DIR = CMakeFiles/ueipac_app.dir
+  OBJECT_FILE_DIR = CMakeFiles/ueipac_app.dir/src/dsp
+
 build CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o: C_COMPILER__ueipac_app_unscanned_Debug /opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c || cmake_object_order_depends_target_ueipac_app
   DEP_FILE = CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o.d
   FLAGS = -g -Wall -g
@@ -106,7 +113,7 @@ build CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/Ue
 #############################################
 # Link the executable ueipac_app
 
-build ueipac_app: CXX_EXECUTABLE_LINKER__ueipac_app_Debug CMakeFiles/ueipac_app.dir/main.cpp.o CMakeFiles/ueipac_app.dir/src/utils/ConfigLoader.cpp.o CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.o CMakeFiles/ueipac_app.dir/src/daq/DAQFactory.cpp.o CMakeFiles/ueipac_app.dir/src/net/UdpSender.cpp.o CMakeFiles/ueipac_app.dir/src/utils/CsvPacketizer.cpp.o CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o
+build ueipac_app: CXX_EXECUTABLE_LINKER__ueipac_app_Debug CMakeFiles/ueipac_app.dir/main.cpp.o CMakeFiles/ueipac_app.dir/src/utils/ConfigLoader.cpp.o CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.o CMakeFiles/ueipac_app.dir/src/daq/DAQFactory.cpp.o CMakeFiles/ueipac_app.dir/src/net/UdpSender.cpp.o CMakeFiles/ueipac_app.dir/src/utils/CsvPacketizer.cpp.o CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o
   FLAGS = -g
   LINK_LIBRARIES = -Wl,-rpath,/opt/uei/ueipac-4.0.2/lib  -lpowerdna  -lpthread  -lm
   LINK_PATH = -L/opt/uei/ueipac-4.0.2/lib

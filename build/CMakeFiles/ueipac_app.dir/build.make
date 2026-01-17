@@ -153,10 +153,24 @@ CMakeFiles/ueipac_app.dir/src/utils/CsvPacketizer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ueipac_app.dir/src/utils/CsvPacketizer.cpp.s"
 	/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/utils/CsvPacketizer.cpp -o CMakeFiles/ueipac_app.dir/src/utils/CsvPacketizer.cpp.s
 
+CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o: CMakeFiles/ueipac_app.dir/flags.make
+CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o: /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/dsp/Moving_Average.cpp
+CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o: CMakeFiles/ueipac_app.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o"
+	/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o -MF CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o.d -o CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o -c /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/dsp/Moving_Average.cpp
+
+CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.i"
+	/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/dsp/Moving_Average.cpp > CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.i
+
+CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.s"
+	/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/dsp/Moving_Average.cpp -o CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.s
+
 CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o: CMakeFiles/ueipac_app.dir/flags.make
 CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o: /opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c
 CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o: CMakeFiles/ueipac_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o"
 	/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o -MF CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o.d -o CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o -c /opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c
 
 CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.i: cmake_force
@@ -175,6 +189,7 @@ ueipac_app_OBJECTS = \
 "CMakeFiles/ueipac_app.dir/src/daq/DAQFactory.cpp.o" \
 "CMakeFiles/ueipac_app.dir/src/net/UdpSender.cpp.o" \
 "CMakeFiles/ueipac_app.dir/src/utils/CsvPacketizer.cpp.o" \
+"CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o" \
 "CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o"
 
 # External object files for target ueipac_app
@@ -186,10 +201,11 @@ ueipac_app: CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.o
 ueipac_app: CMakeFiles/ueipac_app.dir/src/daq/DAQFactory.cpp.o
 ueipac_app: CMakeFiles/ueipac_app.dir/src/net/UdpSender.cpp.o
 ueipac_app: CMakeFiles/ueipac_app.dir/src/utils/CsvPacketizer.cpp.o
+ueipac_app: CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o
 ueipac_app: CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o
 ueipac_app: CMakeFiles/ueipac_app.dir/build.make
 ueipac_app: CMakeFiles/ueipac_app.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable ueipac_app"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable ueipac_app"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ueipac_app.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

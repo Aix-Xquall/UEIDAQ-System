@@ -1,102 +1,148 @@
-import socket
-import time
+import argparse
+import json
 import math
 import random
-import struct
+import socket
+import time
 
-# ================= 模擬設定 =================
-UDP_IP = "127.0.0.1"    # 本機測試
-UDP_PORT = 5005
-SAMPLE_RATE = 100.0     # 100Hz
-BATCH_SIZE = 10         # 模擬 C++ 端每 10 點發送一次 (0.1s)
-NUM_CHANNELS = 8        # 模擬 8 個通道
 
-# 模擬 AI-217 的 24-bit ADC 特性
-# Code 0 = -10V, Code 0x800000 = 0V, Code 0xFFFFFF = +10V
-ADC_MAX_CODE = 16777216.0 # 2^24
-ADC_RANGE_V = 20.0        # +/- 10V = 20V span
-ADC_OFFSET_V = 10.0       # -10V offset
+ADC_MAX_CODE = 16777216.0
+ADC_RANGE_V = 20.0
+ADC_OFFSET_V = 10.0
 
-def vol_to_code(voltage):
-    """將電壓轉換回 AI-217 的 24-bit Raw Code (模擬 ADC)"""
-    # 限制範圍 +/- 10V
+
+def vol_to_code(voltage: float) -> int:
     voltage = max(min(voltage, 10.0), -10.0)
-    
-    # 逆向公式: Code = ((Voltage + 10) / 20) * 2^24
     norm = (voltage + ADC_OFFSET_V) / ADC_RANGE_V
     code = int(norm * ADC_MAX_CODE)
-    
-    # 確保不溢位
     return max(min(code, 0xFFFFFF), 0)
 
-# ============================================
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-print(f"=== UEIPAC Binary Sender Simulator (Big Endian) ===")
-print(f"Target: {UDP_IP}:{UDP_PORT}")
-print(f"Rate: {SAMPLE_RATE} Hz, Batch: {BATCH_SIZE}")
-print(f"Format: Binary struct (>IdHH) + Raw Data (>I)")
-print(f"Press Ctrl+C to stop.\n")
+def load_settings(path: str) -> dict:
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
-seq_id = 0
-start_time = time.time()
-sim_time = 0.0 # 模擬時間軸
-dt = 1.0 / SAMPLE_RATE
 
-try:
-    while True:
-        loop_start = time.time()
-        
-        # 準備 Batch 容器
-        batch_raw_data = [] # 這裡將會是平坦的列表 [Ch0, Ch1... Ch0, Ch1...]
-        
-        # 記錄這個 Batch 的起始時間
-        batch_timestamp = time.time()
+def build_streams(cfg: dict):
+    streams = []
+    num_samples = int(cfg.get("numSamplesPerChannel", 0) or 0)
+    udp_ip = cfg.get("udp_target_ip", "127.0.0.1")
+    udp_port = int(cfg.get("udp_target_port", 5005))
 
-        # 生成 BATCH_SIZE 個取樣點
-        for _ in range(BATCH_SIZE):
-            # 針對每個通道生成數據
-            for ch in range(NUM_CHANNELS):
-                val = 0.0
-                if ch == 0: # Ch0: 2Hz Sine
-                    val = 5.0 * math.sin(2 * math.pi * 2.0 * sim_time)
-                elif ch == 1: # Ch1: 0.5Hz Sine
-                    val = 8.0 * math.sin(2 * math.pi * 0.5 * sim_time)
-                elif ch == 2: # Ch2: DC Offset
-                    val = 2.5
-                elif ch == 3: # Ch3: Noise
-                    val = random.uniform(-1, 1)
-                else: # 其他通道歸零
-                    val = 0.0
-                
-                # 轉成 Raw Code
-                code = vol_to_code(val)
-                batch_raw_data.append(code)
-            
-            sim_time += dt
+    for slot in cfg.get("slots", []) or []:
+        if not slot.get("active", False):
+            continue
+        sr = slot.get("sample_rate", 0)
+        if isinstance(sr, dict):
+            sr = sr.get("hz", 0.0) if sr.get("active", False) else 0.0
+        sr = float(sr)
+        if sr <= 0.0:
+            continue
 
-        # === 封包打包 (Binary Packing) ===
-        # 1. Header: Seq(I), TS(d), Samples(H), Channels(H)
-        # 注意: 使用 '>' (Big Endian) 模擬 PowerPC
-        header = struct.pack('>IdHH', seq_id, batch_timestamp, BATCH_SIZE, NUM_CHANNELS)
-        
-        # 2. Body: 將所有 uint32 code 打包
-        # 格式字串例如: '>80I' (若 Batch=10, Ch=8 -> 80個整數)
-        body_fmt = f'>{len(batch_raw_data)}I' 
-        payload = struct.pack(body_fmt, *batch_raw_data)
-        
-        # 發送
-        sock.sendto(header + payload, (UDP_IP, UDP_PORT))
-        print(f"\rSent Seq: {seq_id} | Time: {sim_time:.2f}s | Bytes: {len(header)+len(payload)}", end='')
+        slot_index = int(slot.get("slot_index", 0))
+        for g in slot.get("channel_groups", []) or []:
+            if not g.get("active", False):
+                continue
+            channels = [int(c) for c in g.get("channels", []) or []]
+            if not channels:
+                continue
+            group_name = g.get("group_name", f"slot_{slot_index}")
+            streams.append({
+                "slot_index": slot_index,
+                "group_name": group_name,
+                "channels": channels,
+                "sample_rate_hz": sr,
+                "samples_per_channel": num_samples,
+                "udp_ip": udp_ip,
+                "udp_port": udp_port,
+            })
 
-        seq_id += 1
-        
-        # 模擬採集發送間隔 (Batch 間隔 = BatchSize * dt)
-        # 例如 10點 * 0.01s = 0.1s 發送一次
-        wait_time = (BATCH_SIZE * dt) - (time.time() - loop_start)
-        if wait_time > 0:
-            time.sleep(wait_time)
+    return streams, num_samples, udp_ip, udp_port
 
-except KeyboardInterrupt:
-    print("\nStopped.")
-    sock.close()
+
+def synth_sample(ch: int, t: float) -> float:
+    noise = lambda amp=0.2: random.uniform(-amp, amp)
+
+    if ch == 0:
+        return 5.0 * math.sin(2 * math.pi * 10.0 * t) + 2*noise()
+    if ch == 1:
+        return 8.0 * math.sin(2 * math.pi * 50.0 * t) + 2*noise()
+    if ch == 2:
+        return 2.5
+    if ch == 3:
+        return random.uniform(-1, 1)
+    if ch == 4:
+        return 1.5 * math.sin(2 * math.pi * 5.0 * t)
+    if ch == 5:
+        return -3.0 * math.sin(2 * math.pi * 1.0 * t)
+    if ch == 6:
+        return 5.0 * math.sin(2 * math.pi * 10.0 * t) + 2*noise()
+    if ch == 7:
+        return 8.0 * math.sin(2 * math.pi * 50.0 * t) + 2*noise()
+    return 0.0
+
+
+def encode_csv(seq: int, slot_index: int, group_name: str, samples_per_channel: int, raw_values: list[int]) -> bytes:
+    parts = ["D", "1", str(seq), str(slot_index), group_name, str(samples_per_channel)]
+    parts.extend(str(v) for v in raw_values)
+    return ",".join(parts).encode("utf-8")
+
+
+def main():
+    parser = argparse.ArgumentParser(description="UEIPAC CSV sender simulator")
+    parser.add_argument("--config", default="UEI_DAQ_Settings.json", help="path to UEI_DAQ_Settings.json")
+    parser.add_argument("--verbose", action="store_true", help="print every send")
+    args = parser.parse_args()
+
+    cfg = load_settings(args.config)
+    streams, num_samples, cfg_ip, cfg_port = build_streams(cfg)
+    if num_samples <= 0 or not streams:
+        raise SystemExit("Invalid config: need numSamplesPerChannel > 0 and at least one active stream")
+
+    # 固定使用本機 127.0.0.1:5005 以測試 receiver
+    udp_ip = "127.0.0.1"
+    udp_port = 5005
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    print(f"=== UEIPAC CSV Sender Simulator ===")
+    print(f"Target: {udp_ip}:{udp_port}")
+    print(f"Streams: {len(streams)}")
+    for s in streams:
+        print(f"  - slot {s['slot_index']} / {s['group_name']} ch={s['channels']} @ {s['sample_rate_hz']} Hz, samples={s['samples_per_channel']}")
+    print("Format: D,1,<seq>,<slot>,<group>,<samples_per_channel>,<raw...>\n")
+
+    seq = 0
+    sim_t = 0.0
+    try:
+        while True:
+            t_loop = time.time()
+            for s in streams:
+                dt = 1.0 / s["sample_rate_hz"]
+                raw = []
+                for _ in range(s["samples_per_channel"]):
+                    for ch in s["channels"]:
+                        val = synth_sample(ch, sim_t)
+                        raw.append(vol_to_code(val))
+                    sim_t += dt
+
+                packet = encode_csv(seq, s["slot_index"], s["group_name"], s["samples_per_channel"], raw)
+                sock.sendto(packet, (udp_ip, udp_port))
+                if args.verbose:
+                    print(f"Sent seq={seq} slot={s['slot_index']} group={s['group_name']} bytes={len(packet)}")
+                seq += 1
+
+            # pace roughly by shortest stream rate
+            min_dt = min(1.0 / s["sample_rate_hz"] for s in streams)
+            elapsed = time.time() - t_loop
+            sleep_t = max(0.0, (s["samples_per_channel"] * min_dt) - elapsed)
+            if sleep_t > 0:
+                time.sleep(sleep_t)
+
+    except KeyboardInterrupt:
+        print("\nStopped.")
+    finally:
+        sock.close()
+
+
+if __name__ == "__main__":
+    main()

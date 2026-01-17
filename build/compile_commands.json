@@ -37,6 +37,12 @@
 },
 {
   "directory": "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
+  "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++ -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/nlohmann -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/daq -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -g -std=gnu++11 -Wall -g -o CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o -c /mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/dsp/Moving_Average.cpp",
+  "file": "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/dsp/Moving_Average.cpp",
+  "output": "CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o"
+},
+{
+  "directory": "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
   "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/nlohmann -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/daq -I/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -g -Wall -g -o CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o -c /opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c",
   "file": "/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c",
   "output": "CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o"

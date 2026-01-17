@@ -14,7 +14,7 @@ namespace uei
      *
      * MVP behavior:
      * - Only supports DNA-AI-217.
-     * - Rule A: stream groups where slot.active && group.active.
+     * - One device per slot; channels merged from active groups.
      */
     class DAQFactory
     {
