@@ -1,12 +1,10 @@
 file(REMOVE_RECURSE
   "CMakeFiles/ueipac_app.dir/main.cpp.o"
   "CMakeFiles/ueipac_app.dir/main.cpp.o.d"
-  "CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o"
-  "CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o.d"
   "CMakeFiles/ueipac_app.dir/src/daq/DAQFactory.cpp.o"
   "CMakeFiles/ueipac_app.dir/src/daq/DAQFactory.cpp.o.d"
-  "CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.o"
-  "CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.o.d"
+  "CMakeFiles/ueipac_app.dir/src/daq/SimDaqDevice.cpp.o"
+  "CMakeFiles/ueipac_app.dir/src/daq/SimDaqDevice.cpp.o.d"
   "CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o"
   "CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o.d"
   "CMakeFiles/ueipac_app.dir/src/net/UdpSender.cpp.o"
@@ -20,6 +18,6 @@ file(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-foreach(lang C CXX)
+foreach(lang CXX)
   include(CMakeFiles/ueipac_app.dir/cmake_clean_${lang}.cmake OPTIONAL)
 endforeach()

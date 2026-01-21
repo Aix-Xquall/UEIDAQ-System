@@ -3,7 +3,10 @@
 #include <stdexcept>
 #include <unordered_set>
 
+#ifndef SIM_BUILD
 #include "daq/DAQ_VMAP_AI217.hpp"
+#endif
+#include "daq/SimDaqDevice.hpp"
 
 namespace uei
 {
@@ -19,6 +22,8 @@ namespace uei
         std::vector<std::unique_ptr<DAQDevice>> devices;
 
         Require(settings.numSamplesPerChannel > 0, "numSamplesPerChannel must be > 0");
+
+        const bool sim_active = settings.daq_simulation.active;
 
         for (std::vector<SlotConfig>::const_iterator it = settings.slots.begin();
              it != settings.slots.end(); ++it)
@@ -63,27 +68,53 @@ namespace uei
             Require(any_group, "AI-217: no active channel_groups found");
             Require(!merged_channels.empty(), "AI-217: merged channel list is empty");
 
-            DAQ_VMAP_AI217::PDNA_PARAMS params;
+            const std::string group_name = "slot_" + std::to_string(slot.slot_index);
 
-            params.device = slot.device_id;
-            params.numChannels = static_cast<int>(merged_channels.size());
-            params.channels = merged_channels;
+            if (sim_active)
+            {
+                SimDaqDevice::Params params;
+                params.slot_index = slot.slot_index;
+                params.group_name = group_name;
+                params.channels = merged_channels;
+                params.sample_rate_hz = slot.sample_rate_hz;
+                params.samples_per_channel = settings.numSamplesPerChannel;
+                params.base_frequency = settings.daq_simulation.base_frequency;
+                params.frequency_step_percent = settings.daq_simulation.frequency_step_percent;
+                params.amplitude = settings.daq_simulation.amplitude;
+                params.noise_percent = settings.daq_simulation.noise_percent;
+                devices.push_back(std::unique_ptr<DAQDevice>(new SimDaqDevice(params)));
+            }
+#ifndef SIM_BUILD
+            else
+            {
+                DAQ_VMAP_AI217::PDNA_PARAMS params;
 
-            params.frequency = slot.sample_rate_hz;
-            params.numSamplesPerChannel = settings.numSamplesPerChannel;
+                params.device = slot.device_id;
+                params.numChannels = static_cast<int>(merged_channels.size());
+                params.channels = merged_channels;
 
-            params.slot_index = slot.slot_index;
-            params.group_name = "slot_" + std::to_string(slot.slot_index);
+                params.frequency = slot.sample_rate_hz;
+                params.numSamplesPerChannel = settings.numSamplesPerChannel;
 
-            params.iom_ip = settings.uei.iom_ip;
-            params.open_timeout_ms = settings.uei.open_timeout_ms;
-            params.enable_rt = settings.uei.enable_rt;
-            params.rt_priority = settings.uei.rt_priority;
+                params.slot_index = slot.slot_index;
+                params.group_name = group_name;
 
-            params.gain = slot.ai_config.gain;
-            params.input_mode = slot.ai_config.input_mode;
+                params.iom_ip = settings.uei.iom_ip;
+                params.open_timeout_ms = settings.uei.open_timeout_ms;
+                params.enable_rt = settings.uei.enable_rt;
+                params.rt_priority = settings.uei.rt_priority;
 
-            devices.push_back(std::unique_ptr<DAQDevice>(new DAQ_VMAP_AI217(params)));
+                params.gain = slot.ai_config.gain;
+                params.input_mode = slot.ai_config.input_mode;
+
+                devices.push_back(std::unique_ptr<DAQDevice>(new DAQ_VMAP_AI217(params)));
+            }
+#else
+            else
+            {
+                throw std::runtime_error("DAQFactory: hardware device requested but SIM_BUILD is ON");
+            }
+#endif
         }
 
         return devices;

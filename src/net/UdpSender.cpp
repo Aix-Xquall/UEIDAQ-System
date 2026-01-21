@@ -1,7 +1,9 @@
 #include "net/UdpSender.hpp"
 
 #include <arpa/inet.h>
+#include <cerrno>
 #include <cstring>
+#include <cstdio>
 #include <stdexcept>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -19,7 +21,14 @@ void UdpSender::Open(const std::string& ip, uint16_t port) {
 
   sock_ = ::socket(AF_INET, SOCK_DGRAM, 0);
   if (sock_ < 0) {
-    throw std::runtime_error("socket() failed");
+    const int err = errno;
+#ifdef SIM_BUILD
+    std::fprintf(stderr, "[WARN] UDP socket() failed: %s (SIM_BUILD no-op send)\n", std::strerror(err));
+    ready_ = false;
+    return;
+#else
+    throw std::runtime_error("socket() failed: " + std::string(std::strerror(err)));
+#endif
   }
 
   std::memset(&addr_, 0, sizeof(addr_));
@@ -32,10 +41,19 @@ void UdpSender::Open(const std::string& ip, uint16_t port) {
   }
 
   ready_ = true;
+#ifdef SIM_BUILD
+  std::fprintf(stdout, "[SimUdp] target=%s:%u (socket ok)\n", ip.c_str(), static_cast<unsigned>(port));
+#endif
 }
 
 bool UdpSender::Send(const void* data, std::size_t size) {
-  if (!ready_ || sock_ < 0) return false;
+  if (!ready_ || sock_ < 0) {
+#ifdef SIM_BUILD
+    return true; // no-op in simulation mode if socket unavailable
+#else
+    return false;
+#endif
+  }
 
   const auto sent = ::sendto(
       sock_,

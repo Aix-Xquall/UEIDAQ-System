@@ -22,10 +22,11 @@ namespace uei::dsp
   };
 
   /**
-   * @brief 針對每個 group_name 進行移動平均與降頻的處理器。
+   * @brief 針對每個 group_name 進行移動平均與降頻的處理器（frame 內 decimation）。
    *
-   * - 同 group 的 RawFrame 會累積 decimation 份後平均輸出。
-   * - 若 frame 尺寸改變，會重置累積並重新開始計算。
+   * - 對單一 frame 內的樣本，以 decimation 為窗做降頻平均。
+   * - 尾端不足 decimation 的樣本會跨 frame 暫存並在下一 frame 補齊。
+   * - 若通道數或 decimation 改變，會重置累積並重新開始計算。
    */
   class MovingAverageProcessor
   {
@@ -48,10 +49,9 @@ namespace uei::dsp
     struct State
     {
       int decimation{1};
-      int frames_accum{0};
-      int samples_per_channel{0};
       int num_channels{0};
-      std::vector<int64_t> accum;
+      int samples_in_window{0};
+      std::vector<int64_t> accum; // size = num_channels
     };
 
     std::unordered_map<std::string, MovingAverageConfig> configs_;

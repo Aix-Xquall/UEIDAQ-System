@@ -75,6 +75,17 @@ namespace uei
     std::string udp_target_ip;
     uint16_t udp_target_port{0};
 
+    struct DaqSimulationSettings
+    {
+      bool active{false};
+      double base_frequency{100.0};
+      double frequency_step_percent{20.0};
+      double amplitude{1.0};
+      double noise_percent{5.0};
+    };
+
+    DaqSimulationSettings daq_simulation;
+
     int config_version{2};
     UeiConfig uei;
 

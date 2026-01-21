@@ -1,0 +1,3 @@
+/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/CMakeFiles/ueipac_app.dir
+/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/CMakeFiles/edit_cache.dir
+/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/CMakeFiles/rebuild_cache.dir

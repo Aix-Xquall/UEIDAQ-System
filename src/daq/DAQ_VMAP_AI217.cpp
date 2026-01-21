@@ -150,7 +150,7 @@ namespace uei
       vmapRefreshRate = 1.0;
     periodns = static_cast<long long>(std::floor(1000000000.0 / vmapRefreshRate)); // 1000000000us / 7.8125 ms = 128 ms
 #else
-    double vmapRefreshRate = 128 * (1 / (params.frequency));
+    double vmapRefreshRate = 32 * (1 / (params.frequency));
     if (vmapRefreshRate > 1.0)
       vmapRefreshRate = 1.0;
     periodns = static_cast<long long>(std::floor(1000000000 * vmapRefreshRate)); // 1000,000,000 us *0.016 s = 16,000,000

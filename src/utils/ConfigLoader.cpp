@@ -49,6 +49,16 @@ namespace uei
     s.udp_target_port = static_cast<uint16_t>(j.value("udp_target_port", 0));
     s.config_version = j.value("config_version", 2);
 
+    if (j.contains("daq_simulation_settings") && j["daq_simulation_settings"].is_object())
+    {
+      const auto &jd = j["daq_simulation_settings"];
+      s.daq_simulation.active = jd.value("active", false);
+      s.daq_simulation.base_frequency = jd.value("base_frequency", 100.0);
+      s.daq_simulation.frequency_step_percent = jd.value("frequency_step_percent", 20.0);
+      s.daq_simulation.amplitude = jd.value("amplitude", 1.0);
+      s.daq_simulation.noise_percent = jd.value("noise_percent", 5.0);
+    }
+
     // Root global (aligned to Sample PDNA_PARAMS::numSamplesPerChannel)
     s.numSamplesPerChannel = j.value("numSamplesPerChannel", 0);
 

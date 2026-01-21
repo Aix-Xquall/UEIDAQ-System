@@ -31,7 +31,6 @@ MAX_FPS = 30
 SNAPSHOT_MAX_FPS = 15
 PLOT_DISPLAY_LIMIT = 20000
 MAX_BUFFER_SEC = 20.0
-LAST_PACKET_PREVIEW_CHARS = 240
 # ===========================================
 
 
@@ -126,19 +125,20 @@ class SystemMapper:
                     if ma_decim < 1:
                         ma_decim = 1
 
-                    output_rate_hz = base_rate_hz / ma_decim
-                    rate_hz = base_rate_hz
+                    output_rate_hz = base_rate_hz / ma_decim if ma_decim > 0 else base_rate_hz
                     ma_suffix = f", MAx{ma_decim}" if ma_active and ma_decim > 1 else ""
                     out_suffix = f", out={output_rate_hz:g} Hz" if ma_active and ma_decim > 1 else ""
                     target_suffix = f", target={target_hz:g} Hz" if target_hz > 0.0 else ""
 
-                    title = f"Slot {slot_index}: {board_name} / {group_name} ({rate_hz:g} Hz{ma_suffix}{out_suffix}{target_suffix})"
+                    title = f"Slot {slot_index}: {board_name} / {group_name} ({output_rate_hz:g} Hz{ma_suffix}{out_suffix}{target_suffix})"
                     streams.append({
                         "slot_index": slot_index,
                         "board_name": board_name,
                         "group_name": group_name,
                         "channels": [int(c) for c in channels],
-                        "rate_hz": rate_hz,
+                        "rate_hz": output_rate_hz,
+                        "base_rate_hz": base_rate_hz,
+                        "ma_decimation": ma_decim,
                         "title": title
                     })
 
@@ -193,11 +193,14 @@ class RealTimePlotter:
         self.packet_queue = queue.Queue()
         self.buffer_lock = threading.Lock()
 
-        self._last_packet_lock = threading.Lock()
-        self._last_packet_text = "Last UDP: (none)"
-        self._last_packet_dirty = True
+        self._rx_lock = threading.Lock()
+        self._rx_text = "RX: -"
+        self._rx_dirty = True
+        self._rx_bytes = 0
+        self._rx_packets = 0
+        self._rx_last_ts = time.time()
 
-        self.time_window = 5.0
+        self.time_window = 1.0
         self._last_snapshot_time = 0.0
 
         self.buffers = []
@@ -207,7 +210,7 @@ class RealTimePlotter:
         self.slot_figs = {}
         self.slot_axes = {}
         self.slot_buttons = {}
-        self.slot_last_packet_artist = {}
+        self.slot_status_artist = {}
         self.stream_axis = {}
 
         for s in self.mapper.streams:
@@ -261,9 +264,9 @@ class RealTimePlotter:
                 btns.append(btn)
             self.slot_buttons[slot_index] = btns
 
-            self.slot_last_packet_artist[slot_index] = fig.text(
+            self.slot_status_artist[slot_index] = fig.text(
                 0.01, 0.02,
-                "Last UDP: (none)",
+                "RX: -",
                 ha="left", va="bottom",
                 fontsize=9,
                 family="monospace",
@@ -274,7 +277,7 @@ class RealTimePlotter:
             self.slot_figs[slot_index] = fig
             self.slot_axes[slot_index] = axes
 
-        self._sync_buttons("5S")
+        self._sync_buttons("1S")
 
     def make_callback(self, label):
         return lambda _event: self.change_window(label)
@@ -301,21 +304,26 @@ class RealTimePlotter:
                 b.color = c
                 b.ax.set_facecolor(c)
 
-    def _set_last_packet_preview(self, raw_bytes: bytes):
-        try:
-            preview = raw_bytes.decode("utf-8", errors="ignore").replace("\r", "").replace("\n", "")
-        except Exception:
-            preview = ""
+    def _update_rx_stats(self, raw_bytes: bytes):
+        now = time.time()
 
-        if len(preview) > LAST_PACKET_PREVIEW_CHARS:
-            preview = preview[:LAST_PACKET_PREVIEW_CHARS] + " ..."
-
-        ts = time.strftime("%H:%M:%S")
-       # text = f"Last UDP [{ts}] ({len(raw_bytes)} bytes): {preview}"
-
-        with self._last_packet_lock:
-        #    self._last_packet_text = text
-            self._last_packet_dirty = True
+        with self._rx_lock:
+            self._rx_bytes += len(raw_bytes)
+            self._rx_packets += 1
+            elapsed = now - self._rx_last_ts
+            if elapsed >= 1.0:
+                bps = (self._rx_bytes * 8.0) / elapsed
+                bytes_per_sec = self._rx_bytes / elapsed
+                pkts_per_sec = self._rx_packets / elapsed
+                kb_per_sec = bytes_per_sec / 1000.0
+                kbps = bps / 1000.0
+                self._rx_text = (
+                    f"RX: {pkts_per_sec:.1f} pkts/sec, {kb_per_sec:.1f} kB/sec, {kbps:.1f} kbps"
+                )
+                self._rx_dirty = True
+                self._rx_bytes = 0
+                self._rx_packets = 0
+                self._rx_last_ts = now
 
     def udp_worker(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -325,7 +333,7 @@ class RealTimePlotter:
         while self.running:
             try:
                 data, _addr = sock.recvfrom(BUFFER_SIZE)
-                self._set_last_packet_preview(data)
+                self._update_rx_stats(data)
                 self.packet_queue.put(data)
             except Exception:
                 break
@@ -429,13 +437,13 @@ class RealTimePlotter:
         except Exception as e:
             safe_print(f"[ParseError] {e}")
 
-    def _update_last_packet_ui(self):
-        with self._last_packet_lock:
-            if not self._last_packet_dirty:
+    def _update_rx_ui(self):
+        with self._rx_lock:
+            if not self._rx_dirty:
                 return
-            text = self._last_packet_text
-            self._last_packet_dirty = False
-        for artist in self.slot_last_packet_artist.values():
+            text = self._rx_text
+            self._rx_dirty = False
+        for artist in self.slot_status_artist.values():
             artist.set_text(text)
 
     def _update_once(self, _frame=None):
@@ -449,7 +457,7 @@ class RealTimePlotter:
         now = time.time()
         min_interval = 1.0 / max(1, SNAPSHOT_MAX_FPS)
         if now - self._last_snapshot_time < min_interval:
-            self._update_last_packet_ui()
+            self._update_rx_ui()
             return []
         self._last_snapshot_time = now
 
@@ -457,8 +465,14 @@ class RealTimePlotter:
             ax = self.stream_axis.get(stream_idx)
             if ax is None:
                 continue
-            rate = float(stream["rate_hz"]) if stream["rate_hz"] > 0 else 10.0
-            points_needed = max(2, int(rate * self.time_window))
+            base_rate = float(stream.get("base_rate_hz", stream.get("rate_hz", 0.0)) or 0.0)
+            ma_decim = int(stream.get("ma_decimation", 1) or 1)
+            if ma_decim < 1:
+                ma_decim = 1
+            output_rate = base_rate / ma_decim if base_rate > 0 else float(stream.get("rate_hz", 10.0) or 10.0)
+            if output_rate <= 0:
+                output_rate = 10.0
+            points_needed = max(2, int(output_rate * self.time_window))
 
             with self.buffer_lock:
                 slot_data = self.buffers[stream_idx]
@@ -481,7 +495,7 @@ class RealTimePlotter:
                     display_data = display_data[::step]
 
                 count = len(display_data)
-                real_duration = min(len(full_data), points_needed) / rate
+                real_duration = min(len(full_data), points_needed) / output_rate
                 x_data = np.linspace(-real_duration, 0, count)
 
                 if ch_id not in self.lines[stream_idx]:
@@ -503,7 +517,7 @@ class RealTimePlotter:
                 ax.set_xlim(-self.time_window, 0)
                 ax.grid(True, which="both", linestyle="--", linewidth=0.5)
 
-        self._update_last_packet_ui()
+        self._update_rx_ui()
         return []
 
     def start_animation(self):

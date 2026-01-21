@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System
+CMAKE_SOURCE_DIR = /mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build
+CMAKE_BINARY_DIR = /mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/CMakeFiles /mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -153,30 +153,6 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ueipac_app.dir/build.make CMakeFiles/ueipac_app.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.o: opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o
-.PHONY : opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.o
-
-# target to build an object file
-opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ueipac_app.dir/build.make CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o
-.PHONY : opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o
-
-opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.i: opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.i
-.PHONY : opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.i
-
-# target to preprocess a source file
-opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ueipac_app.dir/build.make CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.i
-.PHONY : opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.i
-
-opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.s: opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.s
-.PHONY : opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.s
-
-# target to generate assembly for a file
-opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ueipac_app.dir/build.make CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.s
-.PHONY : opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.s
-
 src/daq/DAQFactory.o: src/daq/DAQFactory.cpp.o
 .PHONY : src/daq/DAQFactory.o
 
@@ -201,29 +177,29 @@ src/daq/DAQFactory.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ueipac_app.dir/build.make CMakeFiles/ueipac_app.dir/src/daq/DAQFactory.cpp.s
 .PHONY : src/daq/DAQFactory.cpp.s
 
-src/daq/DAQ_VMAP_AI217.o: src/daq/DAQ_VMAP_AI217.cpp.o
-.PHONY : src/daq/DAQ_VMAP_AI217.o
+src/daq/SimDaqDevice.o: src/daq/SimDaqDevice.cpp.o
+.PHONY : src/daq/SimDaqDevice.o
 
 # target to build an object file
-src/daq/DAQ_VMAP_AI217.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ueipac_app.dir/build.make CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.o
-.PHONY : src/daq/DAQ_VMAP_AI217.cpp.o
+src/daq/SimDaqDevice.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ueipac_app.dir/build.make CMakeFiles/ueipac_app.dir/src/daq/SimDaqDevice.cpp.o
+.PHONY : src/daq/SimDaqDevice.cpp.o
 
-src/daq/DAQ_VMAP_AI217.i: src/daq/DAQ_VMAP_AI217.cpp.i
-.PHONY : src/daq/DAQ_VMAP_AI217.i
+src/daq/SimDaqDevice.i: src/daq/SimDaqDevice.cpp.i
+.PHONY : src/daq/SimDaqDevice.i
 
 # target to preprocess a source file
-src/daq/DAQ_VMAP_AI217.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ueipac_app.dir/build.make CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.i
-.PHONY : src/daq/DAQ_VMAP_AI217.cpp.i
+src/daq/SimDaqDevice.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ueipac_app.dir/build.make CMakeFiles/ueipac_app.dir/src/daq/SimDaqDevice.cpp.i
+.PHONY : src/daq/SimDaqDevice.cpp.i
 
-src/daq/DAQ_VMAP_AI217.s: src/daq/DAQ_VMAP_AI217.cpp.s
-.PHONY : src/daq/DAQ_VMAP_AI217.s
+src/daq/SimDaqDevice.s: src/daq/SimDaqDevice.cpp.s
+.PHONY : src/daq/SimDaqDevice.s
 
 # target to generate assembly for a file
-src/daq/DAQ_VMAP_AI217.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ueipac_app.dir/build.make CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.s
-.PHONY : src/daq/DAQ_VMAP_AI217.cpp.s
+src/daq/SimDaqDevice.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ueipac_app.dir/build.make CMakeFiles/ueipac_app.dir/src/daq/SimDaqDevice.cpp.s
+.PHONY : src/daq/SimDaqDevice.cpp.s
 
 src/dsp/Moving_Average.o: src/dsp/Moving_Average.cpp.o
 .PHONY : src/dsp/Moving_Average.o
@@ -333,15 +309,12 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.o"
-	@echo "... opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.i"
-	@echo "... opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.s"
 	@echo "... src/daq/DAQFactory.o"
 	@echo "... src/daq/DAQFactory.i"
 	@echo "... src/daq/DAQFactory.s"
-	@echo "... src/daq/DAQ_VMAP_AI217.o"
-	@echo "... src/daq/DAQ_VMAP_AI217.i"
-	@echo "... src/daq/DAQ_VMAP_AI217.s"
+	@echo "... src/daq/SimDaqDevice.o"
+	@echo "... src/daq/SimDaqDevice.i"
+	@echo "... src/daq/SimDaqDevice.s"
 	@echo "... src/dsp/Moving_Average.o"
 	@echo "... src/dsp/Moving_Average.i"
 	@echo "... src/dsp/Moving_Average.s"

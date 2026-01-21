@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System
+# Install script for directory: /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 # Is this installation the result of a crosscompile?
 if(NOT DEFINED CMAKE_CROSSCOMPILING)
-  set(CMAKE_CROSSCOMPILING "TRUE")
+  set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
 # Set default install directory permissions.
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
