@@ -16,7 +16,7 @@
     "enable_rt": true,
     "rt_priority": 80
   },
-  "numSamplesPerChannel": 1000,
+  "numSamplesPerChannel": 200,
   "slots": [
     {
       "slot_index": 1,
@@ -84,6 +84,69 @@
           },
           "fft": {
             "active": false,
+            "size": 1024,
+            "window_type": "hann",
+            "overlap": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "slot_index": 2,
+      "board_name": "DNA-AI-211",
+      "active": true,
+      "device_id": 0,
+      "subsystem": "DQ_SS0IN",
+      "sample_rate": 1000,
+      "ai_config": {
+        "gain": 1,
+        "input_mode": "diff"
+      },
+      "ai211_config": {
+        "apply_layer_default": true,
+        "apply_channel_config": true,
+        "hpf": "dc",
+        "analog_filter": "on",
+        "comp_hi": "std",
+        "comp_lo": "std",
+        "alarm": "on",
+        "bias_on": true,
+        "bias_drive_ma": 1.0
+      },
+      "channel_groups": [
+        {
+          "group_name": "AI-211_grp0",
+          "active": true,
+          "target_hz": 1000,
+          "channels": [
+            0,
+            1
+          ],
+          "moving_average": {
+            "active": false,
+            "decimation": 1
+          },
+          "fft": {
+            "active": false,
+            "size": 1024,
+            "window_type": "hann",
+            "overlap": 0.5
+          }
+        },
+        {
+          "group_name": "AI-211_grp1",
+          "active": true,
+          "target_hz": 1000,
+          "channels": [
+            2,
+            3
+          ],
+          "moving_average": {
+            "active": false,
+            "decimation": 1
+          },
+          "fft": {
+            "active": true,
             "size": 1024,
             "window_type": "hann",
             "overlap": 0.5

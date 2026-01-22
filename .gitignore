@@ -462,6 +462,9 @@ local.properties
 
 # PyDev specific (Python IDE for Eclipse)
 *.pydevproject
+.venv/*.*
+.venv
+
 
 # CDT-specific (C/C++ Development Tooling)
 .cproject

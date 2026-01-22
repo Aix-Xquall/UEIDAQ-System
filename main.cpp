@@ -51,7 +51,7 @@ namespace
     {
       if (!slot.active)
         continue;
-      if (slot.board_name != "DNA-AI-217")
+      if (slot.board_name != "DNA-AI-217" && slot.board_name != "DNA-AI-211")
         continue;
 
       SlotPlan plan;

@@ -98,6 +98,21 @@ namespace uei
         slot.ai_config.input_mode = ja.value("input_mode", "diff");
       }
 
+      // ai211_config (optional)
+      if (js.contains("ai211_config") && js["ai211_config"].is_object())
+      {
+        const auto &j211 = js["ai211_config"];
+        slot.ai211.apply_layer_default = j211.value("apply_layer_default", slot.ai211.apply_layer_default);
+        slot.ai211.apply_channel_config = j211.value("apply_channel_config", slot.ai211.apply_channel_config);
+        slot.ai211.hpf = j211.value("hpf", slot.ai211.hpf);
+        slot.ai211.analog_filter = j211.value("analog_filter", slot.ai211.analog_filter);
+        slot.ai211.comp_hi = j211.value("comp_hi", slot.ai211.comp_hi);
+        slot.ai211.comp_lo = j211.value("comp_lo", slot.ai211.comp_lo);
+        slot.ai211.alarm = j211.value("alarm", slot.ai211.alarm);
+        slot.ai211.bias_on = j211.value("bias_on", slot.ai211.bias_on);
+        slot.ai211.bias_drive_ma = j211.value("bias_drive_ma", slot.ai211.bias_drive_ma);
+      }
+
       // channel_groups
       if (js.contains("channel_groups") && js["channel_groups"].is_array())
       {

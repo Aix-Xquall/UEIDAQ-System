@@ -88,16 +88,31 @@ namespace uei
     const double noise_amp = params_.amplitude * params_.noise_percent * 0.01;
     constexpr double kPi = 3.14159265358979323846;
 
+    const bool is_ai211 = (params_.board_name == "DNA-AI-211");
+    const bool is_ai217 = (params_.board_name.empty() || params_.board_name == "DNA-AI-217");
+
     for (int s = 0; s < spc; ++s)
     {
       const double t = t_ + dt * s;
       const int base = s * num_ch;
       for (int ch_idx = 0; ch_idx < num_ch; ++ch_idx)
       {
-        // ch0/ch6 同波形、ch1/ch7 同波形，其餘依序遞增頻率
-        int base_idx = ch_idx;
-        if (ch_idx == 6) base_idx = 0;
-        else if (ch_idx == 7) base_idx = 1;
+        const int logical_ch = params_.channels[static_cast<size_t>(ch_idx)];
+        int base_idx = logical_ch;
+        if (is_ai211)
+        {
+          if (logical_ch == 2)
+            base_idx = 0;
+          else if (logical_ch == 3)
+            base_idx = 1;
+        }
+        else if (is_ai217)
+        {
+          if (logical_ch == 6)
+            base_idx = 0;
+          else if (logical_ch == 7)
+            base_idx = 1;
+        }
 
         const double freq = params_.base_frequency * (1.0 + params_.frequency_step_percent * 0.01 * base_idx);
         const double noise = noise_amp * ((static_cast<double>(std::rand()) / RAND_MAX) * 2.0 - 1.0);

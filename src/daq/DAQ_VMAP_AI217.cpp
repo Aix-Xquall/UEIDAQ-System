@@ -1,6 +1,14 @@
 #include "daq/DAQ_VMAP_AI217.hpp"
 
+#ifdef min
+#undef min
+#endif
+#ifdef max
+#undef max
+#endif
+
 #include <arpa/inet.h> // ntohl
+#include <algorithm>
 #include <cmath>
 #include <csignal>
 #include <cstring>
@@ -143,18 +151,26 @@ namespace uei
     // Allocate bdata storage (Sample's bdata)
     bdata_storage.resize(static_cast<size_t>(params.numChannels * params.numSamplesPerChannel));
 
-    // ---- pacing: SAME formula as Sample ----
-#if 0
-    double vmapRefreshRate = (params.frequency * params.numChannels) / 128; // 1000 * 8 /1024 = 7.8125 ms
-    if (vmapRefreshRate <= 0.0)
-      vmapRefreshRate = 1.0;
-    periodns = static_cast<long long>(std::floor(1000000000.0 / vmapRefreshRate)); // 1000000000us / 7.8125 ms = 128 ms
-#else
-    double vmapRefreshRate = 32 * (1 / (params.frequency));
-    if (vmapRefreshRate > 1.0)
-      vmapRefreshRate = 1.0;
-    periodns = static_cast<long long>(std::floor(1000000000 * vmapRefreshRate)); // 1000,000,000 us *0.016 s = 16,000,000
-#endif
+    // ---- pacing: FIFO half-full, read length, and UI FPS ----
+    const double fifo_per_ch = 2048.0;
+    const double ui_fps = 20.0;
+    const double fs = params.frequency;
+
+    const double half_fifo_time = (fs > 0.0) ? ((fifo_per_ch * 0.5) / fs) : 0.0;
+    const double read_time = (fs > 0.0) ? (static_cast<double>(params.numSamplesPerChannel) / fs) : 0.0;
+    const double ui_time = (ui_fps > 0.0) ? (1.0 / ui_fps) : 0.0;
+
+    double period_s = 0.0;
+    if (half_fifo_time > 0.0)
+      period_s = half_fifo_time;
+    if (read_time > 0.0)
+      period_s = (period_s > 0.0) ? std::min(period_s, read_time) : read_time;
+    if (ui_time > 0.0)
+      period_s = (period_s > 0.0) ? std::min(period_s, ui_time) : ui_time;
+    if (period_s <= 0.0)
+      period_s = 0.001; // fallback 1ms
+
+    periodns = static_cast<long long>(std::floor(1000000000.0 * period_s));
     clock_gettime(CLOCK_MONOTONIC, &next);
 
     LogInfo("AI217 Open OK: device=" + std::to_string(params.device) +
@@ -162,6 +178,10 @@ namespace uei
             " numChannels=" + std::to_string(params.numChannels) +
             " numSamplesPerChannel=" + std::to_string(params.numSamplesPerChannel) +
             " period_ms=" + std::to_string(periodns / 1000000LL));
+    LogInfo("AI217 pacing: fifo_ms=" + std::to_string(half_fifo_time * 1000.0) +
+            " read_ms=" + std::to_string(read_time * 1000.0) +
+            " ui_ms=" + std::to_string(ui_time * 1000.0) +
+            " period_ms=" + std::to_string(periodns / 1000000.0));
   }
 
   void DAQ_VMAP_AI217::Start()

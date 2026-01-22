@@ -223,12 +223,20 @@ class RealTimePlotter:
         self.maxlens = []
         self.lines = []
         self.fft_meta = []
-        self.slot_groups = {}
-        self.slot_figs = {}
-        self.slot_axes = {}
+        self.fig = None
+        self.axes = []
+        self.time_buttons = []
         self.slot_buttons = {}
-        self.slot_status_artist = {}
+        self.status_artist = None
         self.stream_axis = {}
+        self.slot_groups = {}
+        self.slot_ids = []
+        self.active_slot = None
+        self.active_streams = set()
+        self.grid_rows = 0
+        self.grid_cols = 0
+        self.fixed_figsize = None
+        self.slot_boards = {}
 
         for s in self.mapper.streams:
             if s.get("is_fft", False):
@@ -254,6 +262,14 @@ class RealTimePlotter:
 
         for i, s in enumerate(self.mapper.streams):
             self.slot_groups.setdefault(s["slot_index"], []).append(i)
+            if s["slot_index"] not in self.slot_boards:
+                self.slot_boards[s["slot_index"]] = s.get("board_name", "")
+        self.slot_ids = sorted(self.slot_groups.keys())
+        if self.slot_ids:
+            self.active_slot = self.slot_ids[0]
+            max_groups = max(len(v) for v in self.slot_groups.values())
+            max_rows, max_cols = self._select_grid(max_groups)
+            self.fixed_figsize = self._grid_figsize(max_rows, max_cols)
 
         self.init_plot()
 
@@ -264,57 +280,181 @@ class RealTimePlotter:
 
     def init_plot(self):
         plt.ion()
-        labels = ["100ms", "500ms", "1S", "5S", "10S", "20S"]
+        labels = ["100ms", "200ms", "500ms", "1S", "2S", "5S"]
+        total_streams = len(self.mapper.streams)
+        if total_streams <= 0:
+            return
 
-        for slot_index, stream_idxs in self.slot_groups.items():
-            n = len(stream_idxs)
-            fig, axes = plt.subplots(n, 1, figsize=(12, 3.5 * max(1, n)), sharex=False)
-            if n == 1:
-                axes = [axes]
-            axes = np.array(axes).flatten()
+        self.fig = plt.figure(figsize=self.fixed_figsize or (12.0, 6.0))
+        stream_idxs = self.slot_groups.get(self.active_slot, [])
+        self._ensure_grid(len(stream_idxs))
 
-            try:
-                fig.canvas.manager.set_window_title(f"{self.mapper.system_name} (Slot {slot_index})")
-            except Exception:
-                pass
+        self._update_window_title()
 
-            fig.subplots_adjust(bottom=0.22, hspace=0.5)
+        self.time_buttons = []
+        gap = 0.02
+        btn_w = 0.105
+        total_w = btn_w * len(labels) + gap * (len(labels) - 1)
+        start_x = max(0.1, (1.0 - total_w) / 2.0)
+        for i, label in enumerate(labels):
+            ax_btn = self.fig.add_axes([start_x + i * (btn_w + gap), 0.03, btn_w, 0.04])
+            btn = Button(ax_btn, label, color="0.9", hovercolor="0.8")
+            btn.on_clicked(self.make_callback(label))
+            self.time_buttons.append(btn)
 
-            for i, stream_idx in enumerate(stream_idxs):
-                ax = axes[i]
-                stream = self.mapper.streams[stream_idx]
-                ax.set_title(stream["title"])
-                ax.grid(True, which="both", linestyle="--", linewidth=0.5)
-                if stream.get("is_fft", False):
-                    ax.set_xlabel("Hz")
-                    ax.set_ylabel("dBFS")
-                else:
-                    ax.set_xlim(-self.time_window, 0)
-                self.stream_axis[stream_idx] = ax
-
-            btns = []
-            start_x = 0.12
-            for i, label in enumerate(labels):
-                ax_btn = fig.add_axes([start_x + i * 0.13, 0.08, 0.12, 0.05])
+        self.slot_buttons = {}
+        slot_count = len(self.slot_ids)
+        if slot_count > 0:
+            slot_area = 0.88
+            gap = 0.02
+            slot_btn_width = (slot_area - gap * (slot_count - 1)) / slot_count
+            slot_btn_width = min(0.16, max(0.07, slot_btn_width * 0.9))
+            total_width = slot_btn_width * slot_count + gap * (slot_count - 1)
+            start_x = max(0.1, (1.0 - total_width) / 2.0)
+            for i, slot_id in enumerate(self.slot_ids):
+                ax_btn = self.fig.add_axes([start_x + i * (slot_btn_width + gap), 0.945, slot_btn_width, 0.035])
+                label = self._slot_label(slot_id)
                 btn = Button(ax_btn, label, color="0.9", hovercolor="0.8")
-                btn.on_clicked(self.make_callback(label))
-                btns.append(btn)
-            self.slot_buttons[slot_index] = btns
+                btn.label.set_fontsize(btn.label.get_fontsize() + 2)
+                btn.on_clicked(self.make_slot_callback(slot_id))
+                self.slot_buttons[slot_id] = btn
 
-            self.slot_status_artist[slot_index] = fig.text(
-                0.01, 0.02,
-                "RX: -",
-                ha="left", va="bottom",
-                fontsize=9,
-                family="monospace",
-                color="black"
-            )
-            fig.canvas.mpl_connect("close_event", self._on_close)
+        self.status_artist = self.fig.text(
+            0.01, 0.02,
+            "RX: -",
+            ha="left", va="bottom",
+            fontsize=9,
+            family="monospace",
+            color="black"
+        )
+        self.fig.canvas.mpl_connect("close_event", self._on_close)
 
-            self.slot_figs[slot_index] = fig
-            self.slot_axes[slot_index] = axes
-
+        self._render_active_slot()
         self._sync_buttons("1S")
+        self._sync_slot_buttons()
+
+    def _select_grid(self, group_count: int):
+        if group_count <= 4:
+            cols = 1
+        elif group_count <= 9:
+            cols = 2
+        else:
+            cols = 3
+        rows = max(1, int(np.ceil(group_count / cols))) if group_count > 0 else 1
+        return rows, cols
+
+    def _grid_figsize(self, rows: int, cols: int):
+        width = 12.0 + max(0, cols - 1) * 3.0
+        height = 3.6 * rows + 1.8
+        return (width, height)
+
+    def _ensure_grid(self, group_count: int):
+        rows, cols = self._select_grid(group_count)
+        if self.grid_rows == rows and self.grid_cols == cols and len(self.axes) > 0:
+            return
+
+        self.grid_rows = rows
+        self.grid_cols = cols
+
+        if self.fig is None:
+            self.fig = plt.figure(figsize=self.fixed_figsize or self._grid_figsize(rows, cols))
+
+        for ax in self.axes:
+            ax.remove()
+
+        axes = self.fig.subplots(rows, cols, sharex=False)
+        self.axes = np.array(axes).reshape(-1)
+        for ax in self.axes:
+            ax.set_visible(False)
+
+        self.fig.subplots_adjust(bottom=0.2, top=0.86, hspace=0.6, wspace=0.35)
+
+    def _render_active_slot(self):
+        if self.active_slot is None:
+            return
+
+        stream_idxs = self.slot_groups.get(self.active_slot, [])
+        self._ensure_grid(len(stream_idxs))
+
+        for ax in self.axes:
+            ax.clear()
+            ax.set_visible(False)
+        self.stream_axis.clear()
+        self.active_streams = set()
+
+        for i, stream_idx in enumerate(stream_idxs):
+            if i >= len(self.axes):
+                break
+            ax = self.axes[i]
+            ax.set_visible(True)
+            stream = self.mapper.streams[stream_idx]
+            ax.set_title(self._build_group_title(stream))
+            ax.grid(True, which="both", linestyle="--", linewidth=0.5)
+            if stream.get("is_fft", False):
+                ax.set_xlabel("Hz")
+                ax.set_ylabel("dBFS")
+            else:
+                ax.set_xlim(-self.time_window, 0)
+            self.stream_axis[stream_idx] = ax
+            self.active_streams.add(stream_idx)
+            self.lines[stream_idx] = {}
+
+        self._update_window_title()
+        if self.fig is not None:
+            self.fig.canvas.draw_idle()
+
+    def _update_window_title(self):
+        if self.fig is None:
+            return
+        slot_label = self._slot_label(self.active_slot) if self.active_slot is not None else "Slot -"
+        try:
+            self.fig.canvas.manager.set_window_title(
+                f"{self.mapper.system_name} ({slot_label})"
+            )
+        except Exception:
+            pass
+
+    def _slot_label(self, slot_id: int) -> str:
+        if slot_id is None:
+            return "Slot -"
+        board = self.slot_boards.get(slot_id, "")
+        if board:
+            return f"Slot {slot_id} ({board})"
+        return f"Slot {slot_id}"
+
+    def _build_group_title(self, stream: dict) -> str:
+        group = stream.get("group_name", "")
+        out_rate = float(stream.get("rate_hz", 0.0) or 0.0)
+        base_rate = float(stream.get("base_rate_hz", out_rate) or 0.0)
+        ma_decim = int(stream.get("ma_decimation", 1) or 1)
+
+        if stream.get("is_fft", False):
+            fft_size = int(stream.get("fft_size", 0) or 0)
+            window = str(stream.get("fft_window", "") or "")
+            overlap = float(stream.get("fft_overlap", 0.0) or 0.0)
+            rate = out_rate if out_rate > 0 else base_rate
+            details = f"FFT N={fft_size}, Fs={rate:g}Hz"
+            if window:
+                details += f", {window}"
+            if overlap > 0.0:
+                details += f", ovl={overlap:g}"
+        else:
+            rate = out_rate if out_rate > 0 else base_rate
+            details = f"Fs={rate:g}Hz"
+            if ma_decim > 1 and base_rate > 0:
+                details += f", MAx{ma_decim}"
+
+        return f"{group} ({details})"
+
+    def make_slot_callback(self, slot_id):
+        return lambda _event: self.change_slot(slot_id)
+
+    def change_slot(self, slot_id):
+        if slot_id == self.active_slot:
+            return
+        self.active_slot = slot_id
+        self._render_active_slot()
+        self._sync_slot_buttons()
 
     def make_callback(self, label):
         return lambda _event: self.change_window(label)
@@ -327,19 +467,28 @@ class RealTimePlotter:
             val = float(label.replace("S", ""))
         self.time_window = val
 
-        for axes in self.slot_axes.values():
-            for ax in axes:
+        for stream_idx in self.active_streams:
+            stream = self.mapper.streams[stream_idx]
+            if stream.get("is_fft", False):
+                continue
+            ax = self.stream_axis.get(stream_idx)
+            if ax is not None:
                 ax.set_xlim(-self.time_window, 0)
 
         self._sync_buttons(label)
 
     def _sync_buttons(self, active_label):
-        for btns in self.slot_buttons.values():
-            for b in btns:
-                label = b.label.get_text()
-                c = "orange" if label == active_label else "0.9"
-                b.color = c
-                b.ax.set_facecolor(c)
+        for b in self.time_buttons:
+            label = b.label.get_text()
+            c = "orange" if label == active_label else "0.9"
+            b.color = c
+            b.ax.set_facecolor(c)
+
+    def _sync_slot_buttons(self):
+        for slot_id, btn in self.slot_buttons.items():
+            c = "orange" if slot_id == self.active_slot else "0.9"
+            btn.color = c
+            btn.ax.set_facecolor(c)
 
     def _update_rx_stats(self, raw_bytes: bytes):
         now = time.time()
@@ -556,8 +705,8 @@ class RealTimePlotter:
                 return
             text = self._rx_text
             self._rx_dirty = False
-        for artist in self.slot_status_artist.values():
-            artist.set_text(text)
+        if self.status_artist is not None:
+            self.status_artist.set_text(text)
 
     def _update_once(self, _frame=None):
         if len(self.mapper.streams) == 0:
@@ -574,10 +723,16 @@ class RealTimePlotter:
             return []
         self._last_snapshot_time = now
 
-        for stream_idx, stream in enumerate(self.mapper.streams):
+        if self.active_slot is None:
+            self._update_rx_ui()
+            return []
+
+        for stream_idx in self.active_streams:
+            stream = self.mapper.streams[stream_idx]
             ax = self.stream_axis.get(stream_idx)
             if ax is None:
                 continue
+            num_ch = len(stream.get("channels", []))
             if stream.get("is_fft", False):
                 with self.buffer_lock:
                     slot_data = self.buffers[stream_idx]
@@ -602,7 +757,13 @@ class RealTimePlotter:
                     if ch_id not in self.lines[stream_idx]:
                         line_obj, = ax.plot([], [], label=f"Ch{ch_id}", lw=1)
                         self.lines[stream_idx][ch_id] = line_obj
-                        ax.legend(loc="upper right", fontsize=8)
+                        ax.legend(
+                            loc="upper center",
+                            bbox_to_anchor=(0.5, 1.02),
+                            ncol=max(1, num_ch),
+                            fontsize=8,
+                            frameon=False,
+                        )
 
                     self.lines[stream_idx][ch_id].set_data(freq, mag_db)
 
@@ -654,7 +815,13 @@ class RealTimePlotter:
                     if ch_id not in self.lines[stream_idx]:
                         line_obj, = ax.plot([], [], label=f"Ch{ch_id}", lw=1)
                         self.lines[stream_idx][ch_id] = line_obj
-                        ax.legend(loc="upper left", fontsize=8)
+                        ax.legend(
+                            loc="upper center",
+                            bbox_to_anchor=(0.5, 1.02),
+                            ncol=max(1, num_ch),
+                            fontsize=8,
+                            frameon=False,
+                        )
 
                     self.lines[stream_idx][ch_id].set_data(x_data, display_data)
 
@@ -675,17 +842,19 @@ class RealTimePlotter:
 
     def start_animation(self):
         interval_ms = max(1, int(1000 / MAX_FPS))
+        if self.fig is None:
+            safe_print("[FATAL] No figure available. Fix JSON active flags / MA/FFT settings.")
+            return
         self.anims = []
-        for fig in self.slot_figs.values():
-            self.anims.append(FuncAnimation(
-                fig,
-                self._update_once,
-                interval=interval_ms,
-                blit=False,
-                cache_frame_data=False
-            ))
+        self.anims.append(FuncAnimation(
+            self.fig,
+            self._update_once,
+            interval=interval_ms,
+            blit=False,
+            cache_frame_data=False
+        ))
         plt.show(block=True)
-        while self.running and any(plt.fignum_exists(fig.number) for fig in self.slot_figs.values()):
+        while self.running and plt.fignum_exists(self.fig.number):
             plt.pause(0.1)
 
     def _on_close(self, _event):

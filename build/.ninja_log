@@ -1,15 +1,12 @@
 # ninja log v5
-444	7787	1768981860349156500	CMakeFiles/ueipac_app.dir/src/dsp/FftProcessor.cpp.o	30f8d60a5f185a5a
-403	15980	1768981866074101800	CMakeFiles/ueipac_app.dir/src/utils/ConfigLoader.cpp.o	a94aa71f77ebc9a7
-440	6176	1768981858527064600	CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o	671a3472847b6bd8
-89	2107	1769049443168919300	build.ninja	38b307fb52d1bd36
-457	7359	1768981859905018500	CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.o	f7953e10a13a5b8f
-431	5465	1768981857841323900	CMakeFiles/ueipac_app.dir/src/utils/CsvPacketizer.cpp.o	bfbc1f080f2166a4
-398	13192	1768981863079799900	CMakeFiles/ueipac_app.dir/main.cpp.o	1d0203590830aea
-421	8435	1768981861067266800	CMakeFiles/ueipac_app.dir/src/daq/DAQFactory.cpp.o	1252a655ad8cc82d
-412	5571	1768981857941570900	CMakeFiles/ueipac_app.dir/src/daq/SimDaqDevice.cpp.o	f7864f11f8e595d5
-448	1847	1768981853915049500	CMakeFiles/ueipac_app.dir/src/dsp/kiss_fft.c.o	aaec98555fdafe0a
-189	1747	1768967674267107300	CMakeFiles/ueipac_app.dir/src/net/UdpSender.cpp.o	e7d98d52ccfd9ec
-453	1597	1768981853635905300	CMakeFiles/ueipac_app.dir/src/dsp/kiss_fftr.c.o	6c320de9d1b0aa98
-16012	19001	1768981869348605700	ueipac_app	e7af96755e7d93f4
-201	896	1768967673409836900	CMakeFiles/ueipac_app.dir/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils/UeiPacUtils.c.o	387f37e726942354
+2710	3846	1769092892363937600	ueipac_app	59fd3c6a98f691e
+39	2701	1769092891213829500	CMakeFiles/ueipac_app.dir/src/utils/ConfigLoader.cpp.o	53fea38fd10f3154
+50	37606	1769092889758644800	CMakeFiles/ueipac_app.dir/src/dsp/FftProcessor.cpp.o	967636e2cf76bff0
+47	945	1769092889467663800	CMakeFiles/ueipac_app.dir/src/utils/CsvPacketizer.cpp.o	22dfa7383671fe04
+38	1958	1769092890474044300	CMakeFiles/ueipac_app.dir/main.cpp.o	38e19fa438f114a6
+43	1140	1769092889664842300	CMakeFiles/ueipac_app.dir/src/daq/DAQFactory.cpp.o	1218025a3134f903
+46	766	1769092889286646200	CMakeFiles/ueipac_app.dir/src/net/UdpSender.cpp.o	f383fc0e7adddc67
+53	325	1769092888823083700	CMakeFiles/ueipac_app.dir/src/dsp/kiss_fftr.c.o	7223c74e99cfe532
+48	1096	1769092889618868100	CMakeFiles/ueipac_app.dir/src/dsp/Moving_Average.cpp.o	92262b74a9b1c223
+41	927	1769092889450938000	CMakeFiles/ueipac_app.dir/src/daq/SimDaqDevice.cpp.o	99d8cab312014523
+51	301	1769092888823083700	CMakeFiles/ueipac_app.dir/src/dsp/kiss_fft.c.o	a7db145bbb58382

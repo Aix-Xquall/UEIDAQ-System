@@ -12,8 +12,8 @@ namespace uei
     /**
      * @brief Create DAQDevice instances from Settings.
      *
-     * MVP behavior:
-     * - Only supports DNA-AI-217.
+     * Supported behavior:
+     * - Supports DNA-AI-217 and DNA-AI-211.
      * - One device per slot; channels merged from active groups.
      */
     class DAQFactory

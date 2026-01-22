@@ -42,6 +42,20 @@ namespace uei
     std::string input_mode{"diff"}; ///< MVP: "diff"
   };
 
+  /** @brief AI-211 advanced config (all channels share the same settings). */
+  struct Ai211Config
+  {
+    bool apply_layer_default{true};
+    bool apply_channel_config{true};
+    std::string hpf{"dc"};             ///< dc, 0.1hz, 1hz, 10hz
+    std::string analog_filter{"on"};   ///< on, off
+    std::string comp_hi{"std"};        ///< std, default
+    std::string comp_lo{"std"};        ///< std, default
+    std::string alarm{"on"};           ///< on, off, red, green, orange
+    bool bias_on{true};
+    double bias_drive_ma{1.0};         ///< 0..8 mA
+  };
+
   /** @brief Per-slot configuration. */
   struct SlotConfig
   {
@@ -56,6 +70,7 @@ namespace uei
     double sample_rate_hz{0.0};
 
     AiConfig ai_config;
+    Ai211Config ai211;
     std::vector<ChannelGroupConfig> channel_groups;
   };
 

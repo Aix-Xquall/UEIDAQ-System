@@ -6,7 +6,7 @@ project(UEIDAQ-System LANGUAGES C CXX)
 # =========================================================
 # 1. 選項：SIM_BUILD=ON 時不依賴 UEI SDK，使用本機編譯器與模擬裝置
 # =========================================================
-option(SIM_BUILD "Build simulation-only binary without UEI hardware libs" OFF)
+option(SIM_BUILD "Build simulation-only binary without UEI hardware libs" ON)
 
 if(NOT SIM_BUILD)
     # 交叉編譯設定（powerpc）
@@ -67,6 +67,7 @@ set(SOURCE_FILES
 if(NOT SIM_BUILD)
     list(APPEND SOURCE_FILES
         src/daq/DAQ_VMAP_AI217.cpp
+        src/daq/DAQ_VMAP_AI211.cpp        
         "${UEI_UTILS_DIR}/UeiPacUtils.c"
     )
 endif()

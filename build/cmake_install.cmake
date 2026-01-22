@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System
+# Install script for directory: /mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-objdump")
+  set(CMAKE_OBJDUMP "/usr/bin/powerpc-linux-gnu-objdump")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/mnt/d/Dropbox/UEIDAQ/projects/UEIDAQ-System/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
