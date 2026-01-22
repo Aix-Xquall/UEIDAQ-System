@@ -11,6 +11,7 @@
 #include <vector>
 
 #include "daq/DAQFactory.hpp"
+#include "dsp/FftProcessor.hpp"
 #include "dsp/Moving_Average.hpp"
 #include "net/UdpSender.hpp"
 #include "utils/ConfigLoader.hpp"
@@ -31,6 +32,8 @@ namespace
     std::vector<int> channels;
     std::vector<int> channel_indices;
     uei::dsp::MovingAverageConfig ma_cfg;
+    uei::FftConfig fft_cfg;
+    double fft_sample_rate_hz{0.0};
   };
 
   struct SlotPlan
@@ -74,6 +77,11 @@ namespace
         gp.channels = g.channels;
         gp.ma_cfg.active = g.moving_average.active;
         gp.ma_cfg.decimation = g.moving_average.decimation;
+        gp.fft_cfg = g.fft;
+
+        const double base_rate = slot.sample_rate_hz;
+        const bool ma_active = gp.ma_cfg.active && gp.ma_cfg.decimation > 1;
+        gp.fft_sample_rate_hz = ma_active ? (base_rate / gp.ma_cfg.decimation) : base_rate;
 
         for (size_t i = 0; i < g.channels.size(); ++i)
         {
@@ -110,6 +118,22 @@ namespace
     return cfg;
   }
 
+  std::unordered_map<std::string, uei::dsp::FftProcessorConfig> BuildFftConfigsForSlot(const SlotPlan &plan)
+  {
+    std::unordered_map<std::string, uei::dsp::FftProcessorConfig> cfg;
+    for (const auto &g : plan.groups)
+    {
+      uei::dsp::FftProcessorConfig c;
+      c.active = g.fft_cfg.active;
+      c.size = g.fft_cfg.size;
+      c.window_type = g.fft_cfg.window_type;
+      c.overlap = g.fft_cfg.overlap;
+      c.sample_rate_hz = g.fft_sample_rate_hz;
+      cfg[g.group_name] = c;
+    }
+    return cfg;
+  }
+
   void LogStreamSummary(const uei::Settings &settings)
   {
     LogInfo("設定檔串流列表:");
@@ -122,9 +146,16 @@ namespace
       {
         if (!g.active)
           continue;
-        const double rate_hz = (g.target_hz > 0.0) ? g.target_hz : slot.sample_rate_hz;
+        const double base_rate = slot.sample_rate_hz;
+        const bool ma_active = g.moving_average.active && g.moving_average.decimation > 1;
+        const bool fft_active = g.fft.active;
+        const double out_rate = ma_active ? (base_rate / g.moving_average.decimation) : base_rate;
+        const std::string mode = fft_active ? "FFT" : (ma_active ? "MA" : "RAW");
         std::string msg = " - Slot " + std::to_string(slot.slot_index) + ": " + slot.board_name +
-                          " / " + g.group_name + " (" + std::to_string(rate_hz) + " Hz) ch=[";
+                          " / " + g.group_name + " (" + std::to_string(out_rate) + " Hz, " + mode;
+        if (fft_active)
+          msg += ", N=" + std::to_string(g.fft.size);
+        msg += ") ch=[";
         for (size_t i = 0; i < g.channels.size(); ++i)
         {
           msg += std::to_string(g.channels[i]);
@@ -145,9 +176,10 @@ namespace
     uei::DAQDevice *dev;
     SlotPlan plan;
     uei::dsp::MovingAverageProcessor ma_processor;
+    uei::dsp::FftProcessor fft_processor;
     uei::UdpSender udp;
     uei::RingBuffer<uei::RawFrame> rb_raw;
-    uei::RingBuffer<uei::RawFrame> rb_processed;
+    uei::RingBuffer<std::string> rb_payload;
     std::thread th_daq;
     std::thread th_proc;
     std::thread th_udp;
@@ -156,7 +188,12 @@ namespace
              const SlotPlan &p,
              std::size_t raw_cap,
              std::size_t proc_cap)
-        : dev(d), plan(p), ma_processor(BuildMovingAverageConfigsForSlot(p)), rb_raw(raw_cap), rb_processed(proc_cap)
+        : dev(d),
+          plan(p),
+          ma_processor(BuildMovingAverageConfigsForSlot(p)),
+          fft_processor(BuildFftConfigsForSlot(p)),
+          rb_raw(raw_cap),
+          rb_payload(proc_cap)
     {
     }
   };
@@ -165,13 +202,13 @@ namespace
    * @brief 啟動 DAQ 執行緒，負責讀取 frame 並推入 raw RingBuffer。
    * @param dev 裝置。
    * @param rb_raw RawFrame 緩衝。
-   * @param rb_processed 後續緩衝，用於同步停止。
+   * @param rb_payload 後續緩衝，用於同步停止。
    * @param stop_all 停止旗標。
    * @return 執行緒物件。
    */
   std::thread LaunchDaqThread(uei::DAQDevice &dev,
                               uei::RingBuffer<uei::RawFrame> &rb_raw,
-                              uei::RingBuffer<uei::RawFrame> &rb_processed,
+                              uei::RingBuffer<std::string> &rb_payload,
                               std::atomic<bool> &stop_all)
   {
     return std::thread([&]()
@@ -183,7 +220,7 @@ namespace
         {
           stop_all.store(true);
           rb_raw.Stop();
-          rb_processed.Stop();
+          rb_payload.Stop();
           break;
         }
 
@@ -195,17 +232,19 @@ namespace
   }
 
   /**
-   * @brief 啟動 Moving Average 處理執行緒。
+   * @brief 啟動 Moving Average + FFT 處理執行緒。
    * @param ma_processor 移動平均處理器。
+   * @param fft_processor FFT 處理器。
    * @param rb_raw 原始資料緩衝。
-   * @param rb_processed 處理後緩衝。
+   * @param rb_payload 封包緩衝。
    * @param stop_all 停止旗標。
    * @return 執行緒物件。
    */
   std::thread LaunchProcessingThread(uei::dsp::MovingAverageProcessor &ma_processor,
+                                     uei::dsp::FftProcessor &fft_processor,
                                      const SlotPlan &plan,
                                      uei::RingBuffer<uei::RawFrame> &rb_raw,
-                                     uei::RingBuffer<uei::RawFrame> &rb_processed,
+                                     uei::RingBuffer<std::string> &rb_payload,
                                      std::atomic<bool> &stop_all)
   {
     return std::thread([&]()
@@ -256,15 +295,47 @@ namespace
             }
           }
 
+          const bool ma_active = g.ma_cfg.active && g.ma_cfg.decimation > 1;
+          const bool fft_active = g.fft_cfg.active;
+
           try
           {
-            std::vector<uei::RawFrame> outs = ma_processor.ProcessFrame(std::move(sub));
-            for (auto &out : outs)
-              rb_processed.Push(std::move(out));
+            if (fft_active)
+            {
+              if (ma_active)
+              {
+                std::vector<uei::RawFrame> ma_outs = ma_processor.ProcessFrame(std::move(sub));
+                for (const auto &ma_out : ma_outs)
+                {
+                  std::vector<uei::FftFrame> fft_outs = fft_processor.ProcessFrame(ma_out);
+                  for (auto &fft_out : fft_outs)
+                    rb_payload.Push(uei::CsvPacketizer::Encode(fft_out));
+                }
+              }
+              else
+              {
+                std::vector<uei::FftFrame> fft_outs = fft_processor.ProcessFrame(sub);
+                for (auto &fft_out : fft_outs)
+                  rb_payload.Push(uei::CsvPacketizer::Encode(fft_out));
+              }
+            }
+            else
+            {
+              if (ma_active)
+              {
+                std::vector<uei::RawFrame> outs = ma_processor.ProcessFrame(std::move(sub));
+                for (auto &out : outs)
+                  rb_payload.Push(uei::CsvPacketizer::Encode(out));
+              }
+              else
+              {
+                rb_payload.Push(uei::CsvPacketizer::Encode(sub));
+              }
+            }
           }
           catch (const std::exception &ex)
           {
-            LogWarn(std::string("MovingAverage error: ") + ex.what());
+            LogWarn(std::string("Processing error: ") + ex.what());
           }
         }
       } });
@@ -273,23 +344,22 @@ namespace
   /**
    * @brief 啟動 UDP 傳輸執行緒。
    * @param udp 傳輸器。
-   * @param rb_processed 處理後緩衝。
+   * @param rb_payload 封包緩衝。
    * @param stop_all 停止旗標。
    * @return 執行緒物件。
    */
   std::thread LaunchUdpThread(uei::UdpSender &udp,
-                              uei::RingBuffer<uei::RawFrame> &rb_processed,
+                              uei::RingBuffer<std::string> &rb_payload,
                               std::atomic<bool> &stop_all)
   {
     return std::thread([&]()
                        {
       while (!stop_all.load())
       {
-        uei::RawFrame frame;
-        if (!rb_processed.PopFor(frame, std::chrono::milliseconds(200)))
+        std::string payload;
+        if (!rb_payload.PopFor(payload, std::chrono::milliseconds(200)))
           continue;
 
-        const std::string payload = uei::CsvPacketizer::Encode(frame);
         if (!udp.Send(payload.data(), payload.size()))
         {
           LogWarn("UDP send failed.");
@@ -336,9 +406,9 @@ int main()
       p->dev->Open();
       p->dev->Start();
 
-      p->th_daq = LaunchDaqThread(*p->dev, p->rb_raw, p->rb_processed, stop_all);
-      p->th_proc = LaunchProcessingThread(p->ma_processor, p->plan, p->rb_raw, p->rb_processed, stop_all);
-      p->th_udp = LaunchUdpThread(p->udp, p->rb_processed, stop_all);
+      p->th_daq = LaunchDaqThread(*p->dev, p->rb_raw, p->rb_payload, stop_all);
+      p->th_proc = LaunchProcessingThread(p->ma_processor, p->fft_processor, p->plan, p->rb_raw, p->rb_payload, stop_all);
+      p->th_udp = LaunchUdpThread(p->udp, p->rb_payload, stop_all);
     }
 
     for (auto &p : pipelines)
@@ -348,7 +418,7 @@ int main()
     for (auto &p : pipelines)
     {
       p->rb_raw.Stop();
-      p->rb_processed.Stop();
+      p->rb_payload.Stop();
     }
 
     for (auto &p : pipelines)
