@@ -10,6 +10,12 @@ Format A:
 
 Raw layout:
   scan-major interleaved (same as C++): [s0ch0,s0ch1,..., s1ch0,s1ch1,...]
+
+Format F:
+  F,1,<seq>,<slot_index>,<group_name>,<fft_size>,<bins>,<sample_rate_hz>,<window_type>,<overlap>,<num_channels>,<mag_db...>
+
+FFT layout:
+  channel-major, one-sided magnitude (dBFS): [ch0_bin0..binN, ch1_bin0..binN, ...]
 """
 
 import socket
@@ -114,8 +120,10 @@ class SystemMapper:
                     if not group_name or not channels:
                         continue
                     fft = g.get("fft", {}) or {}
-                    if bool(fft.get("active", False)):
-                        safe_print(f"[Warn] FFT active for group '{group_name}'; receiver plots time-domain samples only.")
+                    fft_active = bool(fft.get("active", False))
+                    fft_size = int(fft.get("size", 1024))
+                    fft_window = str(fft.get("window_type", "hann"))
+                    fft_overlap = float(fft.get("overlap", 0.5))
 
                     target_hz = float(g.get("target_hz", 0.0))
                     base_rate_hz = sr_hz if sr_hz > 0.0 else target_hz
@@ -129,8 +137,11 @@ class SystemMapper:
                     ma_suffix = f", MAx{ma_decim}" if ma_active and ma_decim > 1 else ""
                     out_suffix = f", out={output_rate_hz:g} Hz" if ma_active and ma_decim > 1 else ""
                     target_suffix = f", target={target_hz:g} Hz" if target_hz > 0.0 else ""
-
-                    title = f"Slot {slot_index}: {board_name} / {group_name} ({output_rate_hz:g} Hz{ma_suffix}{out_suffix}{target_suffix})"
+                    if fft_active:
+                        title = (f"Slot {slot_index}: {board_name} / {group_name} "
+                                 f"(FFT N={fft_size}, Fs={output_rate_hz:g} Hz{ma_suffix}{target_suffix})")
+                    else:
+                        title = f"Slot {slot_index}: {board_name} / {group_name} ({output_rate_hz:g} Hz{ma_suffix}{out_suffix}{target_suffix})"
                     streams.append({
                         "slot_index": slot_index,
                         "board_name": board_name,
@@ -139,7 +150,12 @@ class SystemMapper:
                         "rate_hz": output_rate_hz,
                         "base_rate_hz": base_rate_hz,
                         "ma_decimation": ma_decim,
-                        "title": title
+                        "title": title,
+                        "is_fft": fft_active,
+                        "fft_size": fft_size,
+                        "fft_window": fft_window,
+                        "fft_overlap": fft_overlap,
+                        "sample_rate_hz": output_rate_hz
                     })
 
             self.streams = streams
@@ -206,6 +222,7 @@ class RealTimePlotter:
         self.buffers = []
         self.maxlens = []
         self.lines = []
+        self.fft_meta = []
         self.slot_groups = {}
         self.slot_figs = {}
         self.slot_axes = {}
@@ -214,11 +231,26 @@ class RealTimePlotter:
         self.stream_axis = {}
 
         for s in self.mapper.streams:
-            rate = float(s["rate_hz"]) if s["rate_hz"] > 0 else 10.0
-            maxlen = int(rate * MAX_BUFFER_SEC) + 500
+            if s.get("is_fft", False):
+                maxlen = 0
+            else:
+                rate = float(s["rate_hz"]) if s["rate_hz"] > 0 else 10.0
+                maxlen = int(rate * MAX_BUFFER_SEC) + 500
             self.maxlens.append(maxlen)
             self.buffers.append({})
             self.lines.append({})
+            if s.get("is_fft", False):
+                fft_size = int(s.get("fft_size", 0))
+                bins = (fft_size // 2 + 1) if fft_size > 0 else 0
+                self.fft_meta.append({
+                    "fft_size": fft_size,
+                    "bins": bins,
+                    "sample_rate_hz": float(s.get("sample_rate_hz", 0.0) or 0.0),
+                    "window_type": str(s.get("fft_window", "")),
+                    "overlap": float(s.get("fft_overlap", 0.0) or 0.0)
+                })
+            else:
+                self.fft_meta.append({})
 
         for i, s in enumerate(self.mapper.streams):
             self.slot_groups.setdefault(s["slot_index"], []).append(i)
@@ -250,9 +282,14 @@ class RealTimePlotter:
 
             for i, stream_idx in enumerate(stream_idxs):
                 ax = axes[i]
-                ax.set_title(self.mapper.streams[stream_idx]["title"])
+                stream = self.mapper.streams[stream_idx]
+                ax.set_title(stream["title"])
                 ax.grid(True, which="both", linestyle="--", linewidth=0.5)
-                ax.set_xlim(-self.time_window, 0)
+                if stream.get("is_fft", False):
+                    ax.set_xlabel("Hz")
+                    ax.set_ylabel("dBFS")
+                else:
+                    ax.set_xlim(-self.time_window, 0)
                 self.stream_axis[stream_idx] = ax
 
             btns = []
@@ -356,32 +393,68 @@ class RealTimePlotter:
     def _decode_packet_fields(self, parts):
         """
         Return a dict with keys:
-          seq, slot_index, group_name, samples_per_channel, raw_list
+          type, seq, slot_index, group_name, ...
         Supports:
           A: D,1,seq,slot,group,samples,raw...
+          F: F,1,seq,slot,group,fft_size,bins,sample_rate_hz,window_type,overlap,num_channels,mag_db...
         """
-        if len(parts) < 7:
-            return None
-        if parts[0] != "D" or parts[1] != "1":
+        if len(parts) < 2:
             return None
 
-        seq = int(parts[2])
-        slot_index = int(parts[3])
+        if parts[0] == "D" and parts[1] == "1":
+            if len(parts) < 7:
+                return None
+            seq = int(parts[2])
+            slot_index = int(parts[3])
+            group_a = parts[4]
+            try:
+                spc_a = int(parts[5])
+                key_a = (slot_index, group_a)
+                if key_a in self.mapper.stream_index:
+                    return {
+                        "type": "D",
+                        "seq": seq,
+                        "slot_index": slot_index,
+                        "group_name": group_a,
+                        "samples_per_channel": spc_a,
+                        "raw_list": parts[6:]
+                    }
+            except Exception:
+                pass
+            return None
 
-        group_a = parts[4]
-        try:
-            spc_a = int(parts[5])
-            key_a = (slot_index, group_a)
-            if key_a in self.mapper.stream_index:
-                return {
-                    "seq": seq,
-                    "slot_index": slot_index,
-                    "group_name": group_a,
-                    "samples_per_channel": spc_a,
-                    "raw_list": parts[6:]
-                }
-        except Exception:
-            pass
+        if parts[0] == "F" and parts[1] == "1":
+            if len(parts) < 12:
+                return None
+            try:
+                seq = int(parts[2])
+                slot_index = int(parts[3])
+                group_a = parts[4]
+                fft_size = int(parts[5])
+                bins = int(parts[6])
+                sample_rate_hz = float(parts[7])
+                window_type = parts[8]
+                overlap = float(parts[9])
+                num_ch = int(parts[10])
+                key_a = (slot_index, group_a)
+                if key_a in self.mapper.stream_index:
+                    return {
+                        "type": "F",
+                        "seq": seq,
+                        "slot_index": slot_index,
+                        "group_name": group_a,
+                        "fft_size": fft_size,
+                        "bins": bins,
+                        "sample_rate_hz": sample_rate_hz,
+                        "window_type": window_type,
+                        "overlap": overlap,
+                        "num_channels": num_ch,
+                        "mag_list": parts[11:]
+                    }
+            except Exception:
+                pass
+            return None
+
         return None
 
     def process_packet(self, raw_bytes: bytes):
@@ -397,8 +470,6 @@ class RealTimePlotter:
 
             slot_index = pkt["slot_index"]
             group_name = pkt["group_name"]
-            samples_per_channel = pkt["samples_per_channel"]
-            raw_list = pkt["raw_list"]
 
             stream_idx = self.mapper.stream_index.get((slot_index, group_name), None)
             if stream_idx is None:
@@ -407,32 +478,74 @@ class RealTimePlotter:
             stream = self.mapper.streams[stream_idx]
             ch_list = stream["channels"]
             num_ch = len(ch_list)
-            if num_ch <= 0 or samples_per_channel <= 0:
-                return
 
-            expected = num_ch * samples_per_channel
-            if len(raw_list) != expected:
-                # Soft warning only (keeps UI alive)
-                safe_print(f"[Warn] Size mismatch: got {len(raw_list)} ints, expected {expected} "
-                           f"(slot={slot_index} group={group_name} spc={samples_per_channel} ch={num_ch})")
-                return
+            if pkt["type"] == "D":
+                samples_per_channel = pkt["samples_per_channel"]
+                raw_list = pkt["raw_list"]
 
-            raw_i32 = np.fromiter((int(x) for x in raw_list), dtype=np.int32, count=expected)
-            raw_mat = raw_i32.reshape((samples_per_channel, num_ch))
+                if num_ch <= 0 or samples_per_channel <= 0:
+                    return
 
-            if self.convert_volts and stream["board_name"] == "DNA-AI-217":
-                raw_u32 = raw_mat.view(np.uint32)
-                y_mat = convert_ai217_raw_to_volt(raw_u32)
-            else:
-                y_mat = raw_mat.astype(np.float64)
+                expected = num_ch * samples_per_channel
+                if len(raw_list) != expected:
+                    # Soft warning only (keeps UI alive)
+                    safe_print(f"[Warn] Size mismatch: got {len(raw_list)} ints, expected {expected} "
+                               f"(slot={slot_index} group={group_name} spc={samples_per_channel} ch={num_ch})")
+                    return
 
-            with self.buffer_lock:
-                maxlen = self.maxlens[stream_idx]
-                for j in range(num_ch):
-                    ch_id = ch_list[j]
-                    if ch_id not in self.buffers[stream_idx]:
-                        self.buffers[stream_idx][ch_id] = deque(maxlen=maxlen)
-                    self.buffers[stream_idx][ch_id].extend(y_mat[:, j].tolist())
+                raw_i32 = np.fromiter((int(x) for x in raw_list), dtype=np.int32, count=expected)
+                raw_mat = raw_i32.reshape((samples_per_channel, num_ch))
+
+                if self.convert_volts and stream["board_name"] == "DNA-AI-217":
+                    raw_u32 = raw_mat.view(np.uint32)
+                    y_mat = convert_ai217_raw_to_volt(raw_u32)
+                else:
+                    y_mat = raw_mat.astype(np.float64)
+
+                with self.buffer_lock:
+                    maxlen = self.maxlens[stream_idx]
+                    for j in range(num_ch):
+                        ch_id = ch_list[j]
+                        if ch_id not in self.buffers[stream_idx]:
+                            self.buffers[stream_idx][ch_id] = deque(maxlen=maxlen)
+                        self.buffers[stream_idx][ch_id].extend(y_mat[:, j].tolist())
+
+            elif pkt["type"] == "F":
+                fft_size = pkt["fft_size"]
+                bins = pkt["bins"]
+                sample_rate_hz = pkt["sample_rate_hz"]
+                window_type = pkt["window_type"]
+                overlap = pkt["overlap"]
+                pkt_num_ch = pkt["num_channels"]
+                mag_list = pkt["mag_list"]
+
+                if num_ch <= 0 or bins <= 0:
+                    return
+                if pkt_num_ch != num_ch:
+                    safe_print(f"[Warn] FFT channel mismatch: pkt={pkt_num_ch} cfg={num_ch} "
+                               f"(slot={slot_index} group={group_name})")
+                    return
+
+                expected = num_ch * bins
+                if len(mag_list) != expected:
+                    safe_print(f"[Warn] FFT size mismatch: got {len(mag_list)} vals, expected {expected} "
+                               f"(slot={slot_index} group={group_name} bins={bins} ch={num_ch})")
+                    return
+
+                mag_db = np.fromiter((float(x) for x in mag_list), dtype=np.float64, count=expected)
+                mag_mat = mag_db.reshape((num_ch, bins))
+
+                with self.buffer_lock:
+                    for j in range(num_ch):
+                        ch_id = ch_list[j]
+                        self.buffers[stream_idx][ch_id] = mag_mat[j].tolist()
+                    self.fft_meta[stream_idx] = {
+                        "fft_size": int(fft_size),
+                        "bins": int(bins),
+                        "sample_rate_hz": float(sample_rate_hz),
+                        "window_type": str(window_type),
+                        "overlap": float(overlap)
+                    }
 
         except Exception as e:
             safe_print(f"[ParseError] {e}")
@@ -465,57 +578,97 @@ class RealTimePlotter:
             ax = self.stream_axis.get(stream_idx)
             if ax is None:
                 continue
-            base_rate = float(stream.get("base_rate_hz", stream.get("rate_hz", 0.0)) or 0.0)
-            ma_decim = int(stream.get("ma_decimation", 1) or 1)
-            if ma_decim < 1:
-                ma_decim = 1
-            output_rate = base_rate / ma_decim if base_rate > 0 else float(stream.get("rate_hz", 10.0) or 10.0)
-            if output_rate <= 0:
-                output_rate = 10.0
-            points_needed = max(2, int(output_rate * self.time_window))
+            if stream.get("is_fft", False):
+                with self.buffer_lock:
+                    slot_data = self.buffers[stream_idx]
+                    meta = dict(self.fft_meta[stream_idx]) if self.fft_meta[stream_idx] else {}
+                    if not slot_data or not meta:
+                        continue
+                    slot_snapshot = {ch_id: list(data) for ch_id, data in slot_data.items()}
 
-            with self.buffer_lock:
-                slot_data = self.buffers[stream_idx]
-                if not slot_data:
+                bins = int(meta.get("bins", 0))
+                sample_rate_hz = float(meta.get("sample_rate_hz", 0.0) or 0.0)
+                if bins <= 0 or sample_rate_hz <= 0:
                     continue
-                slot_snapshot = {ch_id: list(dq) for ch_id, dq in slot_data.items()}
+                freq = np.linspace(0, sample_rate_hz / 2.0, bins)
 
-            has_update = False
-            y_min = None
-            y_max = None
-            for ch_id, full_data in slot_snapshot.items():
-                if len(full_data) < 2:
-                    continue
-                has_update = True
+                has_update = False
+                y_min = None
+                y_max = None
+                for ch_id, mag_db in slot_snapshot.items():
+                    if len(mag_db) != bins:
+                        continue
+                    has_update = True
+                    if ch_id not in self.lines[stream_idx]:
+                        line_obj, = ax.plot([], [], label=f"Ch{ch_id}", lw=1)
+                        self.lines[stream_idx][ch_id] = line_obj
+                        ax.legend(loc="upper right", fontsize=8)
 
-                display_data = full_data[-points_needed:] if len(full_data) > points_needed else full_data
+                    self.lines[stream_idx][ch_id].set_data(freq, mag_db)
 
-                if len(display_data) > PLOT_DISPLAY_LIMIT:
-                    step = max(1, len(display_data) // PLOT_DISPLAY_LIMIT)
-                    display_data = display_data[::step]
+                    dmin = float(min(mag_db))
+                    dmax = float(max(mag_db))
+                    y_min = dmin if y_min is None else min(y_min, dmin)
+                    y_max = dmax if y_max is None else max(y_max, dmax)
 
-                count = len(display_data)
-                real_duration = min(len(full_data), points_needed) / output_rate
-                x_data = np.linspace(-real_duration, 0, count)
+                if has_update:
+                    if y_min is not None and y_max is not None:
+                        margin = (y_max - y_min) * 0.1 if y_max != y_min else 3.0
+                        ax.set_ylim(y_min - margin, y_max + margin)
+                    ax.set_xlim(0, sample_rate_hz / 2.0)
+                    ax.grid(True, which="both", linestyle="--", linewidth=0.5)
+            else:
+                base_rate = float(stream.get("base_rate_hz", stream.get("rate_hz", 0.0)) or 0.0)
+                ma_decim = int(stream.get("ma_decimation", 1) or 1)
+                if ma_decim < 1:
+                    ma_decim = 1
+                output_rate = base_rate / ma_decim if base_rate > 0 else float(stream.get("rate_hz", 10.0) or 10.0)
+                if output_rate <= 0:
+                    output_rate = 10.0
+                points_needed = max(2, int(output_rate * self.time_window))
 
-                if ch_id not in self.lines[stream_idx]:
-                    line_obj, = ax.plot([], [], label=f"Ch{ch_id}", lw=1)
-                    self.lines[stream_idx][ch_id] = line_obj
-                    ax.legend(loc="upper left", fontsize=8)
+                with self.buffer_lock:
+                    slot_data = self.buffers[stream_idx]
+                    if not slot_data:
+                        continue
+                    slot_snapshot = {ch_id: list(dq) for ch_id, dq in slot_data.items()}
 
-                self.lines[stream_idx][ch_id].set_data(x_data, display_data)
+                has_update = False
+                y_min = None
+                y_max = None
+                for ch_id, full_data in slot_snapshot.items():
+                    if len(full_data) < 2:
+                        continue
+                    has_update = True
 
-                dmin = float(min(display_data))
-                dmax = float(max(display_data))
-                y_min = dmin if y_min is None else min(y_min, dmin)
-                y_max = dmax if y_max is None else max(y_max, dmax)
+                    display_data = full_data[-points_needed:] if len(full_data) > points_needed else full_data
 
-            if has_update:
-                if y_min is not None and y_max is not None:
-                    margin = (y_max - y_min) * 0.1 if y_max != y_min else 1.0
-                    ax.set_ylim(y_min - margin, y_max + margin)
-                ax.set_xlim(-self.time_window, 0)
-                ax.grid(True, which="both", linestyle="--", linewidth=0.5)
+                    if len(display_data) > PLOT_DISPLAY_LIMIT:
+                        step = max(1, len(display_data) // PLOT_DISPLAY_LIMIT)
+                        display_data = display_data[::step]
+
+                    count = len(display_data)
+                    real_duration = min(len(full_data), points_needed) / output_rate
+                    x_data = np.linspace(-real_duration, 0, count)
+
+                    if ch_id not in self.lines[stream_idx]:
+                        line_obj, = ax.plot([], [], label=f"Ch{ch_id}", lw=1)
+                        self.lines[stream_idx][ch_id] = line_obj
+                        ax.legend(loc="upper left", fontsize=8)
+
+                    self.lines[stream_idx][ch_id].set_data(x_data, display_data)
+
+                    dmin = float(min(display_data))
+                    dmax = float(max(display_data))
+                    y_min = dmin if y_min is None else min(y_min, dmin)
+                    y_max = dmax if y_max is None else max(y_max, dmax)
+
+                if has_update:
+                    if y_min is not None and y_max is not None:
+                        margin = (y_max - y_min) * 0.1 if y_max != y_min else 1.0
+                        ax.set_ylim(y_min - margin, y_max + margin)
+                    ax.set_xlim(-self.time_window, 0)
+                    ax.grid(True, which="both", linestyle="--", linewidth=0.5)
 
         self._update_rx_ui()
         return []

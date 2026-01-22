@@ -112,4 +112,21 @@ namespace uei
     std::vector<int32_t> raw;
   };
 
+  /** @brief FFT result frame (one-sided magnitude in dBFS). */
+  struct FftFrame
+  {
+    uint32_t seq{0};
+    int slot_index{0};
+    std::string group_name;
+
+    int fft_size{0};
+    double sample_rate_hz{0.0};
+    std::string window_type{"hann"};
+    double overlap{0.5};
+    int num_channels{0};
+
+    /** channel-major, one-sided magnitude (dBFS). size = num_channels * (fft_size/2 + 1) */
+    std::vector<double> magnitude_db;
+  };
+
 } // namespace uei

@@ -61,10 +61,10 @@
           ],
           "moving_average": {
             "active": true,
-            "decimation": 4
+            "decimation": 2
           },
           "fft": {
-            "active": false,
+            "active": true,
             "size": 1024,
             "window_type": "hann",
             "overlap": 0.5

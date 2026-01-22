@@ -43,6 +43,24 @@
 },
 {
   "directory": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
+  "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++ -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/nlohmann -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/daq -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -g -std=gnu++11 -Wall -g -o CMakeFiles/ueipac_app.dir/src/dsp/FftProcessor.cpp.o -c /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/dsp/FftProcessor.cpp",
+  "file": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/dsp/FftProcessor.cpp",
+  "output": "CMakeFiles/ueipac_app.dir/src/dsp/FftProcessor.cpp.o"
+},
+{
+  "directory": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
+  "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/nlohmann -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/daq -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -g -Wall -g -o CMakeFiles/ueipac_app.dir/src/dsp/kiss_fft.c.o -c /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/dsp/kiss_fft.c",
+  "file": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/dsp/kiss_fft.c",
+  "output": "CMakeFiles/ueipac_app.dir/src/dsp/kiss_fft.c.o"
+},
+{
+  "directory": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
+  "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-gcc -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/nlohmann -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/daq -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -g -Wall -g -o CMakeFiles/ueipac_app.dir/src/dsp/kiss_fftr.c.o -c /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/dsp/kiss_fftr.c",
+  "file": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/dsp/kiss_fftr.c",
+  "output": "CMakeFiles/ueipac_app.dir/src/dsp/kiss_fftr.c.o"
+},
+{
+  "directory": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/build",
   "command": "/opt/uei/ueipac-4.0.2/powerpc-604-linux-gnu/bin/powerpc-604-linux-gnu-g++ -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/utils -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/net -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/nlohmann -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/include/daq -I/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src -I/opt/uei/ueipac-4.0.2/include -I/opt/uei/ueipac-4.0.2/sdk/examples/UeiPacUtils -g -std=gnu++11 -Wall -g -o CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.o -c /mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/daq/DAQ_VMAP_AI217.cpp",
   "file": "/mnt/c/Dropbox/UEIDAQ/projects/UEIDAQ-System/src/daq/DAQ_VMAP_AI217.cpp",
   "output": "CMakeFiles/ueipac_app.dir/src/daq/DAQ_VMAP_AI217.cpp.o"

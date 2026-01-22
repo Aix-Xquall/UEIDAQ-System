@@ -59,6 +59,9 @@ set(SOURCE_FILES
     src/net/UdpSender.cpp
     src/utils/CsvPacketizer.cpp
     src/dsp/Moving_Average.cpp
+    src/dsp/FftProcessor.cpp
+    src/dsp/kiss_fft.c
+    src/dsp/kiss_fftr.c
 )
 
 if(NOT SIM_BUILD)
