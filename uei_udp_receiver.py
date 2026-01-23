@@ -34,8 +34,8 @@ from collections import deque
 # ================= Tunables =================
 BUFFER_SIZE = 65536
 MAX_FPS = 30
-SNAPSHOT_MAX_FPS = 15
-PLOT_DISPLAY_LIMIT = 20000
+SNAPSHOT_MAX_FPS = 10
+PLOT_DISPLAY_LIMIT = 5000
 MAX_BUFFER_SEC = 20.0
 # ===========================================
 
@@ -619,6 +619,9 @@ class RealTimePlotter:
 
             slot_index = pkt["slot_index"]
             group_name = pkt["group_name"]
+
+            if self.active_slot is not None and slot_index != self.active_slot:
+                return
 
             stream_idx = self.mapper.stream_index.get((slot_index, group_name), None)
             if stream_idx is None:
